@@ -2,7 +2,7 @@
   <el-container>
     <el-aside>
       <el-row>
-        <el-col :offset="7">
+        <el-col :span="5" :offset="12">
           <div>Dock.io</div>
         </el-col>
       </el-row>
