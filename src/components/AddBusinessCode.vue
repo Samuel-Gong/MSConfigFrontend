@@ -85,7 +85,8 @@
               "eureka.client.serviceUrl.defaultZone": "",
               "eureka.instance.prefer-ip-address": "",
             },
-            addedConfigs: []
+            addedConfigs: [],
+            jarPath: ""
           };
         this.$store.commit(SERVICE_ADD, newService);
         this.clearInput();

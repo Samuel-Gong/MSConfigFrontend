@@ -4,7 +4,7 @@
     :name="service.name"
     :key="service.name"
   >
-    <h4>必填配置</h4>
+    <h4>必填信息</h4>
     <div>
       spring.application.name
       <el-input
@@ -27,6 +27,12 @@
       eureka.instance.prefer-ip-address
       <el-input
         v-model="service.config['eureka.instance.prefer-ip-address']">
+      </el-input>
+    </div>
+    <div>
+      打包路径
+      <el-input
+        v-model="service.jarPath">
       </el-input>
     </div>
     <h4>其它配置</h4>

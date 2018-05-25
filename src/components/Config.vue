@@ -17,8 +17,7 @@
 
   export default {
     name: "Config",
-    components: {ConfigItem},
-    comments: {
+    components: {
       "config-item": ConfigItem
     },
     data() {

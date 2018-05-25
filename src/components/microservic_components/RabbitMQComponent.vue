@@ -13,7 +13,7 @@
     </el-col>
     <el-row>
       <el-col>
-        <div class="rabbit-service">
+        <div class="input-item">
           <el-col :span="3">服务名称：</el-col>
           <el-col :span="6">
             <el-input

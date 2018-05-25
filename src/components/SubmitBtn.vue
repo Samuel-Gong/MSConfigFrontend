@@ -14,7 +14,9 @@
         'componentCheck',
         'eurekaServerInfo',
         'rabbitmq',
-        'zuul'
+        'zuul',
+        'mysqlInfo',
+        'jarPaths'
       ])
     },
     methods: {
@@ -23,19 +25,39 @@
         let services = {};
 
         // 服务名称，配置map
-        let configs = {};
+        let configurationList = [];
+
+        let jarPaths = [];
 
         this.services.forEach(function (service) {
           // 装载services
           services[service.name] = service.address;
 
-          // 装载configs
-          configs[service.name] = service.config;
+          let configurationItems = [];
+          for (let key in service.config) {
+            configurationItems.push({
+              itemName: key,
+              value: service.config[key]
+            })
+          }
 
           // 手工添加的配置装上去
           service.addedConfigs.forEach(function (addedConfig) {
-            configs[service.name][addedConfig.key] = addedConfig.value;
+            configurationItems.push({
+              itemName: addedConfig.key,
+              value: addedConfig.value
+            });
           });
+
+          // 装载configs
+          configurationList.push({
+            "projectPath": service.address,
+            "list": configurationItems
+          });
+
+
+          // 打包路径
+          jarPaths.push(service.jarPath);
         });
 
         let general = {
@@ -43,7 +65,7 @@
           "services": services,
 
           // 服务名称，配置
-          "configs": configs,
+          "configurationList": configurationList,
 
           // eureka server
           "isEurekaServer": this.componentCheck.checkedEurekaServer,
@@ -66,7 +88,14 @@
           "isZuul": this.componentCheck.checkedZuul,
 
           "zuulComsumer": this.zuul.zuulConsumer,
-          "zuulProviders": this.zuul.zuulProviders
+          "zuulProviders": this.zuul.zuulProviders,
+
+
+          // mysql
+          "mysqlInfo": this.mysqlInfo,
+
+          // jarPaths
+          "jarPaths": jarPaths
         };
 
         console.log(JSON.stringify(general));

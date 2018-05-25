@@ -13,3 +13,8 @@ export const SERVICE_DELETE = 'SERVICE_DELETE'
 // zuul
 export const ZUUL_ADD = 'ZUUL_ADD'
 export const ZUUL_DELETE = 'ZUUL_DELETE'
+
+
+// table
+export const TABLE_ADD = 'TABLE_ADD'
+export const TABLE_DELETE = 'TABLE_DELETE'

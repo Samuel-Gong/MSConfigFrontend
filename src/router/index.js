@@ -18,6 +18,10 @@ import HystrixComponent from '@/components/microservic_components/HystrixCompone
 import RabbitMQComponent from '@/components/microservic_components/RabbitMQComponent'
 import ZuulComponent from '@/components/microservic_components/ZuulComponent'
 
+
+// mysql
+import MysqlComponent from '@/components/MysqlComponent'
+
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
 // 通过 Vue.extend() 创建的组件构造器，
@@ -67,6 +71,11 @@ const routes = [
     path: '/8',
     name: 'Step8',
     component: Config
+  },
+  {
+    path: '/9',
+    name: 'Step9',
+    component: MysqlComponent
   }
   // {
   //   path: '/index',

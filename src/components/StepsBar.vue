@@ -53,7 +53,11 @@
           },
           {
             title: "步骤8",
-            description: "配置相关"
+            description: "服务配置相关"
+          },
+          {
+            title: "步骤9",
+            description: "数据库创建"
           }
         ]
       }
@@ -70,6 +74,6 @@
   .steps-bar {
     margin-top: 8%;
     margin-left: 35%;
-    height: 600px;
+    height: 650px;
   }
 </style>

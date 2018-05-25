@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 import {STEPS_DECRE, STEPS_INCRE} from './mutations'
 import {SERVICE_ADD, SERVICE_DELETE} from "./mutations"
 import {ZUUL_ADD, ZUUL_DELETE} from "./mutations";
+import {TABLE_ADD, TABLE_DELETE} from "./mutations";
 
 Vue.use(Vuex)
 
@@ -45,6 +46,16 @@ const store = new Vuex.Store({
     zuul: {
       zuulConsumer: "",
       zuulProviders: []
+    },
+
+    // mysql
+    mysqlInfo: {
+      baseDir: "",
+      projectName: "",
+      database: "",
+      user: "",
+      password: "",
+      tables: [],
     }
   },
 
@@ -74,6 +85,20 @@ const store = new Vuex.Store({
     },
     [ZUUL_DELETE](state, index) {
       state.zuul.zuulProviders.splice(index, 1);
+    },
+
+    [TABLE_ADD](state, payload) {
+      state.mysqlInfo.tables.push(payload);
+    },
+    [TABLE_DELETE](state, tableName) {
+      let deleteIndex = 0;
+      state.mysqlInfo.tables.forEach(function (table, index) {
+        if (tableName === table.tableName) {
+          deleteIndex = index;
+          return false;
+        }
+      });
+      state.mysqlInfo.tables.splice(deleteIndex, 1);
     }
   },
   // 定义提交触发更改信息的描述，常见的例子是从服务端获取数据
