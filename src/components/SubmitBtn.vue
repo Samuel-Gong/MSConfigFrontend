@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="submit">完成</el-button>
+  <el-button @click="submit">Finish</el-button>
 </template>
 
 <script>
@@ -13,10 +13,8 @@
         'services',
         'componentCheck',
         'eurekaServerInfo',
-        'rabbitmq',
-        'zuul',
-        'mysqlInfo',
-        'jarPaths'
+        'ribbon',
+        'mysqlInfo'
       ])
     },
     methods: {
@@ -26,8 +24,6 @@
 
         // 服务名称，配置map
         let configurationList = [];
-
-        let jarPaths = [];
 
         this.services.forEach(function (service) {
           // 装载services
@@ -55,9 +51,6 @@
             "list": configurationItems
           });
 
-
-          // 打包路径
-          jarPaths.push(service.jarPath);
         });
 
         let general = {
@@ -73,29 +66,20 @@
 
           // ribbon
           "isRibbon": this.componentCheck.checkedRibbon,
+          "ribbon": this.ribbon,
 
           // hystrix
           "isHystrix": this.componentCheck.checkedHystrix,
 
           // rabbitmq
           "isRabbitMQ": this.componentCheck.checkedRabbitMQ,
-          // mq的具体配置
-          "mqServiceName": this.rabbitmq.serviceName,
-          "mqSrc": this.rabbitmq.src,
-          "mqDest": this.rabbitmq.dest,
 
           // zuul
           "isZuul": this.componentCheck.checkedZuul,
 
-          "zuulComsumer": this.zuul.zuulConsumer,
-          "zuulProviders": this.zuul.zuulProviders,
-
-
           // mysql
-          "mysqlInfo": this.mysqlInfo,
+          "mysqlInfo": this.mysqlInfo
 
-          // jarPaths
-          "jarPaths": jarPaths
         };
 
         console.log(JSON.stringify(general));

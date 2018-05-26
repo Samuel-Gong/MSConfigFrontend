@@ -4,7 +4,7 @@
     :name="service.name"
     :key="service.name"
   >
-    <h4>必填信息</h4>
+    <h4>Required Configs</h4>
     <div>
       spring.application.name
       <el-input
@@ -29,61 +29,57 @@
         v-model="service.config['eureka.instance.prefer-ip-address']">
       </el-input>
     </div>
-    <div>
-      打包路径
-      <el-input
-        v-model="service.jarPath">
-      </el-input>
-    </div>
-    <h4>其它配置</h4>
+    <h4>Other Configs</h4>
     <el-table
       :data="service.addedConfigs"
     >
       <el-table-column
-        label="配置名称"
+        label="Config Key"
         width="300">
         <template slot-scope="scope">
           <span>{{ scope.row.key }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="配置值"
+        label="Config Value"
         width="300">
         <template slot-scope="scope">
           <span>{{ scope.row.value }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="Operation">
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除
+            @click="handleDelete(scope.$index, scope.row)">Delete
           </el-button>
         </template>
       </el-table-column>
     </el-table>
     <div style="margin-top: 2%">
       <el-row v-if="isAddConfig">
-        <el-col :span="4">
-          <el-input v-model="configKey" placeholder="请输入配置名称" clearable></el-input>
+        <el-col :span="7">
+          <el-input v-model="configKey" placeholder="Please input a config key" clearable></el-input>
         </el-col>
-        <el-col :span="5" :offset="1">
-          <el-input v-model="configValue" placeholder="请输入配置值" clearable></el-input>
+        <el-col :span="7" :offset="1">
+          <el-input v-model="configValue" placeholder="Please input a config value" clearable></el-input>
         </el-col>
         <el-col :span="6" :offset="1">
           <el-button
             size="mini"
-            @click="addConfig">确认
+            @click="addConfig">Confirm
           </el-button>
           <el-button
             size="mini"
-            @click="clearConfigInput">取消
+            @click="clearConfigInput">Cancel
           </el-button>
         </el-col>
       </el-row>
       <el-row v-if="!isAddConfig">
-        <el-button size="small" @click="isAddConfig = true">添加配置</el-button>
+        <el-col :span="3" :offset="20">
+          <el-button size="small" @click="isAddConfig = true">Add</el-button>
+        </el-col>
       </el-row>
     </div>
   </el-collapse-item>
@@ -124,7 +120,7 @@
     },
     computed: {
       itemName() {
-        return "服务名称:" + this.service.name
+        return "Service Name: " + this.service.name
       }
     }
   }

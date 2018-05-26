@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="nextStep">下一步</el-button>
+  <el-button @click="nextStep">Next</el-button>
 </template>
 
 <script>

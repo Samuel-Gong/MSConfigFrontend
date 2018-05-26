@@ -4,17 +4,17 @@
       <el-col>
         <div class="service-item">
           <h2>1. Eureka Server</h2>
-          <el-checkbox checked disabled>必选</el-checkbox>
+          <el-checkbox checked disabled>Required</el-checkbox>
         </div>
         <hr/>
       </el-col>
       <el-row>
         <el-col>
           <div class="input-item">
-            <el-col :span="3">baseDir：</el-col>
+            <el-col :span="3">BaseDir: </el-col>
             <el-col :span="6">
               <el-input
-                placeholder="请输入baseDir"
+                placeholder="Please input the baseDir"
                 v-model="eurekaServerInfo.baseDir"
               >
               </el-input>
@@ -25,10 +25,10 @@
       <el-row>
         <el-col>
           <div class="input-item">
-            <el-col :span="3">groupId：</el-col>
+            <el-col :span="3">GroupId: </el-col>
             <el-col :span="6">
               <el-input
-                placeholder="请输入groupId"
+                placeholder="Please input the groupId"
                 v-model="eurekaServerInfo.groupId"
               >
               </el-input>
@@ -39,10 +39,10 @@
       <el-row>
         <el-col>
           <div class="input-item">
-            <el-col :span="3">artifactId：</el-col>
+            <el-col :span="3">ArtifactId: </el-col>
             <el-col :span="6">
               <el-input
-                placeholder="请输入artifactId"
+                placeholder="Please input the artifactId"
                 v-model="eurekaServerInfo.artifactId"
               >
               </el-input>

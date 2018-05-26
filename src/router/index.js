@@ -10,12 +10,11 @@ Vue.use(Router)
 import AddBusinessCode from '@/components/AddBusinessCode'
 import Config from '@/components/Config'
 
-// 6个微服务组件
+// 5个微服务组件
 import EurekaServer from '@/components/microservic_components/EurekaServer'
 import EurekaClient from '@/components/microservic_components/EurekaClient'
 import RibbonComponent from '@/components/microservic_components/RibbonComponent'
 import HystrixComponent from '@/components/microservic_components/HystrixComponent'
-import RabbitMQComponent from '@/components/microservic_components/RabbitMQComponent'
 import ZuulComponent from '@/components/microservic_components/ZuulComponent'
 
 
@@ -34,47 +33,42 @@ const routes = [
   },
   {
     path: '/1',
-    name: 'Step1',
+    name: 'Step 1',
     component: AddBusinessCode
   },
   {
     path: '/2',
-    name: 'Step2',
+    name: 'Step 2',
     component: EurekaServer
   },
   {
     path: '/3',
-    name: 'Step3',
+    name: 'Step 3',
     component: EurekaClient
   },
   {
     path: '/4',
-    name: 'Step4',
+    name: 'Step 4',
     component: RibbonComponent
   },
   {
     path: '/5',
-    name: 'Step5',
+    name: 'Step 5',
     component: HystrixComponent
   },
   {
     path: '/6',
-    name: 'Step6',
-    component: RabbitMQComponent
-  },
-  {
-    path: '/7',
-    name: 'Step7',
+    name: 'Step 7',
     component: ZuulComponent
   },
   {
-    path: '/8',
-    name: 'Step8',
+    path: '/7',
+    name: 'Step 8',
     component: Config
   },
   {
-    path: '/9',
-    name: 'Step9',
+    path: '/8',
+    name: 'Step 9',
     component: MysqlComponent
   }
   // {

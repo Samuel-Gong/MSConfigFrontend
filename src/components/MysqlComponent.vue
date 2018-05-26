@@ -2,18 +2,18 @@
   <el-row class="component-wrapper">
     <el-col>
       <div class="service-item">
-        <h2>数据库创建选项</h2>
-        <el-checkbox checked disabled>必选</el-checkbox>
+        <h2>Database Creation</h2>
+        <el-checkbox checked disabled>Required</el-checkbox>
       </div>
       <hr/>
     </el-col>
     <el-row>
       <el-col>
         <div class="input-item">
-          <el-col :span="3">项目名称：</el-col>
+          <el-col :span="5">Project Name：</el-col>
           <el-col :span="6">
             <el-input
-              placeholder="请输入项目名称"
+              placeholder="Please input the project name"
               v-model="mysqlInfo.projectName">
             </el-input>
           </el-col>
@@ -23,10 +23,10 @@
     <el-row>
       <el-col :span="12">
         <div class="input-item">
-          <el-col :span="6">数据库名：</el-col>
+          <el-col :span="10">Database Name：</el-col>
           <el-col :span="12">
             <el-input
-              placeholder="请输入数据库名"
+              placeholder="Please input the database name"
               v-model="mysqlInfo.database">
             </el-input>
           </el-col>
@@ -34,10 +34,10 @@
       </el-col>
       <el-col :span="12">
         <div class="input-item">
-          <el-col :span="7">目标文件夹：</el-col>
+          <el-col :span="7" :offset="3">Basedir：</el-col>
           <el-col :span="12">
             <el-input
-              placeholder="请输入目标文件夹"
+              placeholder="Please input the basedir"
               v-model="mysqlInfo.baseDir">
             </el-input>
           </el-col>
@@ -47,10 +47,10 @@
     <el-row>
       <el-col :span="12">
         <div class="input-item">
-          <el-col :span="6">用户名：</el-col>
+          <el-col :span="10">Username：</el-col>
           <el-col :span="12">
             <el-input
-              placeholder="请输入用户名"
+              placeholder="Please input the username"
               v-model="mysqlInfo.user">
             </el-input>
           </el-col>
@@ -58,11 +58,11 @@
       </el-col>
       <el-col :span="12">
         <div class="input-item">
-          <el-col :span="7">密码：</el-col>
+          <el-col :span="7" :offset="3">Password：</el-col>
           <el-col :span="12">
             <el-input
               type="password"
-              placeholder="请输入密码"
+              placeholder="Please input the password"
               v-model="mysqlInfo.password">
             </el-input>
           </el-col>
@@ -71,25 +71,27 @@
     </el-row>
     <div style="margin-top: 2%">
       <el-row v-if="isAddTable">
-        <el-col :span="4">
-          <el-input v-model="tableName" placeholder="请输入表名" clearable></el-input>
+        <el-col :span="7" :offset="10">
+          <el-input v-model="tableName" placeholder="Please input a table name" clearable></el-input>
         </el-col>
         <el-col :span="6" :offset="1">
           <el-button
             size="mini"
-            @click="addTable">确认
+            @click="addTable">Confirm
           </el-button>
           <el-button
             size="mini"
-            @click="clearTableInput">取消
+            @click="clearTableInput">Cancel
           </el-button>
         </el-col>
       </el-row>
       <el-row v-if="!isAddTable">
-        <el-button size="small" @click="isAddTable = true">添加表</el-button>
+        <el-col :span="4" :offset="20">
+          <el-button size="small" @click="isAddTable = true">Add Table</el-button>
+        </el-col>
       </el-row>
     </div>
-    <el-collapse v-model="activeNames" v-if="mysqlInfo.tables.length !== 0">
+    <el-collapse v-model="activeNames" v-if="mysqlInfo.tables.length !== 0" style="margin-top: 4%">
       <table-item
         v-for="(table, index) in mysqlInfo.tables"
         :table="table"

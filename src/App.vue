@@ -17,9 +17,16 @@
             </el-row>
           </el-main>
           <el-footer>
-            <pre-step-btn v-if="active > 0">上一步</pre-step-btn>
-            <next-step-btn v-if="active < 8">下一步</next-step-btn>
-            <submit-btn v-if="active === 8">完成</submit-btn>
+            <el-row>
+              <el-col :span="4" :offset="19" v-if="active === 0">
+                <next-step-btn v-if="active < 7"/>
+              </el-col>
+              <el-col :span="6" :offset="18" v-if="active !== 0">
+                <pre-step-btn v-if="active > 0"/>
+                <next-step-btn v-if="active < 7"/>
+                <submit-btn v-if="active === 7"/>
+              </el-col>
+            </el-row>
           </el-footer>
         </el-container>
       </el-container>

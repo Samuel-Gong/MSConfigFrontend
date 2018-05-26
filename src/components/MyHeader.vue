@@ -3,7 +3,7 @@
     <el-aside>
       <el-row>
         <el-col :span="5" :offset="12">
-          <div>Dock.io</div>
+          <div>Deck.io</div>
         </el-col>
       </el-row>
     </el-aside>

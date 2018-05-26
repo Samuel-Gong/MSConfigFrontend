@@ -24,40 +24,36 @@
         // 要显示的步骤条的数据
         stepsData: [
           {
-            title: "步骤1",
-            description: "选择业务代码"
+            title: "Step 1",
+            description: "Select Services"
           },
           {
-            title: "步骤2",
+            title: "Step 2",
             description: "Eureka Server"
           },
           {
-            title: "步骤3",
+            title: "Step 3",
             description: "Eureka Client"
           },
           {
-            title: "步骤4",
+            title: "Step 4",
             description: "Ribbon"
           },
           {
-            title: "步骤5",
+            title: "Step 5",
             description: "Hystrix"
           },
           {
-            title: "步骤6",
-            description: "RabbitMQ"
-          },
-          {
-            title: "步骤7",
+            title: "Step 6",
             description: "Zuul"
           },
           {
-            title: "步骤8",
-            description: "服务配置相关"
+            title: "Step 7",
+            description: "Service Config"
           },
           {
-            title: "步骤9",
-            description: "数据库创建"
+            title: "Step 8",
+            description: "Database"
           }
         ]
       }

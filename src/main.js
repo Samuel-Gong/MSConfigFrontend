@@ -6,6 +6,7 @@ import axios from 'axios'
 import App from './App'
 import NormailizeCss from 'normalize.css'
 import 'es6-promise/auto'
+import locale from 'element-ui/lib/locale/lang/en'
 
 // 路由
 import router from './router'
@@ -18,8 +19,8 @@ Vue.prototype.$store = store
 
 Vue.config.productionTip = false;
 
-// 配置组件默认尺寸均为small
-Vue.use(Element, {size: 'small'});
+// 配置组件默认尺寸均为small，语言为英文
+Vue.use(Element, {size: 'small', locale});
 
 /* eslint-disable no-new */
 // 创建根实例

@@ -5,7 +5,7 @@ import Vuex from 'vuex'
 
 import {STEPS_DECRE, STEPS_INCRE} from './mutations'
 import {SERVICE_ADD, SERVICE_DELETE} from "./mutations"
-import {ZUUL_ADD, ZUUL_DELETE} from "./mutations";
+import {RIBBON_ADD, RIBBON_DELETE} from "./mutations";
 import {TABLE_ADD, TABLE_DELETE} from "./mutations";
 
 Vue.use(Vuex)
@@ -36,16 +36,10 @@ const store = new Vuex.Store({
       groupId: "",
       artifactId: ""
     },
-    // 保存消息队列的发送与接收服务
-    rabbitmq: {
-      serviceName: "",
-      src: "",
-      dest: ""
-    },
     // 网关
-    zuul: {
-      zuulConsumer: "",
-      zuulProviders: []
+    ribbon: {
+      consumer: "",
+      providers: []
     },
 
     // mysql
@@ -80,11 +74,11 @@ const store = new Vuex.Store({
       state.services.splice(index, 1);
     },
 
-    [ZUUL_ADD](state, providerName) {
-      state.zuul.zuulProviders.push(providerName);
+    [RIBBON_ADD](state, providerName) {
+      state.ribbon.providers.push(providerName);
     },
-    [ZUUL_DELETE](state, index) {
-      state.zuul.zuulProviders.splice(index, 1);
+    [RIBBON_DELETE](state, index) {
+      state.ribbon.providers.splice(index, 1);
     },
 
     [TABLE_ADD](state, payload) {

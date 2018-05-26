@@ -9,60 +9,54 @@
       :data="table.columnList"
     >
       <el-table-column
-        label="列名"
+        label="Column"
         width="300">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="类型"
+        label="Type"
         width="300">
         <template slot-scope="scope">
           <span>{{ scope.row.type }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="Operation">
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="danger"
-            @click="handleDelete(scope.$index, scope.row)">删除
+            @click="handleDelete(scope.$index, scope.row)">Delete
           </el-button>
         </template>
       </el-table-column>
     </el-table>
     <div style="margin-top: 2%">
       <el-row v-if="isAddColumn">
-        <el-col :span="4">
-          <el-input v-model="columnName" placeholder="请输入列名" clearable></el-input>
+        <el-col :span="8">
+          <el-input v-model="columnName" placeholder="Please input the column name" clearable></el-input>
         </el-col>
-        <el-col :span="5" :offset="1">
-          <el-input v-model="columnType" placeholder="请输入列的类型" clearable></el-input>
+        <el-col :span="8" :offset="1">
+          <el-input v-model="columnType" placeholder="Please input the column type" clearable></el-input>
         </el-col>
         <el-col :span="6" :offset="1">
           <el-button
             size="mini"
-            @click="addColumn">确认
+            @click="addColumn">Confirm
           </el-button>
           <el-button
             size="mini"
-            @click="clearColumnInput">取消
+            @click="clearColumnInput">Cancel
           </el-button>
         </el-col>
       </el-row>
       <el-row v-if="!isAddColumn">
-        <el-col :span="3">
-          <el-button @click="isAddColumn = true">添加列</el-button>
-        </el-col>
-        <el-col :span="3">
-          <el-button @click="deleteTable">删除表</el-button>
-        </el-col>
-        <el-col :span="12" v-if="table.columnList.length > 0">
-          主键：
+        <el-col :span="12" :offset="4" v-if="table.columnList.length > 0">
+          Primary Key：
           <el-select
             v-model="table.primary_key"
-            placeholder="主键设置">
+            placeholder="Please select a primary key">
             <el-option
               v-for="(column, index) in table.columnList"
               :key="index"
@@ -71,6 +65,14 @@
             >
             </el-option>
           </el-select>
+        </el-col>
+        <el-col :span="8" :offset="16" v-if="table.columnList.length === 0">
+          <el-button @click="isAddColumn = true">Add Column</el-button>
+          <el-button @click="deleteTable">Delete Table</el-button>
+        </el-col>
+        <el-col :span="8" v-if="table.columnList.length > 0">
+          <el-button @click="isAddColumn = true">Add Column</el-button>
+          <el-button @click="deleteTable">Delete Table</el-button>
         </el-col>
       </el-row>
     </div>
@@ -118,7 +120,7 @@
     },
     computed: {
       itemName() {
-        return "表名:" + this.table.tableName
+        return "Table: " + this.table.tableName
       }
     }
   }

@@ -4,50 +4,52 @@
       :data="services"
     >
       <el-table-column
-        label="服务名称"
+        label="Service Name"
         width="300">
         <template slot-scope="scope">
           <span>{{ scope.row.name }}</span>
         </template>
       </el-table-column>
       <el-table-column
-        label="本机地址"
+        label="Local Address"
         width="300">
         <template slot-scope="scope">
           <span>{{ scope.row.address }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="操作">
+      <el-table-column label="Operation">
         <template slot-scope="scope">
           <el-button
             size="mini"
             type="danger"
-            @click="deleteService(scope.$index)">删除
+            @click="deleteService(scope.$index)">Delete
           </el-button>
         </template>
       </el-table-column>
     </el-table>
     <div style="margin-top: 2%">
       <el-row v-if="isAddService">
-        <el-col :span="4">
-          <el-input v-model="serviceName" placeholder="请输入服务名称" clearable></el-input>
+        <el-col :span="8">
+          <el-input v-model="serviceName" placeholder="Please input the service's name" clearable></el-input>
         </el-col>
-        <el-col :span="5" :offset="1">
-          <el-input v-model="serviceAddress" placeholder="请输入服务本机地址" clearable></el-input>
+        <el-col :span="8" :offset="1">
+          <el-input v-model="serviceAddress" placeholder="Please input the local address " clearable></el-input>
         </el-col>
         <el-col :span="6" :offset="1">
           <el-button
             size="mini"
-            @click="addService">提交
+            @click="addService">Submit
           </el-button>
           <el-button
             size="mini"
-            @click="clearInput">取消
+            @click="clearInput">Cancel
           </el-button>
         </el-col>
       </el-row>
       <el-row v-if="!isAddService">
-        <el-button size="small" @click="isAddService = true">添加服务</el-button>
+        <el-col :span="4" :offset="20">
+          <el-button size="small" @click="isAddService = true">Add</el-button>
+        </el-col>
       </el-row>
     </div>
   </div>
@@ -85,8 +87,7 @@
               "eureka.client.serviceUrl.defaultZone": "",
               "eureka.instance.prefer-ip-address": "",
             },
-            addedConfigs: [],
-            jarPath: ""
+            addedConfigs: []
           };
         this.$store.commit(SERVICE_ADD, newService);
         this.clearInput();

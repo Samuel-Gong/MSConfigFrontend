@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="preStep">上一步</el-button>
+  <el-button @click="preStep">Prev</el-button>
 </template>
 
 <script>

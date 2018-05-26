@@ -11,8 +11,8 @@ export const SERVICE_DELETE = 'SERVICE_DELETE'
 
 
 // zuul
-export const ZUUL_ADD = 'ZUUL_ADD'
-export const ZUUL_DELETE = 'ZUUL_DELETE'
+export const RIBBON_ADD = 'RIBBON_ADD'
+export const RIBBON_DELETE = 'RIBBON_DELETE'
 
 
 // table
