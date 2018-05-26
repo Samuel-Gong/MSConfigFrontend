@@ -2,7 +2,7 @@
   <el-row class="component-wrapper">
     <el-col>
       <div class="service-item">
-        <h2>2. Eureka Client</h2>
+        <h2>Eureka Client</h2>
         <el-checkbox checked disabled>Required</el-checkbox>
       </div>
       <hr/>

@@ -3,7 +3,7 @@
     <el-row>
       <el-col>
         <div class="service-item">
-          <h2>1. Eureka Server</h2>
+          <h2>Eureka Server</h2>
           <el-checkbox checked disabled>Required</el-checkbox>
         </div>
         <hr/>
