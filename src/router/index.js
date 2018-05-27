@@ -6,6 +6,9 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import LoginComponent from '@/components/LoginComponent'
+import ProcessComponent from '@/components/ProcessComponent'
+
+import UploaderComponent from '@/components/UploaderComponent'
 
 // 1. 定义（路由）组件。
 // 也可以从其他文件 import 进来
@@ -34,7 +37,12 @@ const routes = [
   // 从根路径重定向到第一步
   {
     path: '/',
-    redirect: '/1'
+    redirect: '/process/1'
+  },
+  {
+    path: '/upload',
+    name: 'Upload',
+    component: UploaderComponent
   },
   {
     path: '/login',
@@ -42,49 +50,56 @@ const routes = [
     component: LoginComponent
   },
   {
-    path: '/1',
-    name: 'Step 1',
-    component: AddBusinessCode
-  },
-  {
-    path: '/2',
-    name: 'Step 2',
-    component: EurekaServer
-  },
-  {
-    path: '/3',
-    name: 'Step 3',
-    component: EurekaClient
-  },
-  {
-    path: '/4',
-    name: 'Step 4',
-    component: RibbonComponent
-  },
-  {
-    path: '/5',
-    name: 'Step 5',
-    component: HystrixComponent
-  },
-  {
-    path: '/6',
-    name: 'Step 6',
-    component: ZuulComponent
-  },
-  {
-    path: '/7',
-    name: 'Step 7',
-    component: Config
-  },
-  {
-    path: '/8',
-    name: 'Step 8',
-    component: MysqlComponent
-  },
-  {
-    path: '/9',
-    name: 'Step 9',
-    component: ComposeComponent
+    path: '/process',
+    name: 'Process',
+    component: ProcessComponent,
+    children: [
+      {
+        path: '1',
+        name: 'Step 1',
+        component: AddBusinessCode
+      },
+      {
+        path: '2',
+        name: 'Step 2',
+        component: EurekaServer
+      },
+      {
+        path: '3',
+        name: 'Step 3',
+        component: EurekaClient
+      },
+      {
+        path: '4',
+        name: 'Step 4',
+        component: RibbonComponent
+      },
+      {
+        path: '5',
+        name: 'Step 5',
+        component: HystrixComponent
+      },
+      {
+        path: '6',
+        name: 'Step 6',
+        component: ZuulComponent
+      },
+      {
+        path: '7',
+        name: 'Step 7',
+        component: Config
+      },
+      {
+        path: '8',
+        name: 'Step 8',
+        component: MysqlComponent
+      },
+      {
+        path: '9',
+        name: 'Step 9',
+        component: ComposeComponent
+      }
+    ]
   }
   // {
   //   path: '/index',

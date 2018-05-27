@@ -6,8 +6,8 @@ export const STEPS_INCRE = 'STEPS_INCRE'
 export const STEPS_DECRE = 'STEPS_DECRE'
 
 // file
-export const FILE_ADD = 'FILE_ADD'
-export const FILE_DELETE = 'FILE_DELETE'
+export const FOLDER_ADD = 'FOLDER_ADD'
+export const FOLDER_DELETE = 'FOLDER_DELETE'
 
 // services
 export const SERVICE_ADD = 'SERVICE_ADD'

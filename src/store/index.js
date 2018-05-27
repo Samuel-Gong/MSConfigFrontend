@@ -3,7 +3,8 @@ import Vue from 'vue'
 // 0. 使用模块化机制编程，导入Vue和Vuex，要调用 Vue.use(VueRouter)
 import Vuex from 'vuex'
 
-import {FILE_ADD, FILE_DELETE, STEPS_DECRE, STEPS_INCRE} from './mutations'
+import {STEPS_DECRE, STEPS_INCRE} from './mutations'
+import {FOLDER_ADD, FOLDER_DELETE} from './mutations'
 import {SERVICE_ADD, SERVICE_DELETE} from "./mutations"
 import {RIBBON_ADD, RIBBON_DELETE} from "./mutations";
 import {TABLE_ADD, TABLE_DELETE} from "./mutations";
@@ -21,8 +22,8 @@ const store = new Vuex.Store({
     // 当前激活的steps
     stepsActive: 0,
 
-    // 所有微服务压缩文件数组
-    files: [],
+    // 所有微服务文件夹数组
+    folders: [],
 
     // 所有服务，服务名称及本机地址
     services: [],
@@ -74,21 +75,21 @@ const store = new Vuex.Store({
       state.stepsActive--;
     },
 
-    [FILE_ADD](state, payload) {
+    [FOLDER_ADD](state, payload) {
       console.log(payload);
-      state.files.push(payload);
-      console.log(state.files);
+      state.folders.push(payload);
+      console.log(state.folders);
     },
-    [FILE_DELETE](state, serviceName) {
+    [FOLDER_DELETE](state, serviceName) {
       let deleteIndex = 0;
-      state.files.forEach(function (file, index) {
+      state.folders.forEach(function (file, index) {
         if (serviceName === file.serviceName) {
           deleteIndex = index;
           return false;
         }
       });
-      state.files.splice(deleteIndex, 1);
-      console.log(state.files);
+      state.folders.splice(deleteIndex, 1);
+      console.log(state.folders);
     },
 
     [SERVICE_ADD](state, payload) {

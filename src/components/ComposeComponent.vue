@@ -96,7 +96,7 @@
     },
     computed: {
       ...mapState({
-        services: 'composeInfo'
+        composeInfo: 'composeInfo'
       })
     },
     methods: {
