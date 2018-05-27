@@ -1,5 +1,5 @@
 <template>
-  <el-button @click="submit">Finish</el-button>
+  <el-button @click="submit($event)">Finish</el-button>
 </template>
 
 <script>
@@ -10,15 +10,67 @@
     name: "SubmitBtn",
     computed: {
       ...mapState([
+        'files',
         'services',
         'componentCheck',
         'eurekaServerInfo',
         'ribbon',
-        'mysqlInfo'
+        'mysqlInfo',
+        'composeInfo'
       ])
     },
     methods: {
-      submit() {
+      submit(event) {
+
+        event.preventDefault();//取消默认行为
+
+        // 创建formData对象
+        let formData = new FormData();
+
+        console.log(this.files);
+
+        // upload config
+        let config = {
+          //基础url前缀
+          baseURL: "http://localhost:8000",
+          //请求头信息
+          headers: {'Content-Type': "multipart/form-data"},
+          // 返回数据类型，default
+          responseType: 'json'
+        };
+
+        let file = this.files[0];
+        console.log(file.file);
+        formData.append(file.serviceName, file.file);
+
+        // 上传文件
+        this.$axios.post('/test/single', formData, config)
+          .then(function (response) {
+            alert(response.data);
+            console.log(response);
+          })
+          .catch(function (error) {
+            alert("上传失败");
+            console.log(error);
+          });
+
+        // this.files.forEach(function (item) {
+        //   console.log("enter");
+        //   // 向 formData 对象中添加文件
+        //   formData.append(item.serviceName, item.file);
+        // });
+
+        // 上传文件
+        // this.$axios.post('/test/upload', formData, config)
+        //   .then(function (response) {
+        //     alert(response.data);
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     alert("上传失败");
+        //     console.log(error);
+        //   });
+
         // 服务名称地址
         let services = {};
 
@@ -78,7 +130,10 @@
           "isZuul": this.componentCheck.checkedZuul,
 
           // mysql
-          "mysqlInfo": this.mysqlInfo
+          "mysqlInfo": this.mysqlInfo,
+
+          // docker compose
+          "composeInfo": this.composeInfo
 
         };
 

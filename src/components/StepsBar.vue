@@ -54,6 +54,10 @@
           {
             title: "Step 8",
             description: "Database"
+          },
+          {
+            title: "Step 9",
+            description: "Docker Compose"
           }
         ]
       }

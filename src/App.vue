@@ -19,12 +19,12 @@
           <el-footer>
             <el-row>
               <el-col :span="4" :offset="19" v-if="active === 0">
-                <next-step-btn v-if="active < 7"/>
+                <next-step-btn v-if="active < 8"/>
               </el-col>
               <el-col :span="6" :offset="18" v-if="active !== 0">
                 <pre-step-btn v-if="active > 0"/>
-                <next-step-btn v-if="active < 7"/>
-                <submit-btn v-if="active === 7"/>
+                <next-step-btn v-if="active < 8"/>
+                <submit-btn v-if="active === 8"/>
               </el-col>
             </el-row>
           </el-footer>

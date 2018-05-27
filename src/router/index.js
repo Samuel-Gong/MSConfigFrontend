@@ -5,6 +5,8 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
+import LoginComponent from '@/components/LoginComponent'
+
 // 1. 定义（路由）组件。
 // 也可以从其他文件 import 进来
 import AddBusinessCode from '@/components/AddBusinessCode'
@@ -16,6 +18,9 @@ import EurekaClient from '@/components/microservic_components/EurekaClient'
 import RibbonComponent from '@/components/microservic_components/RibbonComponent'
 import HystrixComponent from '@/components/microservic_components/HystrixComponent'
 import ZuulComponent from '@/components/microservic_components/ZuulComponent'
+
+// docker compose
+import ComposeComponent from '@/components/ComposeComponent'
 
 
 // mysql
@@ -30,6 +35,11 @@ const routes = [
   {
     path: '/',
     redirect: '/1'
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginComponent
   },
   {
     path: '/1',
@@ -58,18 +68,23 @@ const routes = [
   },
   {
     path: '/6',
-    name: 'Step 7',
+    name: 'Step 6',
     component: ZuulComponent
   },
   {
     path: '/7',
-    name: 'Step 8',
+    name: 'Step 7',
     component: Config
   },
   {
     path: '/8',
-    name: 'Step 9',
+    name: 'Step 8',
     component: MysqlComponent
+  },
+  {
+    path: '/9',
+    name: 'Step 9',
+    component: ComposeComponent
   }
   // {
   //   path: '/index',

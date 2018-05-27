@@ -5,6 +5,10 @@
 export const STEPS_INCRE = 'STEPS_INCRE'
 export const STEPS_DECRE = 'STEPS_DECRE'
 
+// file
+export const FILE_ADD = 'FILE_ADD'
+export const FILE_DELETE = 'FILE_DELETE'
+
 // services
 export const SERVICE_ADD = 'SERVICE_ADD'
 export const SERVICE_DELETE = 'SERVICE_DELETE'
@@ -18,3 +22,7 @@ export const RIBBON_DELETE = 'RIBBON_DELETE'
 // table
 export const TABLE_ADD = 'TABLE_ADD'
 export const TABLE_DELETE = 'TABLE_DELETE'
+
+// compose
+export const COMPOSE_SERVICE_ADD = 'COMPOSE_SERVICE_ADD'
+export const COMPOSE_SERVICE_DELETE = 'COMPOSE_SERVICE_DELETE'

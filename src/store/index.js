@@ -3,10 +3,11 @@ import Vue from 'vue'
 // 0. 使用模块化机制编程，导入Vue和Vuex，要调用 Vue.use(VueRouter)
 import Vuex from 'vuex'
 
-import {STEPS_DECRE, STEPS_INCRE} from './mutations'
+import {FILE_ADD, FILE_DELETE, STEPS_DECRE, STEPS_INCRE} from './mutations'
 import {SERVICE_ADD, SERVICE_DELETE} from "./mutations"
 import {RIBBON_ADD, RIBBON_DELETE} from "./mutations";
 import {TABLE_ADD, TABLE_DELETE} from "./mutations";
+import {COMPOSE_SERVICE_ADD, COMPOSE_SERVICE_DELETE} from "./mutations";
 
 Vue.use(Vuex)
 
@@ -19,6 +20,10 @@ const store = new Vuex.Store({
   state: {
     // 当前激活的steps
     stepsActive: 0,
+
+    // 所有微服务压缩文件数组
+    files: [],
+
     // 所有服务，服务名称及本机地址
     services: [],
     // 保存被选择的微服务组件
@@ -50,7 +55,10 @@ const store = new Vuex.Store({
       user: "",
       password: "",
       tables: [],
-    }
+    },
+
+    // compose
+    composeInfo: []
   },
 
   // store的计算属性，state的一些派生状态
@@ -66,8 +74,24 @@ const store = new Vuex.Store({
       state.stepsActive--;
     },
 
-    [SERVICE_ADD](state, payload) {
+    [FILE_ADD](state, payload) {
       console.log(payload);
+      state.files.push(payload);
+      console.log(state.files);
+    },
+    [FILE_DELETE](state, serviceName) {
+      let deleteIndex = 0;
+      state.files.forEach(function (file, index) {
+        if (serviceName === file.serviceName) {
+          deleteIndex = index;
+          return false;
+        }
+      });
+      state.files.splice(deleteIndex, 1);
+      console.log(state.files);
+    },
+
+    [SERVICE_ADD](state, payload) {
       state.services.push(payload);
     },
     [SERVICE_DELETE](state, index) {
@@ -93,6 +117,15 @@ const store = new Vuex.Store({
         }
       });
       state.mysqlInfo.tables.splice(deleteIndex, 1);
+    },
+
+
+    // compose
+    [COMPOSE_SERVICE_ADD](state, service) {
+      state.composeInfo.push(service);
+    },
+    [COMPOSE_SERVICE_DELETE](state, index) {
+      state.composeInfo.splice(index, 1);
     }
   },
   // 定义提交触发更改信息的描述，常见的例子是从服务端获取数据
