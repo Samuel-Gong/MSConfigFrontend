@@ -94,38 +94,6 @@ const routes = [
       }
     ]
   }
-  // {
-  //   path: '/index',
-  //   name: 'Index',
-  //   component: Index,
-  //   // 路由独享守卫
-  //   beforeEnter: (to, from, next) => {
-  //     console.log(
-  //       "index路由独享守卫:" + "\n" +
-  //       "from url:" + from + "\n" +
-  //       "to url:" + to + "\n"
-  //     );
-  //     next();
-  //   }
-  // },
-  // {
-  //   path: '/hello',
-  //   name: 'Hello',
-  //   component: Hello
-  // },
-  // // 动态路由
-  // {
-  //   path: '/user/:id',
-  //   name: 'User',
-  //   component: User,
-  //   children: [
-  //     {
-  //       path: 'profile',
-  //       name: 'Profile',
-  //       component: Profile
-  //     }
-  //   ]
-  // }
 ];
 
 // 3. 创建 router 实例，然后传 `routes` 配置

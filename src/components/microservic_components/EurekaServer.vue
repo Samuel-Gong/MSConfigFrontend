@@ -11,10 +11,10 @@
       <el-row>
         <el-col>
           <div class="input-item">
-            <el-col :span="3">BaseDir: </el-col>
+            <el-col :span="4">ProjectName: </el-col>
             <el-col :span="6">
               <el-input
-                placeholder="Please input the baseDir"
+                placeholder="project name"
                 v-model="eurekaServerInfo.baseDir"
               >
               </el-input>
@@ -25,10 +25,10 @@
       <el-row>
         <el-col>
           <div class="input-item">
-            <el-col :span="3">GroupId: </el-col>
+            <el-col :span="4">GroupId: </el-col>
             <el-col :span="6">
               <el-input
-                placeholder="Please input the groupId"
+                placeholder="groupId"
                 v-model="eurekaServerInfo.groupId"
               >
               </el-input>
@@ -39,10 +39,10 @@
       <el-row>
         <el-col>
           <div class="input-item">
-            <el-col :span="3">ArtifactId: </el-col>
+            <el-col :span="4">ArtifactId: </el-col>
             <el-col :span="6">
               <el-input
-                placeholder="Please input the artifactId"
+                placeholder="artifactId"
                 v-model="eurekaServerInfo.artifactId"
               >
               </el-input>

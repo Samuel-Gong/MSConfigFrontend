@@ -6,10 +6,10 @@
   >
     <el-row class="component-wrapper">
       <el-row>
-        <el-col>
+        <el-col :span="12">
           <div class="input-item">
-            <el-col :span="5">Project Name：</el-col>
-            <el-col :span="6">
+            <el-col :span="10">Project Name:</el-col>
+            <el-col :span="12">
               <el-input
                 placeholder="project name"
                 v-model="mysqlInfo.projectName">
@@ -17,11 +17,9 @@
             </el-col>
           </div>
         </el-col>
-      </el-row>
-      <el-row>
         <el-col :span="12">
           <div class="input-item">
-            <el-col :span="10">Database Name：</el-col>
+            <el-col :span="10">Database Name:</el-col>
             <el-col :span="12">
               <el-input
                 placeholder="database name"
@@ -30,22 +28,11 @@
             </el-col>
           </div>
         </el-col>
-        <el-col :span="12">
-          <div class="input-item">
-            <el-col :span="7" :offset="3">Basedir：</el-col>
-            <el-col :span="12">
-              <el-input
-                placeholder="basedir"
-                v-model="mysqlInfo.baseDir">
-              </el-input>
-            </el-col>
-          </div>
-        </el-col>
       </el-row>
       <el-row>
         <el-col :span="12">
           <div class="input-item">
-            <el-col :span="10">Username：</el-col>
+            <el-col :span="10">Username:</el-col>
             <el-col :span="12">
               <el-input
                 placeholder="username"
@@ -56,7 +43,7 @@
         </el-col>
         <el-col :span="12">
           <div class="input-item">
-            <el-col :span="7" :offset="3">Password：</el-col>
+            <el-col :span="10">Password:</el-col>
             <el-col :span="12">
               <el-input
                 type="password"

@@ -28,12 +28,11 @@ const store = new Vuex.Store({
       checkedEurekaClient: true,
       checkedRibbon: false,
       checkedHystrix: false,
-      checkedRabbitMQ: false,
       checkedZuul: false,
     },
     // eureka server的配置
     eurekaServerInfo: {
-      baseDir: "",
+      projectName: "",
       groupId: "",
       artifactId: ""
     },
@@ -41,6 +40,13 @@ const store = new Vuex.Store({
     ribbon: {
       consumer: "",
       providers: []
+    },
+
+    // zuul 的配置
+    zuulInfo: {
+      projectName: "",
+      groupId: "",
+      artifactId: ""
     },
 
     // compose

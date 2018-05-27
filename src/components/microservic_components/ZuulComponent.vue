@@ -1,14 +1,57 @@
 <template>
-  <el-row class="component-wrapper">
-    <el-col>
-      <div class="service-item">
-        <h2>Zuul</h2>
-        <!-- `checked` 为 true 或 false -->
-        <el-checkbox v-model="componentCheck.checkedZuul">Select</el-checkbox>
-      </div>
-      <hr/>
-    </el-col>
-  </el-row>
+  <div>
+    <el-row>
+      <el-col>
+        <div class="service-item">
+          <h2>Zuul</h2>
+          <el-checkbox v-model="componentCheck.checkedZuul">Select</el-checkbox>
+        </div>
+        <hr/>
+      </el-col>
+      <el-row>
+        <el-col>
+          <div class="input-item">
+            <el-col :span="4">ProjectName:</el-col>
+            <el-col :span="6">
+              <el-input
+                placeholder="project name"
+                v-model="zuulInfo.baseDir"
+              >
+              </el-input>
+            </el-col>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <div class="input-item">
+            <el-col :span="4">GroupId:</el-col>
+            <el-col :span="6">
+              <el-input
+                placeholder="groupId"
+                v-model="zuulInfo.groupId"
+              >
+              </el-input>
+            </el-col>
+          </div>
+        </el-col>
+      </el-row>
+      <el-row>
+        <el-col>
+          <div class="input-item">
+            <el-col :span="4">ArtifactId:</el-col>
+            <el-col :span="6">
+              <el-input
+                placeholder="artifactId"
+                v-model="zuulInfo.artifactId"
+              >
+              </el-input>
+            </el-col>
+          </div>
+        </el-col>
+      </el-row>
+    </el-row>
+  </div>
 </template>
 
 <script>
@@ -20,6 +63,7 @@
     computed: {
       ...mapState([
         'componentCheck',
+        'zuulInfo'
       ])
     }
   }

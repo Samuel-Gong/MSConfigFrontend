@@ -110,7 +110,6 @@
 
             // mysql
             mysqlInfo: {
-              baseDir: "",
               projectName: "",
               database: "",
               user: "",
