@@ -5,23 +5,13 @@
 export const STEPS_INCRE = 'STEPS_INCRE'
 export const STEPS_DECRE = 'STEPS_DECRE'
 
-// file
-export const FOLDER_ADD = 'FOLDER_ADD'
-export const FOLDER_DELETE = 'FOLDER_DELETE'
-
 // services
 export const SERVICE_ADD = 'SERVICE_ADD'
 export const SERVICE_DELETE = 'SERVICE_DELETE'
 
-
 // zuul
 export const RIBBON_ADD = 'RIBBON_ADD'
 export const RIBBON_DELETE = 'RIBBON_DELETE'
-
-
-// table
-export const TABLE_ADD = 'TABLE_ADD'
-export const TABLE_DELETE = 'TABLE_DELETE'
 
 // compose
 export const COMPOSE_SERVICE_ADD = 'COMPOSE_SERVICE_ADD'

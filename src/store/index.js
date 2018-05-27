@@ -4,10 +4,8 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 import {STEPS_DECRE, STEPS_INCRE} from './mutations'
-import {FOLDER_ADD, FOLDER_DELETE} from './mutations'
 import {SERVICE_ADD, SERVICE_DELETE} from "./mutations"
 import {RIBBON_ADD, RIBBON_DELETE} from "./mutations";
-import {TABLE_ADD, TABLE_DELETE} from "./mutations";
 import {COMPOSE_SERVICE_ADD, COMPOSE_SERVICE_DELETE} from "./mutations";
 
 Vue.use(Vuex)
@@ -21,9 +19,6 @@ const store = new Vuex.Store({
   state: {
     // 当前激活的steps
     stepsActive: 0,
-
-    // 所有微服务文件夹数组
-    folders: [],
 
     // 所有服务，服务名称及本机地址
     services: [],
@@ -48,16 +43,6 @@ const store = new Vuex.Store({
       providers: []
     },
 
-    // mysql
-    mysqlInfo: {
-      baseDir: "",
-      projectName: "",
-      database: "",
-      user: "",
-      password: "",
-      tables: [],
-    },
-
     // compose
     composeInfo: []
   },
@@ -75,25 +60,8 @@ const store = new Vuex.Store({
       state.stepsActive--;
     },
 
-    [FOLDER_ADD](state, payload) {
-      console.log(payload);
-      state.folders.push(payload);
-      console.log(state.folders);
-    },
-    [FOLDER_DELETE](state, serviceName) {
-      let deleteIndex = 0;
-      state.folders.forEach(function (file, index) {
-        if (serviceName === file.serviceName) {
-          deleteIndex = index;
-          return false;
-        }
-      });
-      state.folders.splice(deleteIndex, 1);
-      console.log(state.folders);
-    },
-
-    [SERVICE_ADD](state, payload) {
-      state.services.push(payload);
+    [SERVICE_ADD](state, service) {
+      state.services.push(service);
     },
     [SERVICE_DELETE](state, index) {
       state.services.splice(index, 1);
@@ -104,20 +72,6 @@ const store = new Vuex.Store({
     },
     [RIBBON_DELETE](state, index) {
       state.ribbon.providers.splice(index, 1);
-    },
-
-    [TABLE_ADD](state, payload) {
-      state.mysqlInfo.tables.push(payload);
-    },
-    [TABLE_DELETE](state, tableName) {
-      let deleteIndex = 0;
-      state.mysqlInfo.tables.forEach(function (table, index) {
-        if (tableName === table.tableName) {
-          deleteIndex = index;
-          return false;
-        }
-      });
-      state.mysqlInfo.tables.splice(deleteIndex, 1);
     },
 
 

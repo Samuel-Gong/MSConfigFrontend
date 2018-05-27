@@ -12,12 +12,10 @@
     name: "SubmitBtn",
     computed: {
       ...mapState([
-        'folders',
         'services',
         'componentCheck',
         'eurekaServerInfo',
         'ribbon',
-        'mysqlInfo',
         'composeInfo'
       ])
     },
@@ -26,19 +24,17 @@
 
         event.preventDefault();//取消默认行为
 
-        console.log(this.folders);
-
         // 上传文件
-        this.folders.forEach(function (folderInfo) {
+        this.services.forEach(function (service) {
 
           // 创建formData对象
           let formData = new FormData();
-          console.log(folderInfo.folder);
+          console.log(service.folder);
 
-          let fileNum = folderInfo.folder.length;
+          let fileNum = service.folder.length;
           for (let i = 0; i < fileNum; i++) {
             let str = i.toString();
-            let file = folderInfo.folder[str];
+            let file = service.folder[str];
             formData.append("folder", file);
           }
 
@@ -53,15 +49,11 @@
             });
         });
 
-        // 服务名称地址
-        let services = {};
 
         // 服务名称，配置map
         let configurationList = [];
 
         this.services.forEach(function (service) {
-          // 装载services
-          services[service.name] = service.address;
 
           let configurationItems = [];
           for (let key in service.config) {
@@ -87,12 +79,29 @@
 
         });
 
-        let general = {
-          // 服务名称，地址
-          "services": services,
 
-          // 服务名称，配置
-          "configurationList": configurationList,
+        let services = [];
+
+        this.services.forEach(function (service, index) {
+
+          services.push({
+            serviceName: service.serviceName,
+
+            // folder
+            folderName: service.folderName,
+
+            // config
+            config: configurationList[index],
+
+            // mysql
+            mysqlInfo: service.mysqlInfo
+          });
+
+        });
+
+        let general = {
+          // 所有微服务的信息
+          "services": services,
 
           // eureka server
           "isEurekaServer": this.componentCheck.checkedEurekaServer,
@@ -110,9 +119,6 @@
 
           // zuul
           "isZuul": this.componentCheck.checkedZuul,
-
-          // mysql
-          "mysqlInfo": this.mysqlInfo,
 
           // docker compose
           "composeInfo": this.composeInfo

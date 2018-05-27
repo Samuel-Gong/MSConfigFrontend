@@ -120,7 +120,7 @@
     },
     computed: {
       itemName() {
-        return "Service Name: " + this.service.name
+        return "Service Name: " + this.service.serviceName
       }
     }
   }

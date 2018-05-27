@@ -1,5 +1,11 @@
 <template>
   <div>
+    <el-col>
+      <div>
+        <h2>Add Service</h2>
+      </div>
+      <hr/>
+    </el-col>
     <el-table
       :data="services"
     >
@@ -62,7 +68,6 @@
 
   import {mapState, mapMutations} from 'vuex'
   import {SERVICE_ADD, SERVICE_DELETE} from "../store/mutations";
-  import {FOLDER_ADD, FOLDER_DELETE} from "../store/mutations";
 
   export default {
     data() {
@@ -89,27 +94,34 @@
         let newService =
           {
             serviceName: this.serviceName,
+
+            // folder
             folderName: this.folderName,
+            folder: this.folder,
+
+            // config
             config: {
               "spring.application.name": "",
               "server.port": "",
               "eureka.client.serviceUrl.defaultZone": "",
               "eureka.instance.prefer-ip-address": "",
             },
-            addedConfigs: []
-          };
+            addedConfigs: [],
 
-        let newFolder = {
-          serviceName: this.serviceName,
-          folderName: this.folderName,
-          folder: this.folder
-        };
-        this.$store.commit(FOLDER_ADD, newFolder);
+            // mysql
+            mysqlInfo: {
+              baseDir: "",
+              projectName: "",
+              database: "",
+              user: "",
+              password: "",
+              tables: [],
+            }
+          };
         this.$store.commit(SERVICE_ADD, newService);
         this.clearInput();
       },
       deleteService(row, index) {
-        this.$store.commit(FOLDER_DELETE, row.serviceName);
         this.$store.commit(SERVICE_DELETE, index);
       },
       clearInput() {

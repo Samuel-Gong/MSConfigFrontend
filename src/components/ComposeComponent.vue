@@ -1,5 +1,12 @@
 <template>
   <div>
+    <el-col>
+      <div class="service-item">
+        <h2>Compose File</h2>
+        <el-checkbox checked disabled>Required</el-checkbox>
+      </div>
+      <hr/>
+    </el-col>
     <el-table
       :data="composeInfo"
     >

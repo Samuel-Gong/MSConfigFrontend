@@ -21,8 +21,8 @@
             <el-option
               v-for="(item, index) in services"
               :key="index"
-              :label="item.name"
-              :value="item.name"
+              :label="item.serviceName"
+              :value="item.serviceName"
             >
             </el-option>
           </el-select>
@@ -66,8 +66,8 @@
               <el-option
                 v-for="(item, index) in services"
                 :key="index"
-                :label="item.name"
-                :value="item.name"
+                :label="item.serviceName"
+                :value="item.serviceName"
               >
               </el-option>
             </el-select>

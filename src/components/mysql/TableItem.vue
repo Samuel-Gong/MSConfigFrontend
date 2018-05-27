@@ -81,11 +81,9 @@
 
 <script>
 
-  import {TABLE_DELETE} from "../store/mutations";
-
   export default {
     name: "TableItem",
-    props: ["table"],
+    props: ["table", "mysqlInfo"],
     data() {
       return {
         isAddColumn: false,
@@ -99,7 +97,17 @@
         console.log(index, row);
       },
       deleteTable() {
-        this.$store.commit(TABLE_DELETE, this.table.tableName);
+        let deleteIndex = 0;
+        let deleteTableName = this.table.tableName;
+        console.log(this.mysqlInfo.tables);
+        this.mysqlInfo.tables.forEach(function (t, index) {
+          if (deleteTableName === t.tableName) {
+            deleteIndex = index;
+            return false;
+          }
+        });
+        console.log(deleteIndex);
+        this.mysqlInfo.tables.splice(deleteIndex, 1);
       },
       // 提交添加的列
       addColumn() {

@@ -8,12 +8,10 @@ Vue.use(Router)
 import LoginComponent from '@/components/LoginComponent'
 import ProcessComponent from '@/components/ProcessComponent'
 
-import UploaderComponent from '@/components/UploaderComponent'
-
 // 1. 定义（路由）组件。
 // 也可以从其他文件 import 进来
 import AddBusinessCode from '@/components/AddBusinessCode'
-import Config from '@/components/Config'
+import Config from '@/components/config/Config'
 
 // 5个微服务组件
 import EurekaServer from '@/components/microservic_components/EurekaServer'
@@ -27,7 +25,7 @@ import ComposeComponent from '@/components/ComposeComponent'
 
 
 // mysql
-import MysqlComponent from '@/components/MysqlComponent'
+import MysqlComponent from '@/components/mysql/MysqlComponent'
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -38,11 +36,6 @@ const routes = [
   {
     path: '/',
     redirect: '/process/1'
-  },
-  {
-    path: '/upload',
-    name: 'Upload',
-    component: UploaderComponent
   },
   {
     path: '/login',
