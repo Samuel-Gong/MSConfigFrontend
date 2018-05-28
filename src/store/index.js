@@ -37,7 +37,6 @@ const store = new Vuex.Store({
     },
     // eureka server的配置
     eurekaServerInfo: {
-      projectName: "",
       groupId: "",
       artifactId: ""
     },
@@ -49,7 +48,6 @@ const store = new Vuex.Store({
 
     // zuul 的配置
     zuulInfo: {
-      projectName: "",
       groupId: "",
       artifactId: ""
     },
@@ -59,7 +57,7 @@ const store = new Vuex.Store({
 
     deployServer: {
       ip: "",
-      user: "",
+      username: "",
       password: ""
     }
   },

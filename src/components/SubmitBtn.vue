@@ -18,7 +18,7 @@
         'ribbon',
         'zuulInfo',
         'composeInfo',
-        'serverInfo'
+        'deployServer'
       ])
     },
     methods: {
@@ -27,29 +27,29 @@
         event.preventDefault();//取消默认行为
 
         // 上传文件
-        this.services.forEach(function (service) {
-
-          // 创建formData对象
-          let formData = new FormData();
-          console.log(service.folder);
-
-          let fileNum = service.folder.length;
-          for (let i = 0; i < fileNum; i++) {
-            let str = i.toString();
-            let file = service.folder[str];
-            formData.append("folder", file);
-          }
-
-          // 上传文件
-          axios.post('http://localhost:8000/test/uploadFolder', formData)
-            .then(function (response) {
-              alert(response.data);
-            })
-            .catch(function (error) {
-              alert("上传失败");
-              console.log(error);
-            });
-        });
+        // this.services.forEach(function (service) {
+        //
+        //   // 创建formData对象
+        //   let formData = new FormData();
+        //   console.log(service.folder);
+        //
+        //   let fileNum = service.folder.length;
+        //   for (let i = 0; i < fileNum; i++) {
+        //     let str = i.toString();
+        //     let file = service.folder[str];
+        //     formData.append("folder", file);
+        //   }
+        //
+        //   // 上传文件
+        //   axios.post('http://localhost:8000/test/uploadFolder', formData)
+        //     .then(function (response) {
+        //       alert(response.data);
+        //     })
+        //     .catch(function (error) {
+        //       alert("上传失败");
+        //       console.log(error);
+        //     });
+        // });
 
         // 服务名称，配置map
         let configurationList = [];
@@ -119,7 +119,10 @@
           "zuulInfo": this.zuulInfo,
 
           // docker compose
-          "composeInfo": this.composeInfo,
+          "composeInfo":
+            {
+              serviceList: this.composeInfo
+            },
 
           // 项目部署服务器的信息
           "deployServer": this.deployServer
@@ -127,6 +130,63 @@
         };
 
         console.log(JSON.stringify(general));
+
+        // // post services
+        // this.$axios.post('http://localhost:8000/test/eureka', this.eurekaServerInfo)
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
+        //
+        // // post services
+        // this.$axios.post('http://localhost:8000/test/ribbon', this.ribbon)
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
+        //
+        // // post services
+        // this.$axios.post('http://localhost:8000/test/zuul', this.zuulInfo)
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
+        //
+        // // post services
+        // this.$axios.post('http://localhost:8000/test/compose', {
+        //   serviceList: this.composeInfo
+        // })
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
+        //
+        // // post services
+        // this.$axios.post('http://localhost:8000/test/server', this.deployServer)
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
+        //
+        // // post services
+        // this.$axios.post('http://localhost:8000/test/services', services)
+        //   .then(function (response) {
+        //     console.log(response);
+        //   })
+        //   .catch(function (error) {
+        //     console.log(error);
+        //   });
+
         this.$axios.post('http://localhost:8000/test/general', general)
           .then(function (response) {
             console.log(response);
@@ -138,7 +198,7 @@
         alert("提交完成");
 
         // 跳转到overview界面
-        this.$router.push('/deploy');
+        // this.$router.push('/deploy');
       }
     }
   }

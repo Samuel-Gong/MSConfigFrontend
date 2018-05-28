@@ -11,20 +11,6 @@
       <el-row>
         <el-col>
           <div class="input-item">
-            <el-col :span="4">ProjectName: </el-col>
-            <el-col :span="6">
-              <el-input
-                placeholder="project name"
-                v-model="eurekaServerInfo.baseDir"
-              >
-              </el-input>
-            </el-col>
-          </div>
-        </el-col>
-      </el-row>
-      <el-row>
-        <el-col>
-          <div class="input-item">
             <el-col :span="4">GroupId: </el-col>
             <el-col :span="6">
               <el-input

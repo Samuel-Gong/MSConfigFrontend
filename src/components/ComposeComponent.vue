@@ -12,16 +12,9 @@
     >
       <el-table-column
         label="Service Name"
-        width="200">
+        width="300">
         <template slot-scope="scope">
           <span>{{ scope.row.serviceName }}</span>
-        </template>
-      </el-table-column>
-      <el-table-column
-        label="image"
-        width="200">
-        <template slot-scope="scope">
-          <span>{{ scope.row.image }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -52,9 +45,6 @@
       <el-row v-if="isAddService">
         <el-col :span="4">
           <el-input v-model="serviceName" placeholder="service" clearable></el-input>
-        </el-col>
-        <el-col :span="4" :offset="1">
-          <el-input v-model="image" placeholder="image" clearable></el-input>
         </el-col>
         <el-col :span="3" :offset="1">
           <el-input v-model="port" placeholder="port" clearable></el-input>
