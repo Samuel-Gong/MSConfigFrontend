@@ -50,7 +50,12 @@ const store = new Vuex.Store({
     },
 
     // compose
-    composeInfo: []
+    composeInfo: [],
+
+    deployServerInfo: {
+      username: "",
+      password: ""
+    }
   },
 
   // store的计算属性，state的一些派生状态

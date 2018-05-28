@@ -27,6 +27,9 @@ import ComposeComponent from '@/components/ComposeComponent'
 // mysql
 import MysqlComponent from '@/components/mysql/MysqlComponent'
 
+import DeployComponent from '@/components/DeployComponent'
+import ContainerComponent from '@/components/ContainerComponent'
+
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
 // 通过 Vue.extend() 创建的组件构造器，
@@ -36,6 +39,16 @@ const routes = [
   {
     path: '/',
     redirect: '/process/1'
+  },
+  {
+    path: '/deploy',
+    name: 'Deploy',
+    component: DeployComponent
+  },
+  {
+    path: '/container',
+    name: 'Container',
+    component: ContainerComponent
   },
   {
     path: '/login',

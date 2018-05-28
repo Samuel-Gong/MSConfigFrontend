@@ -134,6 +134,9 @@
         //   });
         //
         // alert("提交完成");
+
+        // 跳转到overview界面
+        this.$router.push('/deploy');
       }
     }
   }
