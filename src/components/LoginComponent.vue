@@ -1,8 +1,5 @@
 <template>
   <el-container>
-    <el-header class="header">
-      <my-header/>
-    </el-header>
     <el-main>
       <div id="login-panel">
         <el-row>
@@ -27,16 +24,13 @@
 </template>
 
 <script>
-  import MyHeader from './MyHeader'
+
+  import {LOGIN} from "../store/mutations";
 
   export default {
     name: 'LoginComponent',
-    components: {
-      'my-header': MyHeader
-    },
     data() {
       return {
-        logining: false,
         account: {
           username: '',
           pwd: ''
@@ -56,6 +50,8 @@
       handleLogin() {
         if (this.account.username === 'admin' && this.account.pwd === "admin") {
           alert("Login Success");
+          this.$store.commit(LOGIN);
+          this.$router.push('/process/1');
         }
         else {
           alert("Login Fail. Wrong username or password");

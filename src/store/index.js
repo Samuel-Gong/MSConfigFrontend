@@ -3,6 +3,7 @@ import Vue from 'vue'
 // 0. 使用模块化机制编程，导入Vue和Vuex，要调用 Vue.use(VueRouter)
 import Vuex from 'vuex'
 
+import {LOGIN, LOGOUT} from './mutations'
 import {STEPS_DECRE, STEPS_INCRE} from './mutations'
 import {SERVICE_ADD, SERVICE_DELETE} from "./mutations"
 import {RIBBON_ADD, RIBBON_DELETE} from "./mutations";
@@ -17,6 +18,10 @@ const store = new Vuex.Store({
 
   // 应用状态的数据，各组件的共享数据
   state: {
+
+    // login
+    isLogin: false,
+
     // 当前激活的steps
     stepsActive: 0,
 
@@ -63,6 +68,14 @@ const store = new Vuex.Store({
 
   // 唯一允许更新应用状态的地方
   mutations: {
+
+    [LOGIN](state) {
+      state.isLogin = true;
+    },
+    [LOGOUT](state) {
+      state.isLogin = false;
+    },
+
     // 这里怎么使用解构，给payload一个默认值
     [STEPS_INCRE](state) {
       state.stepsActive++;

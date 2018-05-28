@@ -38,7 +38,12 @@ const routes = [
   // 从根路径重定向到第一步
   {
     path: '/',
-    redirect: '/process/1'
+    redirect: '/login'
+  },
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginComponent
   },
   {
     path: '/deploy',
@@ -49,11 +54,6 @@ const routes = [
     path: '/container',
     name: 'Container',
     component: ContainerComponent
-  },
-  {
-    path: '/login',
-    name: 'Login',
-    component: LoginComponent
   },
   {
     path: '/process',

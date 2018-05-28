@@ -102,7 +102,6 @@
     },
     computed: {
       ...mapState({
-        services: 'services',
         deployServerInfo: 'deployServerInfo'
       })
     },
