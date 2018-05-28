@@ -31,11 +31,23 @@
             <el-row>
               <el-col :span="8">
                 <div class="input-item">
+                  <el-col :span="8">IP:</el-col>
+                  <el-col :span="10">
+                    <el-input
+                      placeholder="ip"
+                      v-model="deployServer.ip"
+                    >
+                    </el-input>
+                  </el-col>
+                </div>
+              </el-col>
+              <el-col :span="8">
+                <div class="input-item">
                   <el-col :span="8">Username:</el-col>
                   <el-col :span="10">
                     <el-input
-                      placeholder="username"
-                      v-model="deployServerInfo.username"
+                      placeholder="user"
+                      v-model="deployServer.username"
                     >
                     </el-input>
                   </el-col>
@@ -47,7 +59,7 @@
                   <el-col :span="10">
                     <el-input
                       placeholder="password"
-                      v-model="deployServerInfo.password"
+                      v-model="deployServer.password"
                     >
                     </el-input>
                   </el-col>
@@ -61,7 +73,7 @@
             </el-col>
           </el-row>
           <el-table
-            :data="services"
+            :data="servicesInfo"
           >
             <el-table-column
               label="Service Name"
@@ -74,7 +86,7 @@
               label="Folder Name"
               width="500">
               <template slot-scope="scope">
-                <span>{{ scope.row.folderName }}</span>
+                <span>{{ scope.row.port }}</span>
               </template>
             </el-table-column>
           </el-table>
@@ -92,36 +104,34 @@
     name: "DeployComponent",
     data() {
       return {
-        services: [
-          {
-            serviceName: "service",
-            folderName: "folder"
-          }
-        ]
+        servicesInfo: []
       }
     },
     computed: {
       ...mapState({
-        deployServerInfo: 'deployServerInfo'
+        deployServer: 'deployServer'
       })
     },
     methods: {
       deploy() {
-        // TODO 部署
+
+        // this.$axios
+        //   .post("http://localhost:8000/deploy/deploy");
+
         alert("部署成功");
 
         this.$router.push('/container');
       }
+    },
+    mounted() {
+      this.$axios
+        .get("http://localhost:8000/general/showAllServiceInfo")
+        .then(response => (this.servicesInfo = JSON.parse(response)));
     }
   }
 </script>
 
 <style>
-  .header {
-    background-color: #409EFF;
-    color: #fff;
-    line-height: 60px;
-  }
 
   .service-item {
     display: -webkit-flex; /* Safari */

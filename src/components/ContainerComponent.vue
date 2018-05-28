@@ -30,7 +30,7 @@
               label="Create Time"
               width="200">
               <template slot-scope="scope">
-                <span>{{ scope.row.createTime }}</span>
+                <span>{{ scope.row.created }}</span>
               </template>
             </el-table-column>
             <el-table-column
@@ -64,36 +64,18 @@
           {
             name: "container",
             image: "image",
-            createTime: "createTime",
+            created: "createTime",
             status: "Running",
             port: 8888
           }
         ]
       }
+    },
+    mounted() {
+      // this.$axios
+      //   .get("http://localhost:8000/container/showAllContainerInfo")
+      //   .then(response => (this.containers = JSON.parse(response)));
     }
   }
 </script>
-
-<style>
-
-  .service-item {
-    display: -webkit-flex; /* Safari */
-    display: flex;
-    /*主轴对齐方式*/
-    justify-content: space-between;
-    /*纵轴对齐方式*/
-    align-items: center
-  }
-
-  .input-item {
-    margin-top: 2%;
-
-    display: -webkit-flex; /* Safari */
-    display: flex;
-    /*主轴对齐方式*/
-    justify-content: flex-start;
-    /*纵轴对齐方式*/
-    align-items: center
-  }
-</style>
 

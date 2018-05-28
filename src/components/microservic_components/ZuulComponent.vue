@@ -16,6 +16,7 @@
               <el-input
                 placeholder="project name"
                 v-model="zuulInfo.baseDir"
+                :disabled="!componentCheck.checkedZuul"
               >
               </el-input>
             </el-col>
@@ -30,6 +31,7 @@
               <el-input
                 placeholder="groupId"
                 v-model="zuulInfo.groupId"
+                :disabled="!componentCheck.checkedZuul"
               >
               </el-input>
             </el-col>
@@ -44,6 +46,7 @@
               <el-input
                 placeholder="artifactId"
                 v-model="zuulInfo.artifactId"
+                :disabled="!componentCheck.checkedZuul"
               >
               </el-input>
             </el-col>

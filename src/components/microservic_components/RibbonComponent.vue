@@ -85,7 +85,7 @@
         </el-col>
       </el-row>
       <el-row v-if="!isAddRibbonProvider">
-        <el-button size="small" @click="isAddRibbonProvider = true">Add</el-button>
+        <el-button size="small" @click="isAddRibbonProvider = true" :disabled="!componentCheck.checkedRibbon">Add</el-button>
       </el-row>
     </div>
   </div>

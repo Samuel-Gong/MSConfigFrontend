@@ -57,8 +57,9 @@ const store = new Vuex.Store({
     // compose
     composeInfo: [],
 
-    deployServerInfo: {
-      username: "",
+    deployServer: {
+      ip: "",
+      user: "",
       password: ""
     }
   },
