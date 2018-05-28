@@ -1,40 +1,34 @@
 <template>
   <el-container>
-    <el-header class="header">
-      <my-header/>
-    </el-header>
+    <el-aside width="500px">
+      <steps-bar/>
+    </el-aside>
     <el-container>
-      <el-aside width="500px">
-        <steps-bar/>
-      </el-aside>
-      <el-container>
-        <el-main>
-          <el-row>
-            <el-col :span="20">
-              <router-view/>
-            </el-col>
-          </el-row>
-        </el-main>
-        <el-footer>
-          <el-row>
-            <el-col :span="4" :offset="19" v-if="active === 0">
-              <next-step-btn v-if="active < 8"/>
-            </el-col>
-            <el-col :span="6" :offset="18" v-if="active !== 0">
-              <pre-step-btn v-if="active > 0"/>
-              <next-step-btn v-if="active < 8"/>
-              <submit-btn v-if="active === 8"/>
-            </el-col>
-          </el-row>
-        </el-footer>
-      </el-container>
+      <el-main>
+        <el-row>
+          <el-col :span="20">
+            <router-view/>
+          </el-col>
+        </el-row>
+      </el-main>
+      <el-footer>
+        <el-row>
+          <el-col :span="4" :offset="19" v-if="active === 0">
+            <next-step-btn v-if="active < 8"/>
+          </el-col>
+          <el-col :span="6" :offset="18" v-if="active !== 0">
+            <pre-step-btn v-if="active > 0"/>
+            <next-step-btn v-if="active < 8"/>
+            <submit-btn v-if="active === 8"/>
+          </el-col>
+        </el-row>
+      </el-footer>
     </el-container>
   </el-container>
 </template>
 
 <script>
 
-  import MyHeader from './MyHeader'
   import StepsBar from './StepsBar'
 
   // footer的三个btn
@@ -49,7 +43,6 @@
     // 组件名称
     name: 'ProcessComponent',
     components: {
-      'my-header': MyHeader,
       'steps-bar': StepsBar,
 
       // footer
