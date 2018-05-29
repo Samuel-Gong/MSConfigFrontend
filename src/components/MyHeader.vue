@@ -1,20 +1,20 @@
 <template>
   <el-row>
     <el-col :span="2" :offset="3">
-      <span>Deck.io</span>
+      <span style="font-size: 25px">MSConfig</span>
     </el-col>
     <el-col :span="9" :offset="1" v-if="isLogin">
       <el-menu
         :default-active="activeIndex"
         mode="horizontal"
         @select="handleSelect"
-        background-color="#409EFF"
+        background-color="#000000"
         text-color="#fff"
         active-text-color="#ffd04b"
         :router="true"
       >
-        <el-menu-item index="1" :route="processRoute">Create</el-menu-item>
-        <!--<el-menu-item index="2" :route="containRoute">Containers</el-menu-item>-->
+        <el-menu-item index="1" :route="processRoute">Config</el-menu-item>
+        <el-menu-item index="2" :route="overviewRoute">Overview</el-menu-item>
       </el-menu>
     </el-col>
     <el-col :span="5" :offset="4" v-if="isLogin">
@@ -37,8 +37,8 @@
         processRoute: {
           path: '/process/1'
         },
-        containRoute: {
-          path: '/container'
+        overviewRoute: {
+          path: '/deploy'
         },
 
         user: {

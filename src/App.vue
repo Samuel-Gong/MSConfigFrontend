@@ -25,7 +25,7 @@
 
 <style scoped>
   .header {
-    background-color: #409EFF;
+    background-color: #000000;
     color: #fff;
     line-height: 60px;
   }
