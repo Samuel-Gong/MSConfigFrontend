@@ -13,7 +13,7 @@
                 <el-input type="password" v-model="account.pwd" auto-complete="off" placeholder="Password"></el-input>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" style="width:100%;" @click="handleLogin">Login</el-button>
+                <el-button type="primary" style="width:100%;" @click="handleLogin" class="login-btn">Login</el-button>
               </el-form-item>
             </el-form>
           </el-col>
@@ -71,4 +71,8 @@
     background: #DFE9FB;
   }
 
+  .login-btn {
+    background: #000;
+    border-color: black;
+  }
 </style>

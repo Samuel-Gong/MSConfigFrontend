@@ -8,63 +8,18 @@
               <el-col>
                 <div class="service-item">
                   <el-col :span="10">
-                    <h2>Deploy Overview</h2>
+                    <h2>Overview</h2>
                   </el-col>
-                  <!--<el-col :span="4" :offset="16">-->
-                    <!--<el-button type="primary" size="medium" @click="deploy">-->
-                      <!--部署-->
-                    <!--</el-button>-->
-                  <!--</el-col>-->
+                  <el-col :span="4" :offset="16">
+                    <el-button type="primary" size="medium" @click="download" class="download-btn">
+                      Download Jar
+                    </el-button>
+                  </el-col>
                 </div>
               </el-col>
             </el-row>
             <el-row>
               <hr/>
-            </el-row>
-          </el-row>
-          <el-row>
-            <el-row>
-              <el-col>
-                <h3>Deploy Server</h3>
-              </el-col>
-            </el-row>
-            <el-row>
-              <el-col :span="8">
-                <div class="input-item">
-                  <el-col :span="8">IP:</el-col>
-                  <el-col :span="10">
-                    <el-input
-                      placeholder="ip"
-                      v-model="deployServer.ip"
-                    >
-                    </el-input>
-                  </el-col>
-                </div>
-              </el-col>
-              <el-col :span="8">
-                <div class="input-item">
-                  <el-col :span="8">Username:</el-col>
-                  <el-col :span="10">
-                    <el-input
-                      placeholder="user"
-                      v-model="deployServer.username"
-                    >
-                    </el-input>
-                  </el-col>
-                </div>
-              </el-col>
-              <el-col :span="8">
-                <div class="input-item">
-                  <el-col :span="8">Password:</el-col>
-                  <el-col :span="10">
-                    <el-input
-                      placeholder="password"
-                      v-model="deployServer.password"
-                    >
-                    </el-input>
-                  </el-col>
-                </div>
-              </el-col>
             </el-row>
           </el-row>
           <el-row>
@@ -113,17 +68,19 @@
       })
     },
     methods: {
-      deploy() {
+      download() {
 
+        // todo
         // this.$axios
         //   .post("http://localhost:8000/deploy/deploy", this.deployServer);
 
-        alert("部署成功");
+        alert("Download Success");
 
         // this.$router.push('/container');
       }
     },
-    mounted() {      this.$axios
+    mounted() {
+      this.$axios
         .get("http://localhost:8000/general/showAllServiceInfo")
         .then(response => {
           console.log(response);
@@ -144,14 +101,8 @@
     align-items: center
   }
 
-  .input-item {
-    margin-top: 2%;
-
-    display: -webkit-flex; /* Safari */
-    display: flex;
-    /*主轴对齐方式*/
-    justify-content: flex-start;
-    /*纵轴对齐方式*/
-    align-items: center
+  .download-btn {
+    background: #000;
+    border-color: black;
   }
 </style>
