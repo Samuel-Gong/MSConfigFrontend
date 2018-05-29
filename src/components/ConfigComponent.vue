@@ -59,11 +59,3 @@
   }
 
 </script>
-
-<style>
-  .header {
-    background-color: #409EFF;
-    color: #fff;
-    line-height: 60px;
-  }
-</style>

@@ -134,13 +134,13 @@
         // api.add(general);
         this.$axios.post('http://localhost:8000/general/add', general)
           .then(function (response) {
-            console.log("add 成功");
+            console.log("add success");
           })
           .catch(function (error) {
             console.log(error);
           });
 
-        alert("提交完成");
+        alert("Submit Success");
 
         // 跳转第9步
         this.$store.commit(STEPS_INCRE);
