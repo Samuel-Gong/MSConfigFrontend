@@ -8,11 +8,13 @@
   import api from '../api'
 
   import {mapState} from 'vuex'
+  import {STEPS_INCRE} from "../store/mutations";
 
   export default {
     name: "SubmitBtn",
     computed: {
       ...mapState([
+        'stepsActive',
         'services',
         'componentCheck',
         'eurekaServerInfo',
@@ -140,8 +142,11 @@
 
         alert("提交完成");
 
-        // 跳转到overview界面
-        this.$router.push('/deploy');
+        // 跳转第9步
+        this.$store.commit(STEPS_INCRE);
+        this.$router.push(
+          {path: `/config/${this.stepsActive + 1}`}
+        )
       }
     }
   }

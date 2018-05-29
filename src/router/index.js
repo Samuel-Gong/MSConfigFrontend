@@ -6,7 +6,7 @@ import Router from 'vue-router'
 Vue.use(Router)
 
 import LoginComponent from '@/components/LoginComponent'
-import ProcessComponent from '@/components/ProcessComponent'
+import ConfigComponent from '@/components/ConfigComponent'
 
 // 1. 定义（路由）组件。
 // 也可以从其他文件 import 进来
@@ -27,7 +27,7 @@ import ComposeComponent from '@/components/ComposeComponent'
 // mysql
 import MysqlComponent from '@/components/mysql/MysqlComponent'
 
-import DeployComponent from '@/components/DeployComponent'
+import ConfigResults from '@/components/ConfigResults'
 import ContainerComponent from '@/components/ContainerComponent'
 
 // 2. 定义路由
@@ -46,19 +46,9 @@ const routes = [
     component: LoginComponent
   },
   {
-    path: '/deploy',
-    name: 'Deploy',
-    component: DeployComponent
-  },
-  {
-    path: '/container',
-    name: 'Container',
-    component: ContainerComponent
-  },
-  {
-    path: '/process',
-    name: 'Process',
-    component: ProcessComponent,
+    path: '/config',
+    name: 'Config',
+    component: ConfigComponent,
     children: [
       {
         path: '1',
@@ -103,7 +93,7 @@ const routes = [
       {
         path: '9',
         name: 'Step 9',
-        component: ComposeComponent
+        component: ConfigResults
       }
     ]
   }

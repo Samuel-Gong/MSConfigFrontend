@@ -57,7 +57,7 @@
           },
           {
             title: "Step 9",
-            description: "Docker Compose"
+            description: "Config Results"
           }
         ]
       }

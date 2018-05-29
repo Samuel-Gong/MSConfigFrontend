@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="500px">
+    <el-aside width="550px">
       <steps-bar/>
     </el-aside>
     <el-container>
@@ -17,9 +17,9 @@
             <next-step-btn v-if="active < 8"/>
           </el-col>
           <el-col :span="6" :offset="18" v-if="active !== 0">
-            <pre-step-btn v-if="active > 0"/>
-            <next-step-btn v-if="active < 8"/>
-            <submit-btn v-if="active === 8"/>
+            <pre-step-btn v-if="active > 0 && active < 8"/>
+            <next-step-btn v-if="active < 7"/>
+            <submit-btn v-if="active === 7"/>
           </el-col>
         </el-row>
       </el-footer>

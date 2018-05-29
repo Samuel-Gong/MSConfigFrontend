@@ -18,7 +18,7 @@
       nextStep() {
         this.$store.commit(STEPS_INCRE);
         this.$router.push(
-          {path: `/process/${this.active + 1}`}
+          {path: `/config/${this.active + 1}`}
         )
       }
     }

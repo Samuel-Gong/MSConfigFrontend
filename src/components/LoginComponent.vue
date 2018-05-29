@@ -51,7 +51,7 @@
         if (this.account.username === 'admin' && this.account.pwd === "admin") {
           alert("Login Success");
           this.$store.commit(LOGIN);
-          this.$router.push('/process/1');
+          this.$router.push('/config/1');
         }
         else {
           alert("Login Fail. Wrong username or password");

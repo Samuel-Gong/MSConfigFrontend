@@ -11,13 +11,11 @@
         background-color="#000000"
         text-color="#fff"
         active-text-color="#ffd04b"
-        :router="true"
       >
-        <el-menu-item index="1" :route="processRoute">Config</el-menu-item>
-        <el-menu-item index="2" :route="overviewRoute">Overview</el-menu-item>
+        <el-menu-item index="1">Config</el-menu-item>
       </el-menu>
     </el-col>
-    <el-col :span="5" :offset="4" v-if="isLogin">
+    <el-col :span="4" :offset="5" v-if="isLogin">
       <span>{{ user.username }}, </span>
       <el-button type="text" size="large" style="color: #fff;" @click="logout">Logout</el-button>
     </el-col>
@@ -34,12 +32,6 @@
     data() {
       return {
         activeIndex: '1',
-        processRoute: {
-          path: '/process/1'
-        },
-        overviewRoute: {
-          path: '/deploy'
-        },
 
         user: {
           username: "admin"
