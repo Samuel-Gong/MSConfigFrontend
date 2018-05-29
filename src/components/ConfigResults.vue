@@ -48,7 +48,56 @@
     name: "DeployComponent",
     data() {
       return {
-        servicesInfo: []
+        servicesInfo: [
+          {
+            serviceName: "account",
+            port: 8010
+          },
+          {
+            serviceName: "bff",
+            port: 8020
+          },
+          {
+            serviceName: "category",
+            port: 8030
+          },
+          {
+            serviceName: "order",
+            port: 8040
+          },
+          {
+            serviceName: "pet",
+            port: 8050
+          },
+          {
+            serviceName: "PetStoreServer",
+            port: 8080
+          },
+          {
+            serviceName: "PetStoreZuul",
+            port: 8080
+          },
+          {
+            serviceName: "account_db",
+            port: ''
+          },
+          {
+            serviceName: "bff_db",
+            port: ''
+          },
+          {
+            serviceName: "category_db",
+            port: ''
+          },
+          {
+            serviceName: "order_db",
+            port: ''
+          },
+          {
+            serviceName: "pet_db",
+            port: ''
+          },
+        ]
       }
     },
     computed: {},
@@ -69,7 +118,7 @@
         .get("http://localhost:8000/general/showAllServiceInfo")
         .then(response => {
           console.log(response);
-          this.servicesInfo = response.data;
+          // this.servicesInfo = response.data;
         });
     }
   }
