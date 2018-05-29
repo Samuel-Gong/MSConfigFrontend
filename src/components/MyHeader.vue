@@ -41,7 +41,7 @@
           path: '/container'
         },
 
-        username: {
+        user: {
           username: "admin"
         }
       }

@@ -116,17 +116,20 @@
       deploy() {
 
         // this.$axios
-        //   .post("http://localhost:8000/deploy/deploy");
+        //   .post("http://localhost:8000/deploy/deploy", this.deployServer);
 
         alert("部署成功");
 
-        this.$router.push('/container');
+        // this.$router.push('/container');
       }
     },
     mounted() {
       this.$axios
         .get("http://localhost:8000/general/showAllServiceInfo")
-        .then(response => (this.servicesInfo = JSON.parse(response)));
+        .then(response => {
+          console.log(response);
+          // this.servicesInfo = response.data;
+        });
     }
   }
 </script>
