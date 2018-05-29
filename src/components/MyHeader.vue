@@ -14,7 +14,7 @@
         :router="true"
       >
         <el-menu-item index="1" :route="processRoute">Create</el-menu-item>
-        <el-menu-item index="2" :route="containRoute">Containers</el-menu-item>
+        <!--<el-menu-item index="2" :route="containRoute">Containers</el-menu-item>-->
       </el-menu>
     </el-col>
     <el-col :span="5" :offset="4" v-if="isLogin">

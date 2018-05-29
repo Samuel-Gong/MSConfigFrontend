@@ -10,11 +10,11 @@
                   <el-col :span="10">
                     <h2>Deploy Overview</h2>
                   </el-col>
-                  <el-col :span="4" :offset="16">
-                    <el-button type="primary" size="medium" @click="deploy">
-                      部署
-                    </el-button>
-                  </el-col>
+                  <!--<el-col :span="4" :offset="16">-->
+                    <!--<el-button type="primary" size="medium" @click="deploy">-->
+                      <!--部署-->
+                    <!--</el-button>-->
+                  <!--</el-col>-->
                 </div>
               </el-col>
             </el-row>
@@ -83,7 +83,7 @@
               </template>
             </el-table-column>
             <el-table-column
-              label="Folder Name"
+              label="Port"
               width="500">
               <template slot-scope="scope">
                 <span>{{ scope.row.port }}</span>
