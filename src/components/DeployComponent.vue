@@ -123,12 +123,11 @@
         // this.$router.push('/container');
       }
     },
-    mounted() {
-      this.$axios
+    mounted() {      this.$axios
         .get("http://localhost:8000/general/showAllServiceInfo")
         .then(response => {
           console.log(response);
-          // this.servicesInfo = response.data;
+          this.servicesInfo = response.data;
         });
     }
   }

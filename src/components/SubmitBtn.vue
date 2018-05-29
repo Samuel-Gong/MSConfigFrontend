@@ -5,6 +5,7 @@
 <script>
 
   import axios from 'axios'
+  import api from '../api'
 
   import {mapState} from 'vuex'
 
@@ -40,6 +41,7 @@
           }
 
           // 上传文件
+          // api.upload(formData);
           axios.post('http://localhost:8000/general/uploadFolder', formData)
             .then(function (response) {
               alert(response.data);
@@ -126,6 +128,8 @@
 
         console.log(JSON.stringify(general));
 
+        // add
+        // api.add(general);
         this.$axios.post('http://localhost:8000/general/add', general)
           .then(function (response) {
             console.log("add 成功");
