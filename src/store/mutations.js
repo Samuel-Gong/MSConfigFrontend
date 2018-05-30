@@ -8,6 +8,7 @@ export const LOGOUT = 'LOGOUT'
 // steps
 export const STEPS_INCRE = 'STEPS_INCRE'
 export const STEPS_DECRE = 'STEPS_DECRE'
+export const STEPS_SET = 'STEPS_SET'
 
 // services
 export const SERVICE_ADD = 'SERVICE_ADD'

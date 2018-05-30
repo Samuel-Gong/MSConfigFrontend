@@ -29,6 +29,8 @@ import MysqlComponent from '@/components/mysql/MysqlComponent'
 
 import ConfigResults from '@/components/ConfigResults'
 import ContainerComponent from '@/components/ContainerComponent'
+import store from "../store";
+import {STEPS_SET} from "../store/mutations";
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -53,47 +55,92 @@ const routes = [
       {
         path: '1',
         name: 'Step 1',
-        component: AddBusinessCode
+        component: AddBusinessCode,
+        beforeEnter: (to, from, next) => {
+          console.log("active step: " + 0);
+          store.commit(STEPS_SET, 0);
+          next();
+        },
       },
       {
         path: '2',
         name: 'Step 2',
-        component: EurekaServer
+        component: EurekaServer,
+        beforeEnter: (to, from, next) => {
+          console.log("active step: " + 1);
+          store.commit(STEPS_SET, 1);
+          next();
+        },
       },
       {
         path: '3',
         name: 'Step 3',
-        component: EurekaClient
+        component: EurekaClient,
+        beforeEnter: (to, from, next) => {
+          console.log("active step: " + 2);
+          store.commit(STEPS_SET, 2);
+          next();
+        },
       },
       {
         path: '4',
         name: 'Step 4',
-        component: RibbonComponent
+        component: RibbonComponent,
+        beforeEnter: (to, from, next) => {
+          console.log("active step: " + 3);
+          store.commit(STEPS_SET, 3);
+          next();
+        },
       },
       {
         path: '5',
         name: 'Step 5',
-        component: HystrixComponent
+        component: HystrixComponent,
+        beforeEnter: (to, from, next) => {
+          console.log("active step: " + 4);
+          store.commit(STEPS_SET, 4);
+          next();
+        },
       },
       {
         path: '6',
         name: 'Step 6',
-        component: ZuulComponent
+        component: ZuulComponent,
+        beforeEnter: (to, from, next) => {
+          console.log("active step: " + 5);
+          store.commit(STEPS_SET, 5);
+          next();
+        },
       },
       {
         path: '7',
         name: 'Step 7',
-        component: Config
+        component: Config,
+        beforeEnter: (to, from, next) => {
+          console.log("active step: " + 6);
+          store.commit(STEPS_SET, 6);
+          next();
+        },
       },
       {
         path: '8',
         name: 'Step 8',
-        component: MysqlComponent
+        component: MysqlComponent,
+        beforeEnter: (to, from, next) => {
+          console.log("active step: " + 7);
+          store.commit(STEPS_SET, 7);
+          next();
+        },
       },
       {
         path: '9',
         name: 'Step 9',
-        component: ConfigResults
+        component: ConfigResults,
+        beforeEnter: (to, from, next) => {
+          console.log("active step: " + 8);
+          store.commit(STEPS_SET, 8);
+          next();
+        },
       }
     ]
   }

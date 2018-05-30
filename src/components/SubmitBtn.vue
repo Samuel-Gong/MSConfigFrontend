@@ -24,12 +24,12 @@
       ])
     },
     methods: {
-      submit(event) {
+      async submit(event) {
 
         event.preventDefault();//取消默认行为
 
         // 上传文件
-        this.services.forEach(function (service) {
+        let uploadPromises = this.services.map(async function (service) {
 
           // 创建formData对象
           let formData = new FormData();
@@ -44,14 +44,7 @@
 
           // 上传文件
           // api.upload(formData);
-          axios.post('http://localhost:8000/general/uploadFolder', formData)
-            .then(function (response) {
-              alert(response.data);
-            })
-            .catch(function (error) {
-              alert("上传失败");
-              console.log(error);
-            });
+          return axios.post('http://localhost:8000/general/uploadFolder', formData);
         });
 
         // 服务名称，配置map
@@ -130,18 +123,19 @@
 
         console.log(JSON.stringify(general));
 
+        let _this = this;
+
+        // upload
+        await this.$axios.all(uploadPromises)
+          .then(() => alert("Upload Success"));
+
         // add
-        // api.add(general);
-        this.$axios.post('http://localhost:8000/general/add', general)
-          .then(function (response) {
-            console.log("add success");
-          })
-          .catch(function (error) {
-            console.log(error);
+        await axios.post('http://localhost:8000/general/add', general)
+          .then(() => {
+            alert("Add Success");
           });
 
         alert("Submit Success");
-
         // 跳转第9步
         this.$store.commit(STEPS_INCRE);
         this.$router.push(
