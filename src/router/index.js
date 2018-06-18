@@ -5,22 +5,25 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import LoginComponent from '../page/LoginComponent'
-import ConfigComponent from '../page/config/ConfigComponent'
+import LoginComponent from '../page/loginPage/index'
+import ConfigComponent from '../page/config/index'
 
 // 1. 定义（路由）组件。
 // 也可以从其他文件 import 进来
-import AddBusinessCode from '../page/config/addService/AddBusinessCode'
-import Config from '../page/config/serviceConfig/ServiceConfig'
+import AddBusinessCode from '../page/config/addService/index'
+import GitFetch from '../page/config/addService/git/index'
+import ManualUpload from '../page/config/addService/manual/index'
+
+import Config from '../page/config/serviceConfig/index'
 
 // 5个微服务组件
-import EurekaServer from '../page/config/eurekaServer/EurekaServer'
-import EurekaClient from '../page/config/eurekaClient/EurekaClient'
-import RibbonComponent from '../page/config/ribbon/RibbonComponent'
-import HystrixComponent from '../page/config/hystrix/HystrixComponent'
-import ZuulComponent from '../page/config/zuul/ZuulComponent'
+import EurekaServer from '../page/config/eurekaServer/index'
+import EurekaClient from '../page/config/eurekaClient/index'
+import RibbonComponent from '../page/config/ribbon/index'
+import HystrixComponent from '../page/config/hystrix/index'
+import ZuulComponent from '../page/config/zuul/index'
 
-import ConfigResults from '../page/config/configResults/ConfigResults'
+import ConfigResults from '../page/config/configResults/index'
 
 import store from "../../src/store";
 import {STEPS_SET} from "../../src/store/mutations";
@@ -41,14 +44,27 @@ const routes = [
     component: LoginComponent
   },
   {
-    path: '/serviceConfig',
+    path: '/config',
     name: 'Config',
     component: ConfigComponent,
     children: [
       {
         path: '1',
         name: 'Step 1',
+        redirect: '1/git',
         component: AddBusinessCode,
+        children: [
+          {
+            path: 'git',
+            name: 'GitUpload',
+            component: GitFetch
+          },
+          {
+            path: 'manual',
+            name: 'ManualUpload',
+            component: ManualUpload
+          }
+        ],
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 0);
           store.commit(STEPS_SET, 0);

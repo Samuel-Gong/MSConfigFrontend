@@ -5,7 +5,6 @@
 <script>
 
   import axios from 'axios'
-  import api from '../../api/index'
 
   import {mapState} from 'vuex'
   import {STEPS_INCRE} from "../../store/mutations";
@@ -44,7 +43,7 @@
 
           // 上传文件
           // api.upload(formData);
-          return axios.post('http://localhost:8000/general/uploadFolder', formData);
+          return axios.post('/general/uploadFolder', formData);
         });
 
         // 服务名称，配置map
@@ -123,14 +122,12 @@
 
         console.log(JSON.stringify(general));
 
-        let _this = this;
-
         // upload
         await this.$axios.all(uploadPromises)
           .then(() => alert("Upload Success"));
 
         // add
-        await axios.post('http://localhost:8000/general/add', general)
+        await axios.post('/general/add', general)
           .then(() => {
             alert("Add Success");
           });

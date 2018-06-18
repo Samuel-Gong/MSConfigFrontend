@@ -1,11 +1,5 @@
 <template>
   <div>
-    <el-col>
-      <div>
-        <h2>Add Service</h2>
-      </div>
-      <hr/>
-    </el-col>
     <el-table
       :data="services"
     >
@@ -65,11 +59,11 @@
 </template>
 
 <script>
-
   import {mapState, mapMutations} from 'vuex'
-  import {SERVICE_ADD, SERVICE_DELETE} from "../../../store/mutations";
+  import {SERVICE_ADD, SERVICE_DELETE} from "../../../../store/mutations";
 
   export default {
+    name: "index",
     data() {
       return {
         // 表示当前是否正在增加服务
@@ -140,3 +134,7 @@
     }
   }
 </script>
+
+<style scoped>
+
+</style>

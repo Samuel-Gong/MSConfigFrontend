@@ -2,7 +2,6 @@ import Vue from 'vue'
 // 完整引入Element
 import Element from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
-import axios from 'axios'
 import App from './App'
 import NormailizeCss from 'normalize.css'
 import 'es6-promise/auto'
@@ -14,10 +13,14 @@ import uploader from 'vue-simple-uploader'
 // 路由
 import router from './router'
 
+
+// axios
+import axios from 'axios'
+axios.defaults.baseURL = 'http://localhost:8000/'
+Vue.prototype.$axios = axios
+
 // store
 import store from './store'
-
-Vue.prototype.$axios = axios
 Vue.prototype.$store = store
 
 Vue.config.productionTip = false;
