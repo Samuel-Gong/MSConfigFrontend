@@ -3,6 +3,8 @@ import Vue from 'vue'
 // 0. 使用模块化机制编程，导入Vue和Vuex，要调用 Vue.use(VueRouter)
 import Vuex from 'vuex'
 
+import axios from 'axios'
+
 import {LOGIN, LOGOUT, STEPS_SET} from './mutations'
 import {STEPS_DECRE, STEPS_INCRE} from './mutations'
 import {SERVICE_ADD, SERVICE_DELETE} from "./mutations"
@@ -10,6 +12,8 @@ import {RIBBON_ADD, RIBBON_DELETE} from "./mutations";
 import {COMPOSE_SERVICE_ADD, COMPOSE_SERVICE_DELETE} from "./mutations";
 
 Vue.use(Vuex)
+
+const qs = require('qs')
 
 const store = new Vuex.Store({
 
@@ -27,6 +31,11 @@ const store = new Vuex.Store({
 
     // 所有服务，服务名称及本机地址
     services: [],
+    // 是否从Git上拉取服务
+    fromGit: true,
+    // 是否将生成的服务push到git
+    toGit: true,
+
     // 保存被选择的微服务组件
     componentCheck: {
       checkedEurekaServer: true,
@@ -81,10 +90,42 @@ const store = new Vuex.Store({
     },
 
     [SERVICE_ADD](state, service) {
-      state.services.push(service);
+      let newService =
+        {
+          serviceName: service.serviceName,
+
+          // folder
+          folderName: service.folderName,
+          folder: service.folder,
+
+          // serviceConfig
+          config: {
+            "spring.application.name": "",
+            "server.port": "",
+            "eureka.client.serviceUrl.defaultZone": "",
+            "eureka.instance.prefer-ip-address": "",
+          },
+          addedConfigs: [],
+
+          // mysql
+          mysqlInfo: {
+            projectName: "",
+            database: "",
+            user: "",
+            password: "",
+            tables: [],
+          }
+        };
+      state.services.push(newService);
     },
     [SERVICE_DELETE](state, index) {
       state.services.splice(index, 1);
+    },
+    switchFromGit(state, status) {
+      state.fromGit = status
+    },
+    switchToGit(state, status) {
+      state.toGit = status
     },
 
     [RIBBON_ADD](state, providerName) {
@@ -93,7 +134,6 @@ const store = new Vuex.Store({
     [RIBBON_DELETE](state, index) {
       state.ribbon.providers.splice(index, 1);
     },
-
 
     // compose
     [COMPOSE_SERVICE_ADD](state, service) {
@@ -106,7 +146,32 @@ const store = new Vuex.Store({
   // 定义提交触发更改信息的描述，常见的例子是从服务端获取数据
   // Action 提交的是 mutation，而不是直接变更状态。
   // Action 可以包含任意异步操作。
-  actions: {},
+  actions: {
+    // 拉取服务
+    pullFromGit({state, commit}, gitPath) {
+      axios({
+        url: '/git/clone',
+        method: 'post',
+        data: qs.stringify({"gitPath": gitPath}),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(function (response) {
+          console.log(response.data);
+          response.data.forEach(function (service) {
+            commit(SERVICE_ADD, {
+              serviceName: service.serviceName,
+              folderName: service.folderName,
+              folder: []
+            })
+          })
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+  },
   // 允许将单一的 Store 拆分为多个 Store 的同时保存在单一的状态树中。随着应用复杂度的增加，这种拆分能够更好地组织代码
   modules: {}
 })

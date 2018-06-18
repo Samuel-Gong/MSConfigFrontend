@@ -13,6 +13,7 @@
     name: "SubmitBtn",
     computed: {
       ...mapState([
+        'fromGit',
         'stepsActive',
         'services',
         'componentCheck',
@@ -23,28 +24,36 @@
       ])
     },
     methods: {
+
       async submit(event) {
 
         event.preventDefault();//取消默认行为
 
-        // 上传文件
-        let uploadPromises = this.services.map(async function (service) {
-
-          // 创建formData对象
-          let formData = new FormData();
-          console.log(service.folder);
-
-          let fileNum = service.folder.length;
-          for (let i = 0; i < fileNum; i++) {
-            let str = i.toString();
-            let file = service.folder[str];
-            formData.append("folder", file);
-          }
-
+        // 手动上传
+        if(!this.fromGit) {
           // 上传文件
-          // api.upload(formData);
-          return axios.post('/general/uploadFolder', formData);
-        });
+          let uploadPromises = this.services.map(async function (service) {
+
+            // 创建formData对象
+            let formData = new FormData();
+            console.log(service.folder);
+
+            let fileNum = service.folder.length;
+            for (let i = 0; i < fileNum; i++) {
+              let str = i.toString();
+              let file = service.folder[str];
+              formData.append("folder", file);
+            }
+
+            // 上传文件
+            // api.upload(formData);
+            return axios.post('/general/uploadFolder', formData);
+          });
+
+          // upload
+          await this.$axios.all(uploadPromises)
+            .then(() => alert("Upload Success"));
+        }
 
         // 服务名称，配置map
         let configurationList = [];
@@ -121,10 +130,6 @@
         };
 
         console.log(JSON.stringify(general));
-
-        // upload
-        await this.$axios.all(uploadPromises)
-          .then(() => alert("Upload Success"));
 
         // add
         await axios.post('/general/add', general)

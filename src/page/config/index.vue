@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-aside width="550px">
+    <el-aside width="450px" style="margin-left: 36px;">
       <steps-bar/>
     </el-aside>
     <el-container>

@@ -37,16 +37,20 @@
       </el-table>
     </el-main>
     <el-footer>
-      <el-row>
-        <el-form v-if="this.toGit" ref="form" :model="form" label-width="100px">
-          <el-form-item label="User Name">
-            <el-input v-model="form.username"></el-input>
-          </el-form-item>
-          <el-form-item label="Password">
-            <el-input v-model="form.password"></el-input>
-          </el-form-item>
-          <el-col :push="21">
-            <el-button type="primary" size="medium" @click="push" class="btn" >Push</el-button>
+      <el-row type="flex" justify="space-between" align="middle">
+        <el-form v-if="this.toGit" ref="form" :model="form" label-width="90px" style="width: 100%">
+          <el-col :span="10">
+            <el-form-item label="User Name">
+              <el-input v-model="form.username"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="10">
+            <el-form-item label="Password">
+              <el-input v-model="form.password"></el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="3" :offset="1">
+            <el-button type="primary" size="medium" @click="push" class="btn">Push</el-button>
           </el-col>
         </el-form>
         <el-col v-if="!this.toGit" :push="20">
@@ -68,24 +72,46 @@
     data() {
       return {
         servicesInfo: [],
-        toGit: true,
         form: {
           username: "",
           password: ""
         }
       }
     },
-    computed: {},
+    computed: {
+      toGit: {
+        get() {
+          return this.$store.state.toGit
+        },
+        set(value) {
+          this.$store.commit('switchToGit', value)
+        }
+      }
+    },
     methods: {
       download() {
-
         this.$axios.get("/download")
           .then(() => {
             console.log("Download Success");
           });
       },
-      push () {
-        // todo 上传到git
+      push() {
+        console.log(this.$qs.stringify(this.form));
+        this.$axios({
+          url: '/git/push',
+          method: 'post',
+          data: this.$qs.stringify(this.form),
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        })
+          .then(function (response) {
+            console.log(response);
+            alert("Push Success");
+          })
+          .catch(function (error) {
+            console.log(error);
+          })
       }
     },
     mounted() {
@@ -99,19 +125,6 @@
   }
 </script>
 
-<style>
-
-  .service-item {
-    display: -webkit-flex; /* Safari */
-    display: flex;
-    /*主轴对齐方式*/
-    justify-content: space-between;
-    /*纵轴对齐方式*/
-    align-items: center
-  }
-
-  .btn {
-    background: #000;
-    border-color: black;
-  }
+<style scoped>
+  @import "../common.css";
 </style>

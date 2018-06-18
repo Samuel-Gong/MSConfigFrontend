@@ -11,8 +11,6 @@ import ConfigComponent from '../page/config/index'
 // 1. 定义（路由）组件。
 // 也可以从其他文件 import 进来
 import AddBusinessCode from '../page/config/addService/index'
-import GitFetch from '../page/config/addService/git/index'
-import ManualUpload from '../page/config/addService/manual/index'
 
 import Config from '../page/config/serviceConfig/index'
 
@@ -51,20 +49,7 @@ const routes = [
       {
         path: '1',
         name: 'Step 1',
-        redirect: '1/git',
         component: AddBusinessCode,
-        children: [
-          {
-            path: 'git',
-            name: 'GitUpload',
-            component: GitFetch
-          },
-          {
-            path: 'manual',
-            name: 'ManualUpload',
-            component: ManualUpload
-          }
-        ],
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 0);
           store.commit(STEPS_SET, 0);

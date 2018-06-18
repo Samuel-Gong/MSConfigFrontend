@@ -1,13 +1,17 @@
 <template>
-  <el-row class="component-wrapper">
-    <el-col>
-      <div class="service-item">
-        <h2>Eureka Client</h2>
-        <el-checkbox checked disabled>Required</el-checkbox>
-      </div>
+  <el-container>
+    <el-header>
+      <el-row type="flex" justify="space-between" align="middle">
+        <el-col :span="8">
+          <h2>Eureka Client</h2>
+        </el-col>
+        <el-col :span="5">
+          <el-checkbox checked disabled>Required</el-checkbox>
+        </el-col>
+      </el-row>
       <hr/>
-    </el-col>
-  </el-row>
+    </el-header>
+  </el-container>
 </template>
 
 <script>

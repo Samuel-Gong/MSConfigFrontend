@@ -7,12 +7,12 @@ import NormailizeCss from 'normalize.css'
 import 'es6-promise/auto'
 import locale from 'element-ui/lib/locale/lang/en'
 
-// 文件夹上传
-import uploader from 'vue-simple-uploader'
-
 // 路由
 import router from './router'
 
+// qs
+import qs from 'qs'
+Vue.prototype.$qs = qs
 
 // axios
 import axios from 'axios'
@@ -27,8 +27,6 @@ Vue.config.productionTip = false;
 
 // 配置组件默认尺寸均为small，语言为英文
 Vue.use(Element, {size: 'small', locale});
-
-Vue.use(uploader)
 
 /* eslint-disable no-new */
 // 创建根实例
