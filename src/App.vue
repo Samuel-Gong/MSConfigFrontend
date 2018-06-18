@@ -11,7 +11,7 @@
 
 <script>
 
-  import MyHeader from './components/MyHeader'
+  import MyHeader from './components/config/MyHeader'
 
   export default {
     // 组件名称

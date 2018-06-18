@@ -67,7 +67,7 @@
 <script>
 
   import {mapState, mapMutations} from 'vuex'
-  import {SERVICE_ADD, SERVICE_DELETE} from "../store/mutations";
+  import {SERVICE_ADD, SERVICE_DELETE} from "../../../store/mutations";
 
   export default {
     data() {
@@ -99,7 +99,7 @@
             folderName: this.folderName,
             folder: this.folder,
 
-            // config
+            // serviceConfig
             config: {
               "spring.application.name": "",
               "server.port": "",

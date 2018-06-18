@@ -25,7 +25,7 @@
 <script>
 
   import {mapState} from 'vuex'
-  import {LOGOUT} from "../store/mutations";
+  import {LOGOUT} from "../../store/mutations";
 
   export default {
     name: "MyHeader",

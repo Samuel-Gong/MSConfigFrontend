@@ -48,68 +48,17 @@
     name: "DeployComponent",
     data() {
       return {
-        servicesInfo: [
-          // {
-          //   serviceName: "account",
-          //   port: 8010
-          // },
-          // {
-          //   serviceName: "bff",
-          //   port: 8020
-          // },
-          // {
-          //   serviceName: "category",
-          //   port: 8030
-          // },
-          // {
-          //   serviceName: "order",
-          //   port: 8040
-          // },
-          // {
-          //   serviceName: "pet",
-          //   port: 8050
-          // },
-          // {
-          //   serviceName: "PetStoreServer",
-          //   port: 8080
-          // },
-          // {
-          //   serviceName: "PetStoreZuul",
-          //   port: 8080
-          // },
-          // {
-          //   serviceName: "account_db",
-          //   port: ''
-          // },
-          // {
-          //   serviceName: "bff_db",
-          //   port: ''
-          // },
-          // {
-          //   serviceName: "category_db",
-          //   port: ''
-          // },
-          // {
-          //   serviceName: "order_db",
-          //   port: ''
-          // },
-          // {
-          //   serviceName: "pet_db",
-          //   port: ''
-          // },
-        ]
+        servicesInfo: []
       }
     },
     computed: {},
     methods: {
       download() {
 
-        // this.$axios
-        //   .post("http://localhost:8000/deploy/deploy", this.deployServer);
-
-        alert("Download Success");
-
-        // this.$router.push('/container');
+        this.$axios.get("http://localhost:8000/download")
+          .then(() => {
+            console.log("Download Success");
+          });
       }
     },
     mounted() {

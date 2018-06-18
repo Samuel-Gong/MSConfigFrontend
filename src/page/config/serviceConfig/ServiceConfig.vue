@@ -25,7 +25,7 @@
 
   import {mapState} from 'vuex'
 
-  import ConfigItem from './ConfigItem'
+  import ConfigItem from '../../../components/serviceConfig/ConfigItem'
 
   export default {
     name: "Config",

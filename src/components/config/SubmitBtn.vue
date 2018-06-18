@@ -5,10 +5,10 @@
 <script>
 
   import axios from 'axios'
-  import api from '../api'
+  import api from '../../api/index'
 
   import {mapState} from 'vuex'
-  import {STEPS_INCRE} from "../store/mutations";
+  import {STEPS_INCRE} from "../../store/mutations";
 
   export default {
     name: "SubmitBtn",
@@ -86,7 +86,7 @@
             // folder
             folderName: service.folderName,
 
-            // config
+            // serviceConfig
             config: configurationList[index],
 
             // mysql

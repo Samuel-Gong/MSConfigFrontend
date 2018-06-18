@@ -5,32 +5,25 @@ import Router from 'vue-router'
 
 Vue.use(Router)
 
-import LoginComponent from '@/components/LoginComponent'
-import ConfigComponent from '@/components/ConfigComponent'
+import LoginComponent from '../page/LoginComponent'
+import ConfigComponent from '../page/config/ConfigComponent'
 
 // 1. 定义（路由）组件。
 // 也可以从其他文件 import 进来
-import AddBusinessCode from '@/components/AddBusinessCode'
-import Config from '@/components/config/Config'
+import AddBusinessCode from '../page/config/addService/AddBusinessCode'
+import Config from '../page/config/serviceConfig/ServiceConfig'
 
 // 5个微服务组件
-import EurekaServer from '@/components/microservic_components/EurekaServer'
-import EurekaClient from '@/components/microservic_components/EurekaClient'
-import RibbonComponent from '@/components/microservic_components/RibbonComponent'
-import HystrixComponent from '@/components/microservic_components/HystrixComponent'
-import ZuulComponent from '@/components/microservic_components/ZuulComponent'
+import EurekaServer from '../page/config/eurekaServer/EurekaServer'
+import EurekaClient from '../page/config/eurekaClient/EurekaClient'
+import RibbonComponent from '../page/config/ribbon/RibbonComponent'
+import HystrixComponent from '../page/config/hystrix/HystrixComponent'
+import ZuulComponent from '../page/config/zuul/ZuulComponent'
 
-// docker compose
-import ComposeComponent from '@/components/ComposeComponent'
+import ConfigResults from '../page/config/configResults/ConfigResults'
 
-
-// mysql
-import MysqlComponent from '@/components/mysql/MysqlComponent'
-
-import ConfigResults from '@/components/ConfigResults'
-import ContainerComponent from '@/components/ContainerComponent'
-import store from "../store";
-import {STEPS_SET} from "../store/mutations";
+import store from "../../src/store";
+import {STEPS_SET} from "../../src/store/mutations";
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -48,7 +41,7 @@ const routes = [
     component: LoginComponent
   },
   {
-    path: '/config',
+    path: '/serviceConfig',
     name: 'Config',
     component: ConfigComponent,
     children: [
@@ -125,20 +118,10 @@ const routes = [
       {
         path: '8',
         name: 'Step 8',
-        component: MysqlComponent,
+        component: ConfigResults,
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 7);
           store.commit(STEPS_SET, 7);
-          next();
-        },
-      },
-      {
-        path: '9',
-        name: 'Step 9',
-        component: ConfigResults,
-        beforeEnter: (to, from, next) => {
-          console.log("active step: " + 8);
-          store.commit(STEPS_SET, 8);
           next();
         },
       }

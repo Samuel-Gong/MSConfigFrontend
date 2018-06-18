@@ -15,12 +15,12 @@
         <!--<el-button type="primary" @click="promise">Promise Test</el-button>-->
         <el-row>
           <el-col :span="4" :offset="19" v-if="active === 0">
-            <next-step-btn v-if="active < 8"/>
+            <next-step-btn v-if="active < 7"/>
           </el-col>
           <el-col :span="6" :offset="18" v-if="active !== 0">
-            <pre-step-btn v-if="active > 0 && active < 8"/>
-            <next-step-btn v-if="active < 7"/>
-            <submit-btn v-if="active === 7"/>
+            <pre-step-btn v-if="active > 0 && active < 7"/>
+            <next-step-btn v-if="active < 6"/>
+            <submit-btn v-if="active === 6"/>
           </el-col>
         </el-row>
       </el-footer>
@@ -30,12 +30,12 @@
 
 <script>
 
-  import StepsBar from './StepsBar'
+  import StepsBar from '../../components/config/StepsBar'
 
   // footer的三个btn
-  import PreStepBtn from './PreStepBtn'
-  import NextStepBtn from './NextStepBtn'
-  import SubmitBtn from './SubmitBtn'
+  import PreStepBtn from '../../components/config/PreStepBtn'
+  import NextStepBtn from '../../components/config/NextStepBtn'
+  import SubmitBtn from '../../components/config/SubmitBtn'
 
   // vuex
   import {mapState} from 'vuex'
