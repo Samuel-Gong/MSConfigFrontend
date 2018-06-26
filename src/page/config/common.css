@@ -3,11 +3,6 @@
   border-color: black;
 }
 
-.service-item {
-  display: -webkit-flex; /* Safari */
-  display: flex;
-  /*主轴对齐方式*/
-  justify-content: space-between;
-  /*纵轴对齐方式*/
-  align-items: center
+.component-header {
+  padding: 0;
 }

@@ -1,13 +1,13 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header class="component-header">
       <el-row type="flex" justify="space-between" align="middle">
         <el-col :span="10">
           <div>
             <h2>Add Service</h2>
           </div>
         </el-col>
-        <el-col :span="5">
+        <el-col :span="3">
           <el-switch
             v-model="fromGit"
             active-text="Git"
@@ -24,14 +24,14 @@
       >
         <el-table-column
           label="Service Name"
-          width="300">
+          width="450">
           <template slot-scope="scope">
             <span>{{ scope.row.serviceName }}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="Folder Name"
-          width="300">
+          width="450">
           <template slot-scope="scope">
             <span>{{ scope.row.folderName }}</span>
           </template>
@@ -48,12 +48,12 @@
       </el-table>
       <el-form v-if="this.fromGit" ref="start" label-width="80px" style="width: 100%">
         <el-row type="flex" justify="space-between" align="top">
-          <el-col :span="17" :offset="5">
+          <el-col :span="18">
             <el-form-item label="Git Path">
               <el-input v-model="gitPath"></el-input>
             </el-form-item>
           </el-col>
-          <el-col :span="2" :offset="2">
+          <el-col :span="4" :offset="2">
             <el-button @click="pullService">Pull</el-button>
           </el-col>
         </el-row>
@@ -82,7 +82,7 @@
             </el-col>
           </el-row>
           <el-row v-if="!isAddService">
-            <el-col :span="2" :offset="22">
+            <el-col :span="1" :offset="23">
               <el-button size="small" @click="isAddService = true">Add</el-button>
             </el-col>
           </el-row>

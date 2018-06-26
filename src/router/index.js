@@ -12,8 +12,6 @@ import ConfigComponent from '../page/config/index'
 // 也可以从其他文件 import 进来
 import AddBusinessCode from '../page/config/addService/index'
 
-import Config from '../page/config/serviceConfig/index'
-
 // 5个微服务组件
 import EurekaServer from '../page/config/eurekaServer/index'
 import EurekaClient from '../page/config/eurekaClient/index'
@@ -109,20 +107,10 @@ const routes = [
       {
         path: '7',
         name: 'Step 7',
-        component: Config,
+        component: ConfigResults,
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 6);
           store.commit(STEPS_SET, 6);
-          next();
-        },
-      },
-      {
-        path: '8',
-        name: 'Step 8',
-        component: ConfigResults,
-        beforeEnter: (to, from, next) => {
-          console.log("active step: " + 7);
-          store.commit(STEPS_SET, 7);
           next();
         },
       }

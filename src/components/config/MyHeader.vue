@@ -1,9 +1,9 @@
 <template>
   <el-row>
-    <el-col :span="2" :offset="3">
+    <el-col :span="2" :offset="2">
       <span style="font-size: 25px">MSConfig</span>
     </el-col>
-    <el-col :span="9" :offset="1" v-if="isLogin">
+    <el-col :span="9" :offset="2" v-if="isLogin">
       <el-menu
         :default-active="activeIndex"
         mode="horizontal"

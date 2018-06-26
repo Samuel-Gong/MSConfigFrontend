@@ -1,6 +1,6 @@
 <template>
   <el-container>
-    <el-header>
+    <el-header class="component-header">
       <el-row type="flex" justify="space-between" align="middle">
         <el-col :span="8">
           <h2>Config Results</h2>

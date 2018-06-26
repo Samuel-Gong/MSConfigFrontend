@@ -12,18 +12,28 @@ import router from './router'
 
 // qs
 import qs from 'qs'
+
 Vue.prototype.$qs = qs
 
 // axios
 import axios from 'axios'
+
 axios.defaults.baseURL = 'http://localhost:8000/'
 Vue.prototype.$axios = axios
 
 // store
 import store from './store'
+
 Vue.prototype.$store = store
 
 Vue.config.productionTip = false;
+
+// prism
+import Prism from 'prismjs';
+import './assets/css/prism.css'
+
+// Prism.highlightAll();
+// Vue.use(Prism);
 
 // 配置组件默认尺寸均为small，语言为英文
 Vue.use(Element, {size: 'small', locale});

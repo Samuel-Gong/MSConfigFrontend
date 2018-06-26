@@ -1,30 +1,32 @@
 <template>
   <el-container>
-    <el-aside width="450px" style="margin-left: 36px;">
-      <steps-bar/>
-    </el-aside>
-    <el-container>
-      <el-main>
-        <el-row>
-          <el-col :span="20">
-            <router-view/>
-          </el-col>
-        </el-row>
-      </el-main>
-      <el-footer>
-        <!--<el-button type="primary" @click="promise">Promise Test</el-button>-->
-        <el-row>
-          <el-col :span="4" :offset="19" v-if="active === 0">
-            <next-step-btn v-if="active < 7"/>
-          </el-col>
-          <el-col :span="6" :offset="18" v-if="active !== 0">
-            <pre-step-btn v-if="active > 0 && active < 7"/>
-            <next-step-btn v-if="active < 6"/>
-            <submit-btn v-if="active === 6"/>
-          </el-col>
-        </el-row>
-      </el-footer>
-    </el-container>
+    <el-header style="margin-top: 50px">
+      <el-row>
+        <el-col :span="20" :offset="2">
+          <steps-bar/>
+        </el-col>
+      </el-row>
+    </el-header>
+    <el-main style="margin-top: 50px">
+      <el-row>
+        <el-col :span="20" :offset="2">
+          <router-view/>
+        </el-col>
+      </el-row>
+    </el-main>
+    <el-footer>
+      <!--<el-button type="primary" @click="promise">Promise Test</el-button>-->
+      <el-row>
+        <el-col :span="3" :offset="21" v-if="active === 0">
+          <next-step-btn v-if="active < 6"/>
+        </el-col>
+        <el-col :span="4" :offset="20" v-if="active !== 0">
+          <pre-step-btn v-if="active > 0 && active < 6"/>
+          <next-step-btn v-if="active < 5"/>
+          <submit-btn v-if="active === 5"/>
+        </el-col>
+      </el-row>
+    </el-footer>
   </el-container>
 </template>
 

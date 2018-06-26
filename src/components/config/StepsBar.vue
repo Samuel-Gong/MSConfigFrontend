@@ -1,16 +1,12 @@
 <template>
-  <el-row>
-    <div class="steps-bar">
-      <el-steps direction="vertical" finish-status="success" :active="active">
-        <el-step
-          v-for="(step, index) in stepsData"
-          :title="step.title"
-          :description="step.description"
-          :key=index>
-        </el-step>
-      </el-steps>
-    </div>
-  </el-row>
+  <el-steps finish-status="success" :active="active">
+    <el-step
+      v-for="(step, index) in stepsData"
+      :title="step.title"
+      :description="step.description"
+      :key=index>
+    </el-step>
+  </el-steps>
 </template>
 
 <script>
@@ -49,10 +45,6 @@
           },
           {
             title: "Step 7",
-            description: "Service Config"
-          },
-          {
-            title: "Step 8",
             description: "Config Results"
           }
         ]
@@ -67,9 +59,4 @@
 </script>
 
 <style scoped>
-  .steps-bar {
-    margin-top: 8%;
-    margin-left: 35%;
-    height: 650px;
-  }
 </style>
