@@ -18,7 +18,7 @@
       </el-row>
       <hr/>
     </el-header>
-    <el-main style="margin-top: 5%">
+    <el-main class="component-main">
       <el-table
         :data="services" style="margin-bottom: 5%"
       >

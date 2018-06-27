@@ -13,7 +13,7 @@
       </el-row>
       <hr/>
     </el-header>
-    <el-main>
+    <el-main class="component-main">
       <el-row>
         <el-col :span="12">
           <div style="margin-top: 2%">

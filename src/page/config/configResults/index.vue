@@ -16,7 +16,7 @@
       </el-row>
       <hr/>
     </el-header>
-    <el-main>
+    <el-main class="component-main">
       <el-table
         :data="servicesInfo"
       >
