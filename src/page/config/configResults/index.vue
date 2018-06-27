@@ -60,12 +60,17 @@
         </el-col>
       </el-row>
     </el-footer>
+
+    <div class="charts">
+      <div id="chart" style=" width:100%; height:550px;margin-top: 90px;"></div>
+    </div>
   </el-container>
 </template>
 
 <script>
 
   import {mapState, mapMutations} from 'vuex'
+  import echarts from 'echarts'
 
   export default {
     name: "DeployComponent",
@@ -75,7 +80,7 @@
         form: {
           username: "",
           password: ""
-        }
+        },
       }
     },
     computed: {
@@ -95,6 +100,7 @@
             console.log("Download Success");
           });
       },
+
       push() {
         console.log(this.$qs.stringify(this.form));
         this.$axios({
@@ -112,7 +118,214 @@
           .catch(function (error) {
             console.log(error);
           })
+      },
+
+      drawGraph(id){
+        this.chart=echarts.init(document.getElementById(id));
+        this.chart.showLoading();
+        var that=this
+        this.chart.setOption({
+          title: {
+            text: 'Config Results Relations',
+          },
+          tooltip:{},
+          animationDurationUpdate: 1500,
+          animationEasingUpdate: 'quinticInOut',
+          series : [
+            {
+              type: 'graph',
+              layout: 'none',
+              symbolSize: 50,//图形的大小（示例中的圆的大小）
+              roam: true,//鼠标缩放及平移
+              focusNodeAdjacency:true,//是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点
+              label: {
+                normal: {
+                  show: true ,  //控制非高亮时节点名称是否显示
+                  color: "#666",
+                  position:'top',
+                  fontSize:20
+                }
+              },
+
+              edgeSymbol: ['circle', 'arrow'],
+              edgeSymbolSize: [1, 10],    //箭头的大小
+              edgeLabel: {
+                normal:{
+                  show:false
+                },
+                emphasis: {
+                  textStyle: {
+                    fontSize: 20  //边节点显示的字体大小
+                  }
+                }
+              },
+
+//节点信息
+
+              data:
+                [
+                  {
+                    name:'pet_service',
+                    ip:'8010',
+                    isnode:true,
+                    x:100,
+                    y:300,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+                  },
+                  {
+                    name:'account_service',
+                    ip:'8020',
+                    isnode:true,
+                    x:200,
+                    y:470,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+                  },
+                  {
+                    name:'inventory_service',
+                    ip:'8030',
+                    isnode:true,
+                    x:400,
+                    y:470,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+                  },
+                  {
+                    name:'category_service',
+                    ip:'8050',
+                    isnode:true,
+                    x:500,
+                    y:200,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+                  },
+                  {
+                    name:'order_service',
+                    ip:'8060',
+                    isnode:true,
+                    x:400,
+                    y:130,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+                  },
+                  {
+                    name:'PetStore Zuul',
+                    ip:'8040',
+                    isnode:true,
+                    x:200,
+                    y:130,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/gateway.png?token=ASWG821lKMQImAc5D5lDMkw7Idynzzmfks5bPEGVwA%3D%3D',
+                  },
+                  {
+                    name:'Eureka Server',
+                    ip:'8761',
+                    isnode:true,
+                    x:300,
+                    y:300,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/server.png?token=ASWG8wcb4TQIE2oGwrOh7m2bDdQfek1cks5bPEGMwA%3D%3D',
+                  },
+
+                ],
+
+              links:
+                [
+                  {
+                    source:'pet_service',
+                    target:'Eureka Server',
+                    islink:true,
+                    // isRibbon:true,
+                    name:'链路1',
+                  },
+                  {
+                    source:'account_service',
+                    target:'Eureka Server',
+                    islink:true,
+                    name:'链路2',
+                  },{
+                  source:'inventory_service',
+                  target:'Eureka Server',
+                  islink:true,
+                  name:'链路3',
+                },{
+                  source:'category_service',
+                  target:'Eureka Server',
+                  islink:true,
+                  name:'链路4',
+                },{
+                  source:'order_service',
+                  target:'Eureka Server',
+                  islink:true,
+                  name:'链路5',
+                },{
+                  source:'order_service',
+                  target:'pet_service',
+                  isRibbon:true,
+                  name:'链路6',
+                },{
+                  source:'category_service',
+                  target:'pet_service',
+                  isRibbon: true,
+                  name:'链路7',
+                },{
+                  source:'account_service',
+                  target:'inventory_service',
+                  isRibbon:true,
+                  name:'链路8',
+                },{
+                  source:'category_service',
+                  target:'inventory_service',
+                  isRibbon:true,
+                  name:'链路9',
+                },
+                ],
+              lineStyle: {
+                normal: {
+                  show:true,
+                  color:
+                    {
+                      type: 'linear',
+                      x: 0,
+                      y: 0,
+                      x2: 0,
+                      y2: 1,
+                      colorStops: [
+                        {
+                          offset: 0, color: '#2c2c2c' // 0% 处的颜色
+                        }
+                        ,{
+                          offset: 1, color: '#8a8a8a' // 100% 处的颜色
+                        }],
+                      globalCoord: false // 缺省为 false
+                    },
+
+                  // curveness: 0.2
+
+                },
+                emphasis:{
+                  color:'rgb(43,69,85)',
+                  width:3,
+                  type:'dashed',//虚线
+
+                }
+              },
+
+              tooltip:
+                {
+                  position:'bottom',//悬浮时显示的位置
+                  backgroundColor:'#707070',
+                  textStyle:{fontSize:18,
+
+                  },
+
+                  formatter:function(params){//悬浮提示框显示的内容
+                    if (params.data.islink) {return 'Service Registered';}
+                    if (params.data.isRibbon) {return 'Service Provider';}
+                    else if (params.data.isnode) {return params.data.ip;}
+                  }
+                },//悬浮时的提示框，不设置时是随鼠标移动
+
+            }
+          ]
+        })
+        this.chart.hideLoading()
       }
+
     },
     mounted() {
       this.$axios
@@ -121,6 +334,9 @@
           console.log(response);
           this.servicesInfo = response.data;
         });
+      this.$nextTick(function(){
+        this.drawGraph('chart')
+      })
     }
   }
 </script>
