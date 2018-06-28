@@ -5,7 +5,8 @@
         :services="services"
         :components="components"
         @select="handleSelect"
-      ></preview-tree>
+      >
+      </preview-tree>
     </el-col>
     <el-col :span="18" :offset="1">
       <div v-for="service in services" :key="service.serviceName">
@@ -35,111 +36,10 @@
 
   export default {
     name: "PreviewPanel",
+    props: ['services', 'components'],
     components: {
       'preview-tree': PreviewTree,
       'preview-show': PreviewShow
-    },
-    data() {
-      return {
-        services: [
-          {
-            serviceName: 'account_service',
-            files: [
-              {
-                fileName: 'pom.xml',
-                isShow: false
-              },
-              {
-                fileName: 'AccountApplication.java',
-                isShow: false
-              }
-            ]
-          },
-          {
-            serviceName: 'pet_service',
-            files: [
-              {
-                fileName: 'pom.xml',
-                isShow: false
-              },
-              {
-                fileName: 'PetApplication.java',
-                isShow: false
-              }
-            ]
-          }
-        ],
-        components: [
-          {
-            serviceName: 'eureka_server',
-            files: [
-              {
-                fileName: 'pom.xml',
-                content: "pre.line-numbers {\n" +
-                "\t        position: relative;\n" +
-                "\t        padding-left: 3.8em;\n" +
-                "\t        counter-reset: linenumber;\n" +
-                "        }\n" +
-                "        \n" +
-                "        pre.line-numbers > code {\n" +
-                "\t        position: relative;\n" +
-                "        }",
-                isShow: false
-              },
-              {
-                fileName: 'AccountApplication.java',
-                content: "pre.line-numbers {\n" +
-                "\t        position: relative;\n" +
-                "\t        padding-left: 3.8em;\n" +
-                "\t        counter-reset: linenumber;\n" +
-                "        }\n" +
-                "        \n" +
-                "        pre.line-numbers > code {\n" +
-                "\t        position: relative;\n" +
-                "        }" +
-                "pre.line-numbers {\n" +
-                "\t        position: relative;\n" +
-                "\t        padding-left: 3.8em;\n" +
-                "\t        counter-reset: linenumber;\n" +
-                "        }\n" +
-                "        \n" +
-                "        pre.line-numbers > code {\n" +
-                "\t        position: relative;\n" +
-                "        }" +
-                "pre.line-numbers {\n" +
-                "\t        position: relative;\n" +
-                "\t        padding-left: 3.8em;\n" +
-                "\t        counter-reset: linenumber;\n" +
-                "        }\n" +
-                "        \n" +
-                "        pre.line-numbers > code {\n" +
-                "\t        position: relative;\n" +
-                "        }" +
-                "pre.line-numbers {\n" +
-                "\t        position: relative;\n" +
-                "\t        padding-left: 3.8em;\n" +
-                "\t        counter-reset: linenumber;\n" +
-                "        }\n" +
-                "        \n" +
-                "        pre.line-numbers > code {\n" +
-                "\t        position: relative;\n" +
-                "        }" +
-                "pre.line-numbers {\n" +
-                "\t        position: relative;\n" +
-                "\t        padding-left: 3.8em;\n" +
-                "\t        counter-reset: linenumber;\n" +
-                "        }\n" +
-                "        \n" +
-                "        pre.line-numbers > code {\n" +
-                "\t        position: relative;\n" +
-                "        }" +
-                "",
-                isShow: false
-              }
-            ]
-          }
-        ]
-      }
     },
     methods: {
       handleSelect(key) {

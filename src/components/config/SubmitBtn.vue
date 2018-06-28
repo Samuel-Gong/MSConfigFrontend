@@ -7,7 +7,6 @@
   import axios from 'axios'
 
   import {mapState} from 'vuex'
-  import {STEPS_INCRE} from "../../store/mutations";
 
   export default {
     name: "SubmitBtn",
@@ -19,8 +18,7 @@
         'componentCheck',
         'eurekaServerInfo',
         'ribbon',
-        'zuulInfo',
-        'composeInfo'
+        'zuulInfo'
       ])
     },
     methods: {
@@ -55,35 +53,6 @@
             .then(() => alert("Upload Success"));
         }
 
-        // 服务名称，配置map
-        let configurationList = [];
-
-        this.services.forEach(function (service) {
-
-          let configurationItems = [];
-          for (let key in service.config) {
-            configurationItems.push({
-              itemName: key,
-              value: service.config[key]
-            })
-          }
-
-          // 手工添加的配置装上去
-          service.addedConfigs.forEach(function (addedConfig) {
-            configurationItems.push({
-              itemName: addedConfig.key,
-              value: addedConfig.value
-            });
-          });
-
-          // 装载configs
-          configurationList.push({
-            "projectPath": service.address,
-            "list": configurationItems
-          });
-
-        });
-
         let services = [];
 
         this.services.forEach(function (service, index) {
@@ -92,13 +61,8 @@
             serviceName: service.serviceName,
 
             // folder
-            folderName: service.folderName,
+            folderName: service.folderName
 
-            // serviceConfig
-            config: configurationList[index],
-
-            // mysql
-            mysqlInfo: service.mysqlInfo
           });
 
         });
@@ -120,13 +84,8 @@
 
           // zuul
           "isZuul": this.componentCheck.checkedZuul,
-          "zuulInfo": this.zuulInfo,
+          "zuulInfo": this.zuulInfo
 
-          // docker compose
-          "composeInfo":
-            {
-              serviceList: this.composeInfo
-            }
         };
 
         console.log(JSON.stringify(general));
@@ -139,7 +98,7 @@
 
         alert("Submit Success");
         // 跳转第9步
-        this.$store.commit(STEPS_INCRE);
+        this.$store.commit("increStep");
         this.$router.push(
           {path: `/config/${this.stepsActive + 1}`}
         )

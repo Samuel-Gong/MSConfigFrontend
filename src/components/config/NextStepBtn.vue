@@ -4,7 +4,6 @@
 
 <script>
   import {mapState} from 'vuex'
-  import {STEPS_INCRE} from '@/store/mutations'
 
   export default {
     name: "NextStepBtn",
@@ -16,7 +15,7 @@
     methods: {
       // 下一步
       nextStep() {
-        this.$store.commit(STEPS_INCRE);
+        this.$store.commit("increStep");
         this.$router.push(
           {path: `/config/${this.active + 1}`}
         )

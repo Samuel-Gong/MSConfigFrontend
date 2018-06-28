@@ -22,7 +22,6 @@ import ZuulComponent from '../page/config/zuul/index'
 import ConfigResults from '../page/config/configResults/index'
 
 import store from "../../src/store";
-import {STEPS_SET} from "../../src/store/mutations";
 
 // 2. 定义路由
 // 每个路由应该映射一个组件。 其中"component" 可以是
@@ -50,7 +49,7 @@ const routes = [
         component: AddBusinessCode,
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 0);
-          store.commit(STEPS_SET, 0);
+          store.commit("setStep", 0);
           next();
         },
       },
@@ -60,7 +59,7 @@ const routes = [
         component: EurekaServer,
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 1);
-          store.commit(STEPS_SET, 1);
+          store.commit("setStep", 1);
           next();
         },
       },
@@ -70,7 +69,7 @@ const routes = [
         component: EurekaClient,
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 2);
-          store.commit(STEPS_SET, 2);
+          store.commit("setStep", 2);
           next();
         },
       },
@@ -80,7 +79,7 @@ const routes = [
         component: RibbonComponent,
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 3);
-          store.commit(STEPS_SET, 3);
+          store.commit("setStep", 3);
           next();
         },
       },
@@ -90,7 +89,7 @@ const routes = [
         component: HystrixComponent,
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 4);
-          store.commit(STEPS_SET, 4);
+          store.commit("setStep", 4);
           next();
         },
       },
@@ -100,7 +99,7 @@ const routes = [
         component: ZuulComponent,
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 5);
-          store.commit(STEPS_SET, 5);
+          store.commit("setStep", 5);
           next();
         },
       },
@@ -110,7 +109,7 @@ const routes = [
         component: ConfigResults,
         beforeEnter: (to, from, next) => {
           console.log("active step: " + 6);
-          store.commit(STEPS_SET, 6);
+          store.commit("setStep", 6);
           next();
         },
       }

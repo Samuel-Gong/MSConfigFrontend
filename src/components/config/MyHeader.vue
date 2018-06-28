@@ -25,7 +25,6 @@
 <script>
 
   import {mapState} from 'vuex'
-  import {LOGOUT} from "../../store/mutations";
 
   export default {
     name: "MyHeader",
@@ -43,7 +42,7 @@
         console.log(key, keyPath);
       },
       logout() {
-        this.$store.commit(LOGOUT);
+        this.$store.commit("logout");
         this.$router.push('/login');
       }
     },

@@ -25,8 +25,6 @@
 
 <script>
 
-  import {LOGIN} from "../../store/mutations";
-
   export default {
     name: 'LoginComponent',
     data() {
@@ -50,7 +48,7 @@
       handleLogin() {
         if (this.account.username === 'admin' && this.account.pwd === "admin") {
           alert("Login Success");
-          this.$store.commit(LOGIN);
+          this.$store.commit("login");
           this.$router.push('/config/1');
         }
         else {

@@ -82,7 +82,7 @@
             </el-col>
           </el-row>
           <el-row v-if="!isAddService">
-            <el-col :span="1" :offset="23">
+            <el-col :span="1" :offset="22">
               <el-button size="small" @click="isAddService = true">Add</el-button>
             </el-col>
           </el-row>
@@ -95,7 +95,6 @@
 <script>
 
   import {mapState, mapMutations} from 'vuex'
-  import {SERVICE_ADD, SERVICE_DELETE} from "../../../store/mutations";
 
   export default {
     name: "index",
@@ -142,11 +141,11 @@
             folderName: this.folderName,
             folder: this.folder
           };
-        this.$store.commit(SERVICE_ADD, newService);
+        this.$store.commit("addService", newService);
         this.clearInput();
       },
       deleteService(row, index) {
-        this.$store.commit(SERVICE_DELETE, index);
+        this.$store.commit("deleteService", index);
       },
       clearInput() {
         this.serviceName = "";

@@ -4,7 +4,6 @@
 
 <script>
   import {mapState} from 'vuex'
-  import {STEPS_DECRE} from '@/store/mutations'
 
   export default {
     name: "PreStepBtn",
@@ -16,7 +15,7 @@
     methods: {
       // 上一步
       preStep() {
-        this.$store.commit(STEPS_DECRE);
+        this.$store.commit("decreStep");
         this.$router.push(
           {path: `/config/${this.active + 1}`}
         )

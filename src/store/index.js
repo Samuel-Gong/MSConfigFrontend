@@ -5,12 +5,6 @@ import Vuex from 'vuex'
 
 import axios from 'axios'
 
-import {LOGIN, LOGOUT, STEPS_SET} from './mutations'
-import {STEPS_DECRE, STEPS_INCRE} from './mutations'
-import {SERVICE_ADD, SERVICE_DELETE} from "./mutations"
-import {RIBBON_ADD, RIBBON_DELETE} from "./mutations";
-import {COMPOSE_SERVICE_ADD, COMPOSE_SERVICE_DELETE} from "./mutations";
-
 Vue.use(Vuex)
 
 const qs = require('qs')
@@ -51,7 +45,7 @@ const store = new Vuex.Store({
     },
     // 网关
     ribbon: {
-      consumer: "",
+      consumers: [],
       providers: []
     },
 
@@ -71,54 +65,36 @@ const store = new Vuex.Store({
   // 唯一允许更新应用状态的地方
   mutations: {
 
-    [LOGIN](state) {
+    login(state) {
       state.isLogin = true;
     },
-    [LOGOUT](state) {
+    logout(state) {
       state.isLogin = false;
     },
 
     // 这里怎么使用解构，给payload一个默认值
-    [STEPS_INCRE](state) {
+    increStep(state) {
       state.stepsActive++;
     },
-    [STEPS_DECRE](state) {
+    decreStep(state) {
       state.stepsActive--;
     },
-    [STEPS_SET](state, num) {
+    setStep(state, num) {
       state.stepsActive = num;
     },
 
-    [SERVICE_ADD](state, service) {
+    addService(state, service) {
       let newService =
         {
           serviceName: service.serviceName,
 
           // folder
           folderName: service.folderName,
-          folder: service.folder,
-
-          // serviceConfig
-          config: {
-            "spring.application.name": "",
-            "server.port": "",
-            "eureka.client.serviceUrl.defaultZone": "",
-            "eureka.instance.prefer-ip-address": "",
-          },
-          addedConfigs: [],
-
-          // mysql
-          mysqlInfo: {
-            projectName: "",
-            database: "",
-            user: "",
-            password: "",
-            tables: [],
-          }
+          folder: service.folder
         };
       state.services.push(newService);
     },
-    [SERVICE_DELETE](state, index) {
+    deleteService(state, index) {
       state.services.splice(index, 1);
     },
     switchFromGit(state, status) {
@@ -128,19 +104,18 @@ const store = new Vuex.Store({
       state.toGit = status
     },
 
-    [RIBBON_ADD](state, providerName) {
+    addRibbonProvider(state, providerName) {
       state.ribbon.providers.push(providerName);
     },
-    [RIBBON_DELETE](state, index) {
+    deleteRibbonProvider(state, index) {
       state.ribbon.providers.splice(index, 1);
     },
 
-    // compose
-    [COMPOSE_SERVICE_ADD](state, service) {
-      state.composeInfo.push(service);
+    addRibbonConsumer(state, consumerName) {
+      state.ribbon.consumers.push(consumerName);
     },
-    [COMPOSE_SERVICE_DELETE](state, index) {
-      state.composeInfo.splice(index, 1);
+    deleteRibbonConsumer(state, index) {
+      state.ribbon.consumers.splice(index, 1);
     }
   },
   // 定义提交触发更改信息的描述，常见的例子是从服务端获取数据
@@ -160,7 +135,7 @@ const store = new Vuex.Store({
         .then(function (response) {
           console.log(response.data);
           response.data.forEach(function (service) {
-            commit(SERVICE_ADD, {
+            commit("addService", {
               serviceName: service.serviceName,
               folderName: service.folderName,
               folder: []
