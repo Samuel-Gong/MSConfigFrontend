@@ -36,8 +36,8 @@
         </el-col>
       </el-row>
       <preview-panel
-        :services='services'
-        :components='components'
+        :services='modifiedServices'
+        :components='modifiedComponents'
         v-if="isOverview"
       >
       </preview-panel>
@@ -54,8 +54,8 @@
     name: "EurekaServer",
     data() {
       return {
-        services: [],
-        components: [],
+        modifiedServices: [],
+        modifiedComponents: [],
         isOverview: false
       }
     },
@@ -65,15 +65,16 @@
     computed: {
       ...mapState([
         'eurekaServerInfo',
-        'checkedEurekaServer'
+        'checkedEurekaServer',
       ])
     },
     methods: {
       overview() {
         console.log("overview");
+
         let _this = this;
         this.$axios({
-          url: '/preview/eureka-server',
+          url: '/preview/eurekaServer',
           method: 'post',
           data: this.eurekaServerInfo,
         })
@@ -88,7 +89,7 @@
                 isShow: false
               });
             });
-            _this.components.push({
+            _this.modifiedComponents.push({
               serviceName: response.data.serviceName,
               files: files
             });

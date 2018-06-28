@@ -11,9 +11,6 @@ const qs = require('qs')
 
 const store = new Vuex.Store({
 
-  // 严格模式，对于v-model有限制，故不使用
-  // strict: true,
-
   // 应用状态的数据，各组件的共享数据
   state: {
 
@@ -43,20 +40,18 @@ const store = new Vuex.Store({
       groupId: "",
       artifactId: ""
     },
-    // 网关
-    ribbon: {
-      consumers: [],
-      providers: []
-    },
+
+    // ribbon 的配置
+    ribbonGroup: [],
+
+    // 指定hystrix的服务、Controller及其方法
+    hystrixMethods: [],
 
     // zuul 的配置
     zuulInfo: {
       groupId: "",
       artifactId: ""
-    },
-
-    // compose
-    composeInfo: []
+    }
   },
 
   // store的计算属性，state的一些派生状态
@@ -84,19 +79,12 @@ const store = new Vuex.Store({
     },
 
     addService(state, service) {
-      let newService =
-        {
-          serviceName: service.serviceName,
-
-          // folder
-          folderName: service.folderName,
-          folder: service.folder
-        };
-      state.services.push(newService);
+      state.services.push(service);
     },
     deleteService(state, index) {
       state.services.splice(index, 1);
     },
+
     switchFromGit(state, status) {
       state.fromGit = status
     },
@@ -104,18 +92,24 @@ const store = new Vuex.Store({
       state.toGit = status
     },
 
-    addRibbonProvider(state, providerName) {
-      state.ribbon.providers.push(providerName);
-    },
-    deleteRibbonProvider(state, index) {
-      state.ribbon.providers.splice(index, 1);
-    },
-
     addRibbonConsumer(state, consumerName) {
-      state.ribbon.consumers.push(consumerName);
+      state.ribbonGroup.push(
+        {
+          'consumer': consumerName,
+          'providers': []
+        }
+      );
     },
-    deleteRibbonConsumer(state, index) {
-      state.ribbon.consumers.splice(index, 1);
+    deleteRibbonConsumer(state, consumerName) {
+      let deleteIndex = 0;
+      state.ribbonGroup.some(function (ribbonItem, index) {
+        if (ribbonItem.consumer === consumerName) {
+          deleteIndex = index;
+          return true;
+        }
+      });
+
+      state.ribbonGroup.splice(deleteIndex, 1);
     }
   },
   // 定义提交触发更改信息的描述，常见的例子是从服务端获取数据
@@ -124,27 +118,7 @@ const store = new Vuex.Store({
   actions: {
     // 拉取服务
     pullFromGit({state, commit}, gitPath) {
-      axios({
-        url: '/git/clone',
-        method: 'post',
-        data: qs.stringify({"gitPath": gitPath}),
-        headers: {
-          'Content-Type': 'application/x-www-form-urlencoded'
-        }
-      })
-        .then(function (response) {
-          console.log(response.data);
-          response.data.forEach(function (service) {
-            commit("addService", {
-              serviceName: service.serviceName,
-              folderName: service.folderName,
-              folder: []
-            })
-          })
-        })
-        .catch(function (error) {
-          console.log(error)
-        })
+
     },
   },
   // 允许将单一的 Store 拆分为多个 Store 的同时保存在单一的状态树中。随着应用复杂度的增加，这种拆分能够更好地组织代码

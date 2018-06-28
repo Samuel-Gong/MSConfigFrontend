@@ -18,7 +18,7 @@
     </el-header>
     <el-main class="component-main">
       <el-row type="flex" justify="start" align="middle">
-        <el-col :span="2">GroupId:</el-col>
+        <el-col :span="2" :offset="5">GroupId:</el-col>
         <el-col :span="5">
           <el-input
             placeholder="groupId"
@@ -27,7 +27,7 @@
           >
           </el-input>
         </el-col>
-        <el-col :span="2" :offset="4">ArtifactId:</el-col>
+        <el-col :span="2" :offset="3">ArtifactId:</el-col>
         <el-col :span="5">
           <el-input
             placeholder="artifactId"

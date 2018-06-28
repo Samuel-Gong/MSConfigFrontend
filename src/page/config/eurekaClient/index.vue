@@ -16,8 +16,8 @@
     </el-header>
     <el-main>
       <preview-panel
-        :services='services'
-        :components='components'
+        :services='modifiedServices'
+        :components='modifiedComponents'
         v-if="isOverview"
       >
       </preview-panel>
@@ -26,38 +26,55 @@
 </template>
 
 <script>
+
+  import PreviewPanel from '../../../components/preview/PreviewPanel'
+  import {mapState} from 'vuex'
+
   export default {
     name: "EurekaClient",
-    data () {
+    components: {
+      'preview-panel': PreviewPanel
+    },
+    data() {
       return {
-        services: [],
-        components: [],
+        modifiedServices: [],
+        modifiedComponents: [],
         isOverview: false
       }
+    },
+    computed: {
+      ...mapState([
+        'services',
+      ])
     },
     methods: {
       overview() {
         console.log("overview");
+
+        console.log(this.services);
+
         let _this = this;
         this.$axios({
-          url: '/preview/eureka-client',
+          url: '/preview/eurekaClient',
           method: 'post',
-          data: this.eurekaServerInfo,
+          data: {serviceInfoList: this.services},
         })
           .then(function (response) {
-            let files = [];
             console.log(response.data);
-            response.data.fileInfoList.forEach(function (file) {
-              files.push({
-                fileName: file.fileName,
-                content: file.fileContent,
-                linesList: file.linesList,
-                isShow: false
+            response.data.forEach(function (service) {
+              let files = [];
+              service.fileInfoList.forEach(function (file) {
+                files.push({
+                  fileName: file.fileName,
+                  content: file.fileContent,
+                  linesList: file.linesList,
+                  isShow: false
+                });
               });
-            });
-            _this.components.push({
-              serviceName: response.data.serviceName,
-              files: files
+              _this.modifiedServices.push({
+                serviceName: service.serviceName,
+                files: files
+              });
             });
             _this.isOverview = true;
           })

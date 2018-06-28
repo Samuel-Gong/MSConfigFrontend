@@ -1,6 +1,6 @@
 <template>
   <el-row style="margin-top: 3%">
-    <el-col :span="5">
+    <el-col :span="6">
       <preview-tree
         :services="services"
         :components="components"
@@ -8,7 +8,7 @@
       >
       </preview-tree>
     </el-col>
-    <el-col :span="18" :offset="1">
+    <el-col :span="17" :offset="1">
       <div v-for="service in services" :key="service.serviceName">
         <preview-show
           v-for="file in service.files"

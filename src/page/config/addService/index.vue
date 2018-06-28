@@ -20,7 +20,9 @@
     </el-header>
     <el-main class="component-main">
       <el-table
-        :data="services" style="margin-bottom: 5%"
+        :data="services"
+        style="margin-bottom: 5%"
+        v-show="!pulledOrUploaded"
       >
         <el-table-column
           label="Service Name"
@@ -43,6 +45,26 @@
               type="danger"
               @click="deleteService(scope.row, scope.$index)">Delete
             </el-button>
+          </template>
+        </el-table-column>
+      </el-table>
+      <el-table
+        :data="fixedServices"
+        style="margin-bottom: 5%"
+        v-show="pulledOrUploaded"
+      >
+        <el-table-column
+          label="Service Name"
+          width="450">
+          <template slot-scope="scope">
+            <span>{{ scope.row.serviceName }}</span>
+          </template>
+        </el-table-column>
+        <el-table-column
+          label="Folder Name"
+          width="450">
+          <template slot-scope="scope">
+            <span>{{ scope.row.folderName }}</span>
           </template>
         </el-table-column>
       </el-table>
@@ -82,8 +104,11 @@
             </el-col>
           </el-row>
           <el-row v-if="!isAddService">
-            <el-col :span="1" :offset="22">
+            <el-col :span="1" :offset="20">
               <el-button size="small" @click="isAddService = true">Add</el-button>
+            </el-col>
+            <el-col :span="1" :offset="1">
+              <el-button size="small" @click="upload">Upload</el-button>
             </el-col>
           </el-row>
         </div>
@@ -110,12 +135,14 @@
         // 保存每次选择的文件夹的内容
         folder: [],
         // 保存每次选择的文件夹的名称
-        folderName: ''
+        folderName: '',
+        services: [],
+        pulledOrUploaded: false
       }
     },
     computed: {
       ...mapState({
-        services: 'services'
+        'fixedServices': 'services'
       }),
       fromGit: {
         get() {
@@ -128,8 +155,30 @@
     },
     methods: {
       pullService() {
+        let _this = this;
         console.log(this.$qs.stringify({"gitPath": this.gitPath}));
-        this.$store.dispatch('pullFromGit', this.gitPath);
+        this.$axios({
+          url: '/git/clone',
+          method: 'post',
+          data: this.$qs.stringify({"gitPath": this.gitPath}),
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        })
+          .then(function (response) {
+            console.log(response.data);
+            response.data.forEach(function (service) {
+              _this.$store.commit("addService", {
+                serviceName: service.serviceName,
+                folderName: service.folderName
+              })
+            });
+            console.log(_this.fixedServices);
+            _this.pulledOrUploaded = true;
+          })
+          .catch(function (error) {
+            console.log(error)
+          });
       },
       // 确认提交
       addService() {
@@ -141,11 +190,12 @@
             folderName: this.folderName,
             folder: this.folder
           };
-        this.$store.commit("addService", newService);
+        this.services.push(newService);
+
         this.clearInput();
       },
       deleteService(row, index) {
-        this.$store.commit("deleteService", index);
+        this.services.splice(index, 1);
       },
       clearInput() {
         this.serviceName = "";
@@ -160,6 +210,40 @@
         let folderName = this.folder[0].webkitRelativePath;
         console.log(folderName.substring(0, folderName.indexOf('/')));
         this.folderName = folderName.substring(0, folderName.indexOf('/'));
+      },
+
+      // 手动上传文件
+      upload() {
+        let _this = this;
+        // 上传文件
+        let uploadPromises = this.services.map(function (service) {
+
+          // 创建formData对象
+          let formData = new FormData();
+          console.log(service.folder);
+
+          let fileNum = service.folder.length;
+          for (let i = 0; i < fileNum; i++) {
+            let str = i.toString();
+            let file = service.folder[str];
+            formData.append("folder", file);
+          }
+
+          _this.$store.commit("addService", {
+            serviceName: service.serviceName,
+            folderName: service.folderName
+          });
+
+          return _this.$axios.post('/general/uploadFolder', formData);
+        });
+
+        // upload
+        this.$axios.all(uploadPromises)
+          .then(function (response) {
+            alert("Upload Success");
+            console.log(_this.$store.state.services);
+            _this.pulledOrUploaded = true;
+          });
       }
     }
   }

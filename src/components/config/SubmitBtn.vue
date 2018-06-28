@@ -4,8 +4,6 @@
 
 <script>
 
-  import axios from 'axios'
-
   import {mapState} from 'vuex'
 
   export default {
@@ -17,59 +15,27 @@
         'services',
         'componentCheck',
         'eurekaServerInfo',
-        'ribbon',
+        'ribbonGroup',
+        'hystrixMethods',
         'zuulInfo'
       ])
     },
     methods: {
 
-      async submit(event) {
+      submit() {
 
-        event.preventDefault();//取消默认行为
-
-        // 手动上传
-        if(!this.fromGit) {
-          // 上传文件
-          let uploadPromises = this.services.map(async function (service) {
-
-            // 创建formData对象
-            let formData = new FormData();
-            console.log(service.folder);
-
-            let fileNum = service.folder.length;
-            for (let i = 0; i < fileNum; i++) {
-              let str = i.toString();
-              let file = service.folder[str];
-              formData.append("folder", file);
-            }
-
-            // 上传文件
-            // api.upload(formData);
-            return axios.post('/general/uploadFolder', formData);
-          });
-
-          // upload
-          await this.$axios.all(uploadPromises)
-            .then(() => alert("Upload Success"));
-        }
-
-        let services = [];
-
-        this.services.forEach(function (service, index) {
-
-          services.push({
-            serviceName: service.serviceName,
-
-            // folder
-            folderName: service.folderName
-
-          });
-
+        let methodsMap = {};
+        this.hystrixMethods.forEach(function (hystrixMethod) {
+          methodsMap[hystrixMethod.serviceName] = [];
         });
+        this.hystrixMethods.forEach(function (hystrixMethod) {
+          methodsMap[hystrixMethod.serviceName].push(hystrixMethod.methodName);
+        });
+        console.log(methodsMap);
 
         let general = {
           // 所有微服务的信息
-          "services": services,
+          "services": this.services,
 
           // eureka server
           "isEurekaServer": this.componentCheck.checkedEurekaServer,
@@ -77,10 +43,11 @@
 
           // ribbon
           "isRibbon": this.componentCheck.checkedRibbon,
-          "ribbon": this.ribbon,
+          "ribbon": this.ribbonGroup,
 
           // hystrix
           "isHystrix": this.componentCheck.checkedHystrix,
+          "methods": methodsMap,
 
           // zuul
           "isZuul": this.componentCheck.checkedZuul,
@@ -91,17 +58,15 @@
         console.log(JSON.stringify(general));
 
         // add
-        await axios.post('/general/add', general)
+        this.$axios.post('/general/add', general)
           .then(() => {
-            alert("Add Success");
+            alert("Submit Success");
+            // 跳转第9步
+            this.$store.commit("increStep");
+            this.$router.push(
+              {path: `/config/${this.stepsActive + 1}`}
+            )
           });
-
-        alert("Submit Success");
-        // 跳转第9步
-        this.$store.commit("increStep");
-        this.$router.push(
-          {path: `/config/${this.stepsActive + 1}`}
-        )
       }
     }
   }
