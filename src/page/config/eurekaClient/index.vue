@@ -1,11 +1,30 @@
 <template>
   <el-container>
     <el-header class="component-header">
-      <el-row type="flex" justify="space-between" align="middle">
-        <el-col :span="8">
+      <el-row type="flex" justify="start" align="middle">
+        <el-col :span="4">
           <h2>Eureka Client</h2>
         </el-col>
-        <el-col :span="1" :offset="9">
+        <el-col :span="1">
+          <el-tooltip effect="dark" placement="right">
+            <div slot="content">
+              Step3: Eureka Client<br/>
+              Eureka Client is a client in Java simplifying interaction with Eureka Server caching information<br/>
+              in service registering table. Once Eureka Server is broken, client will provide the information<br/>
+              in its cache. Each service is a Eureka Client.<br/>
+              &nbsp;&nbsp;• Update each service codes<br/>
+              &nbsp;&nbsp;• Add dependency in pom.xml<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;dependency&gt;<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupIdorg&gt;.springframework.cloud&lt;/groupId&gt;<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;spring-cloud-starter-eureka&lt;/artifactId&gt;<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/dependency&gt;<br/>
+              &nbsp;&nbsp;• Add annotation in startup class<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;@EnableDiscoveryClient<br/>
+            </div>
+            <i class="el-icon-question"></i>
+          </el-tooltip>
+        </el-col>
+        <el-col :span="1" :offset="15">
           <el-checkbox checked disabled>Required</el-checkbox>
         </el-col>
         <el-col :span="2" :offset="2">

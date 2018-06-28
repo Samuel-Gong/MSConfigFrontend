@@ -2,12 +2,31 @@
   <el-container>
     <el-header class="component-header">
       <el-row type="flex" justify="start" align="middle">
-        <el-col :span="10">
-          <div>
-            <h2>Ribbon</h2>
-          </div>
+        <el-col :span="2">
+          <h2>Ribbon</h2>
         </el-col>
-        <el-col :span="1" :offset="9">
+        <el-col :span="1">
+          <el-tooltip effect="dark" placement="right">
+            <div slot="content">
+              Step4: Ribbon<br/>
+              Ribbon is a remote procedure calls library which built in software load balancers. Each service
+              provider<br/>
+              may register many times on Eureka Server, Ribbon can designate one using specific algorithm to
+              realize<br/>
+              load balancer.<br/>
+              • Consumer<br/>
+              &nbsp;&nbsp;1. Add ribbon dependency<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;dependency&gt;<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;spring-cloud-starter-ribbon&lt;/artifactId&gt;<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;/dependency&gt;<br/>
+              &nbsp;&nbsp;2. Add annotation @LoadBalanced for RestTemplate<br/>
+              &nbsp;&nbsp;3. Update Controller codes<br/>
+            </div>
+            <i class="el-icon-question"></i>
+          </el-tooltip>
+        </el-col>
+        <el-col :span="1" :offset="16">
           <el-checkbox v-model="componentCheck.checkedRibbon">Select</el-checkbox>
         </el-col>
         <el-col :span="2" :offset="2">

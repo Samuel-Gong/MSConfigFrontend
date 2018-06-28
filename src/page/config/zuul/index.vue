@@ -2,12 +2,26 @@
   <el-container>
     <el-header class="component-header">
       <el-row type="flex" justify="start" align="middle">
-        <el-col :span="10">
-          <div>
-            <h2>Zuul</h2>
-          </div>
+        <el-col :span="2">
+          <h2>Zuul</h2>
         </el-col>
-        <el-col :span="1" :offset="9">
+        <el-col :span="1">
+          <el-tooltip effect="dark" placement="right">
+            <div slot="content">
+              Step6: Zuul<br/>
+              Zuul is a gateway service that provides dynamic routing, monitoring, resiliency, security, and more.<br/>
+              •	Create a maven project，with dependency<br/>
+              &nbsp;&nbsp;&lt;dependency&gt;<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;spring-cloud-starter-zuul&lt;/artifactId&gt;<br/>
+              &nbsp;&nbsp;&lt;/dependency&gt;<br/>
+              •	Add annotation @EnableZuulProxy for startup class<br/>
+              •	Update configuration file ‘application.yml’<br/>
+            </div>
+            <i class="el-icon-question"></i>
+          </el-tooltip>
+        </el-col>
+        <el-col :span="1" :offset="17">
           <el-checkbox v-model="componentCheck.checkedZuul">Select</el-checkbox>
         </el-col>
         <el-col :span="2" :offset="2">

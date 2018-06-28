@@ -1,13 +1,29 @@
 <template>
   <el-container>
     <el-header class="component-header">
-      <el-row type="flex" justify="space-between" align="middle">
-        <el-col :span="10">
-          <div>
-            <h2>Hystrix</h2>
-          </div>
+      <el-row type="flex" justify="start" align="middle">
+        <el-col :span="2">
+          <h2>Hystrix</h2>
         </el-col>
-        <el-col :span="1" :offset="9">
+        <el-col :span="1">
+          <el-tooltip effect="dark" placement="right">
+            <div slot="content">
+              Step5: Hystrix<br/>
+              Hystrix is a latency and fault tolerance library designed to isolate points of access to<br/>
+              remote systems and services stopping cascading failure. Hystrix can provide fallback<br/>
+              options improving system’s overall resiliency.<br/>
+              • Add Hystrix dependency<br/>
+              &nbsp;&nbsp;&lt;dependency&gt;<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;<br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&lt;artifactId&gt;spring-cloud-starter-hystrix&lt;/artifactId&gt;<br/>
+              &nbsp;&nbsp;&lt;/dependency&gt;<br/>
+              • Add annotation @EnableCircuitBreaker for startup class<br/>
+              • Update Controller codes, add fallback methods for each designated method.<br/>
+            </div>
+            <i class="el-icon-question"></i>
+          </el-tooltip>
+        </el-col>
+        <el-col :span="1" :offset="16">
           <el-checkbox v-model="componentCheck.checkedHystrix">Select</el-checkbox>
         </el-col>
         <el-col :span="2" :offset="2">
@@ -181,22 +197,18 @@
     },
     created() {
       // todo 获取service的controller及方法
-      // let _this = this;
-      // this.$axios({
-      //   url: '/addHystrix/getMethods',
-      //   method: 'post',
-      //   data: {'serviceInfoList': this.services},
-      // })
-      //   .then(function (response) {
-      //     console.log(response.data);
-      //
-      //     response.data.forEach(function (hystrixMethod) {
-      //       hystrixMethodsInfo[hystrixMethod.serviceName].push()
-      //     });
-      //   })
-      //   .catch(function (error) {
-      //     console.log(error);
-      //   })
+      let _this = this;
+      this.$axios({
+        url: '/addHystrix/getMethods',
+        method: 'post',
+        data: {'serviceInfoList': _this.services},
+      })
+        .then(function (response) {
+          console.log(response.data);
+        })
+        .catch(function (error) {
+          console.log(error);
+        })
     }
   }
 </script>

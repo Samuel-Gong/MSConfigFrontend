@@ -1,13 +1,21 @@
 <template>
   <el-container>
     <el-header class="component-header">
-      <el-row type="flex" justify="space-between" align="middle">
-        <el-col :span="10">
-          <div>
-            <h2>Eureka Server</h2>
-          </div>
+      <el-row type="flex" justify="start" align="middle">
+        <el-col :span="4">
+          <h2>Eureka Server</h2>
         </el-col>
-        <el-col :span="1" :offset="9">
+        <el-col :span="1">
+          <el-tooltip effect="dark" placement="right">
+            <div slot="content">
+              Step2: Eureka Server<br/>
+              Eureka is a REST(Representational State Transfer) based service for microservice discovery<br/>
+              integrated in Spring Cloud’s subproject Spring Cloud Netflix.
+            </div>
+            <i class="el-icon-question"></i>
+          </el-tooltip>
+        </el-col>
+        <el-col :span="1" :offset="15">
           <el-checkbox checked disabled>Required</el-checkbox>
         </el-col>
         <el-col :span="2" :offset="2">

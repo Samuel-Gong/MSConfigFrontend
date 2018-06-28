@@ -1,11 +1,25 @@
 <template>
   <el-container>
     <el-header class="component-header">
-      <el-row type="flex" justify="space-between" align="middle">
-        <el-col :span="8">
+      <el-row type="flex" justify="start" align="middle">
+        <el-col :span="4">
           <h2>Config Results</h2>
         </el-col>
-        <el-col :span="8">
+        <el-col :span="1">
+          <el-tooltip effect="dark" placement="right">
+            <div slot="content">
+              Step7: Config Results<br/>
+              The followings are shown:<br/>
+              &nbsp;&nbsp;•	Name and port of microservices<br/>
+              &nbsp;&nbsp;•	Port of eureka server<br/>
+              &nbsp;&nbsp;•	Port of zuul<br/>
+              &nbsp;&nbsp;•	Name and port of mysql database<br/>
+              All generated files in the form of ‘.jar’ can also be pushed to git or downloaded to computer.<br/>
+            </div>
+            <i class="el-icon-question"></i>
+          </el-tooltip>
+        </el-col>
+        <el-col :span="5" :offset="15">
           <el-switch
             v-model="toGit"
             active-text="Push to Git"

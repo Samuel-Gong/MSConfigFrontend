@@ -1,13 +1,22 @@
 <template>
   <el-container>
     <el-header class="component-header">
-      <el-row type="flex" justify="space-between" align="middle">
-        <el-col :span="10">
-          <div>
-            <h2>Add Service</h2>
-          </div>
-        </el-col>
+      <el-row type="flex" justify="start" align="middle">
         <el-col :span="3">
+          <h2>Add Service</h2>
+        </el-col>
+        <el-col :span="1">
+          <el-tooltip effect="dark" placement="right">
+            <div slot="content">
+              Step1: Select Services<br/>
+              Get service codes from computer or git.<br/>
+              &nbsp;&nbsp;• Desktop: Add---Choose Files---Alias Name---Submit<br/>
+              &nbsp;&nbsp;• Git: input git path
+            </div>
+            <i class="el-icon-question"></i>
+          </el-tooltip>
+        </el-col>
+        <el-col :span="3" :offset="17">
           <el-switch
             v-model="fromGit"
             active-text="Git"
@@ -22,7 +31,7 @@
       <el-table
         :data="services"
         style="margin-bottom: 5%"
-        v-show="!pulledOrUploaded"
+        v-show="!pulledOrUploaded && !fromGit"
       >
         <el-table-column
           label="Service Name"
@@ -55,14 +64,14 @@
       >
         <el-table-column
           label="Service Name"
-          width="450">
+          width="600">
           <template slot-scope="scope">
             <span>{{ scope.row.serviceName }}</span>
           </template>
         </el-table-column>
         <el-table-column
           label="Folder Name"
-          width="450">
+          width="600">
           <template slot-scope="scope">
             <span>{{ scope.row.folderName }}</span>
           </template>
@@ -70,7 +79,7 @@
       </el-table>
       <el-form v-if="this.fromGit" ref="start" label-width="80px" style="width: 100%">
         <el-row type="flex" justify="space-between" align="top">
-          <el-col :span="18">
+          <el-col :span="15" :offset="3">
             <el-form-item label="Git Path">
               <el-input v-model="gitPath"></el-input>
             </el-form-item>
