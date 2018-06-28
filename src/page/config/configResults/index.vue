@@ -61,9 +61,11 @@
       </el-row>
     </el-footer>
 
-    <div class="charts">
-      <div id="chart" style=" width:100%; height:550px;margin-top: 90px;"></div>
-    </div>
+    <el-row>
+      <div id="chart" style=" width:56%; height:530px;margin-top: 90px;"></div>
+      <div id="gateway" style="margin-left: 62%;height:530px;margin-top: -530px;"></div>
+    </el-row>
+
   </el-container>
 </template>
 
@@ -127,23 +129,26 @@
         this.chart.setOption({
           title: {
             text: 'Config Results Relations',
+            left: 'center',
+            padding: [0,0,15,0],
+//            top: '-20px',
           },
           tooltip:{},
-          animationDurationUpdate: 1500,
-          animationEasingUpdate: 'quinticInOut',
+//          animationDurationUpdate: 1500,
+//          animationEasingUpdate: 'quinticInOut',
           series : [
             {
               type: 'graph',
               layout: 'none',
-              symbolSize: 50,//图形的大小（示例中的圆的大小）
-              roam: true,//鼠标缩放及平移
+              symbolSize: 40,//图形的大小（示例中的圆的大小）
+//              roam: true,//鼠标缩放及平移
               focusNodeAdjacency:true,//是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点
               label: {
                 normal: {
                   show: true ,  //控制非高亮时节点名称是否显示
                   color: "#666",
                   position:'top',
-                  fontSize:20
+                  fontSize:18
                 }
               },
 
@@ -155,7 +160,7 @@
                 },
                 emphasis: {
                   textStyle: {
-                    fontSize: 20  //边节点显示的字体大小
+                    fontSize: 16  //边节点显示的字体大小
                   }
                 }
               },
@@ -170,6 +175,30 @@
                     isnode:true,
                     x:100,
                     y:300,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+                  },
+                  {
+                    name:'instance1',
+                    ip:'8100',
+                    isnode:true,
+                    x:20,
+                    y:230,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+                  },
+                  {
+                    name:'instance2',
+                    ip:'8110',
+                    isnode:true,
+                    x:20,
+                    y:300,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+                  },
+                  {
+                    name:'instance3',
+                    ip:'8120',
+                    isnode:true,
+                    x:20,
+                    y:370,
                     symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
                   },
                   {
@@ -189,29 +218,29 @@
                     symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
                   },
                   {
-                    name:'category_service',
+                    name:'order_service',
                     ip:'8050',
                     isnode:true,
-                    x:500,
+                    x:430,
                     y:200,
                     symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
                   },
                   {
-                    name:'order_service',
+                    name:'category_service',
                     ip:'8060',
                     isnode:true,
-                    x:400,
-                    y:130,
+                    x:200,
+                    y:150,
                     symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
                   },
-                  {
-                    name:'PetStore Zuul',
-                    ip:'8040',
-                    isnode:true,
-                    x:200,
-                    y:130,
-                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/gateway.png?token=ASWG821lKMQImAc5D5lDMkw7Idynzzmfks5bPEGVwA%3D%3D',
-                  },
+//                  {
+//                    name:'PetStore Zuul',
+//                    ip:'8040',
+//                    isnode:true,
+//                    x:200,
+//                    y:130,
+//                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/gateway.png?token=ASWG821lKMQImAc5D5lDMkw7Idynzzmfks5bPEGVwA%3D%3D',
+//                  },
                   {
                     name:'Eureka Server',
                     ip:'8761',
@@ -252,27 +281,29 @@
                   target:'Eureka Server',
                   islink:true,
                   name:'链路5',
-                },{
-                  source:'order_service',
+                },
+                  {
+                  source:'instance1',
                   target:'pet_service',
                   isRibbon:true,
                   name:'链路6',
                 },{
-                  source:'category_service',
+                  source:'instance2',
                   target:'pet_service',
                   isRibbon: true,
                   name:'链路7',
                 },{
-                  source:'account_service',
-                  target:'inventory_service',
+                  source:'instance3',
+                  target:'pet_service',
                   isRibbon:true,
                   name:'链路8',
-                },{
-                  source:'category_service',
-                  target:'inventory_service',
-                  isRibbon:true,
-                  name:'链路9',
                 },
+//                  {
+//                  source:'category_service',
+//                  target:'inventory_service',
+//                  isRibbon:true,
+//                  name:'链路9',
+//                },
                 ],
               lineStyle: {
                 normal: {
@@ -315,7 +346,173 @@
 
                   formatter:function(params){//悬浮提示框显示的内容
                     if (params.data.islink) {return 'Service Registered';}
-                    if (params.data.isRibbon) {return 'Service Provider';}
+                    if (params.data.isRibbon) {return 'Ribbon';}
+                    else if (params.data.isnode) {return params.data.ip;}
+                  }
+                },//悬浮时的提示框，不设置时是随鼠标移动
+
+            }
+          ]
+        })
+        this.chart.hideLoading()
+      },
+
+      drawGatewayGraph(id){
+        this.chart=echarts.init(document.getElementById(id));
+        this.chart.showLoading();
+        var that=this
+        this.chart.setOption({
+          title: {
+            text: 'Gateway',
+            left: 'center',
+            padding: [0,0,15,0],
+//            top: '-20px',
+          },
+          tooltip:{},
+//          animationDurationUpdate: 1500,
+//          animationEasingUpdate: 'quinticInOut',
+          series : [
+            {
+              type: 'graph',
+              layout: 'none',
+              symbolSize: 40,//图形的大小（示例中的圆的大小）
+//              roam: true,//鼠标缩放及平移
+              focusNodeAdjacency:true,//是否在鼠标移到节点上的时候突出显示节点以及节点的边和邻接节点
+              label: {
+                normal: {
+                  show: true ,  //控制非高亮时节点名称是否显示
+                  color: "#666",
+                  position:'top',
+                  fontSize:18
+                }
+              },
+
+              edgeSymbol: ['circle', 'arrow'],
+              edgeSymbolSize: [1, 10],    //箭头的大小
+              edgeLabel: {
+                normal:{
+                  show:false
+                },
+                emphasis: {
+                  textStyle: {
+                    fontSize: 16  //边节点显示的字体大小
+                  }
+                }
+              },
+
+//节点信息
+
+              data:
+                [
+                  {
+                    name:'user',
+                    isnode:true,
+                    x:315,
+                    y:150,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/User.png?token=ASWG8z9XjTEUxmIGQ9-U0R0-h8zAk11Hks5bPi3dwA%3D%3D',
+                  },
+                  {
+                    name:'account_service',
+                    ip:'8020',
+                    isnode:true,
+                    x:230,
+                    y:420,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+                  },
+                  {
+                    name:'inventory_service',
+                    ip:'8030',
+                    isnode:true,
+                    x:380,
+                    y:420,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+                  },
+//                  {
+//                    name:'order_service',
+//                    ip:'8050',
+//                    isnode:true,
+//                    x:480,
+//                    y:450,
+//                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+//                  },
+//                  {
+//                    name:'category_service',
+//                    ip:'8060',
+//                    isnode:true,
+//                    x:200,
+//                    y:450,
+//                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/service.png?token=ASWG8wg2SgfenhLizBksxDN9KpIAW5pnks5bPEB5wA%3D%3D',
+//                  },
+                  {
+                    name:'PetStore Zuul',
+                    ip:'8040',
+                    isnode:true,
+                    x:315,
+                    y:270,
+                    symbol:'image://https://raw.githubusercontent.com/yaozheng1998/LearningNotes/master/PIC_NOTE/gateway.png?token=ASWG821lKMQImAc5D5lDMkw7Idynzzmfks5bPEGVwA%3D%3D',
+                  },
+              ],
+
+              links:
+                [
+                  {
+                    source:'user',
+                    target:'PetStore Zuul',
+                    isR:true,
+                    name:'链路2',
+                  },{
+                  source:'PetStore Zuul',
+                  target:'account_service',
+                  isR:true,
+                  name:'链路3',
+                },{
+                  source:'PetStore Zuul',
+                  target:'inventory_service',
+                  isR:true,
+                  name:'链路4',
+                }
+              ],
+              lineStyle: {
+                normal: {
+                  show:true,
+                  color:
+                    {
+                      type: 'linear',
+                      x: 0,
+                      y: 0,
+                      x2: 0,
+                      y2: 1,
+                      colorStops: [
+                        {
+                          offset: 0, color: '#2c2c2c' // 0% 处的颜色
+                        }
+                        ,{
+                          offset: 1, color: '#8a8a8a' // 100% 处的颜色
+                        }],
+                      globalCoord: false // 缺省为 false
+                    },
+
+                  // curveness: 0.2
+
+                },
+                emphasis:{
+                  color:'rgb(43,69,85)',
+                  width:3,
+                  type:'dashed',//虚线
+
+                }
+              },
+
+              tooltip:
+                {
+                  position:'bottom',//悬浮时显示的位置
+                  backgroundColor:'#707070',
+                  textStyle:{fontSize:18,
+
+                  },
+
+                  formatter:function(params){//悬浮提示框显示的内容
+                    if (params.data.isR) {return 'Request';}
                     else if (params.data.isnode) {return params.data.ip;}
                   }
                 },//悬浮时的提示框，不设置时是随鼠标移动
@@ -336,7 +533,10 @@
         });
       this.$nextTick(function(){
         this.drawGraph('chart')
-      })
+      });
+      this.$nextTick(function(){
+        this.drawGatewayGraph('gateway')
+      });
     }
   }
 </script>
