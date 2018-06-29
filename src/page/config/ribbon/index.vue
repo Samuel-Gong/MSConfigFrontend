@@ -49,10 +49,10 @@
         <el-row v-if="isAddRibbonConsumer">
           <el-col :span="6" :offset="13">
             <div>
-              Provider：
+              Consumer：
               <el-select
                 v-model="ribbonConsumerName"
-                placeholder="Provider">
+                placeholder="Consumer">
                 <el-option
                   v-for="(item, index) in services"
                   :key="index"
