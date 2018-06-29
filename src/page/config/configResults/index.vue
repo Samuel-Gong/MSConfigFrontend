@@ -31,24 +31,28 @@
       <hr/>
     </el-header>
     <el-main class="component-main">
-      <el-table
-        :data="servicesInfo"
-      >
-        <el-table-column
-          label="Service Name"
-          width="500">
-          <template slot-scope="scope">
-            <span>{{ scope.row.serviceName }}</span>
-          </template>
-        </el-table-column>
-        <el-table-column
-          label="Port"
-          width="500">
-          <template slot-scope="scope">
-            <span>{{ scope.row.port }}</span>
-          </template>
-        </el-table-column>
-      </el-table>
+      <!--<el-table-->
+        <!--:data="servicesInfo"-->
+      <!--&gt;-->
+        <!--<el-table-column-->
+          <!--label="Service Name"-->
+          <!--width="500">-->
+          <!--<template slot-scope="scope">-->
+            <!--<span>{{ scope.row.serviceName }}</span>-->
+          <!--</template>-->
+        <!--</el-table-column>-->
+        <!--<el-table-column-->
+          <!--label="Port"-->
+          <!--width="500">-->
+          <!--<template slot-scope="scope">-->
+            <!--<span>{{ scope.row.port }}</span>-->
+          <!--</template>-->
+        <!--</el-table-column>-->
+      <!--</el-table>-->
+      <el-row>
+        <div id="chart" style=" width:56%; height:530px;margin-top: 90px;"></div>
+        <div id="gateway" style="margin-left: 62%;height:530px;margin-top: -530px;"></div>
+      </el-row>
     </el-main>
     <el-footer>
       <el-row type="flex" justify="space-between" align="middle">
@@ -74,11 +78,6 @@
         </el-col>
       </el-row>
     </el-footer>
-
-    <el-row>
-      <div id="chart" style=" width:56%; height:530px;margin-top: 90px;"></div>
-      <div id="gateway" style="margin-left: 62%;height:530px;margin-top: -530px;"></div>
-    </el-row>
 
   </el-container>
 </template>
