@@ -8,7 +8,7 @@
         <el-col :span="1">
           <el-tooltip effect="dark" placement="right">
             <div slot="content">
-              Step5: Hystrix<br/>
+              Hystrix<br/>
               Hystrix is a latency and fault tolerance library designed to isolate points of access to<br/>
               remote systems and services stopping cascading failure. Hystrix can provide fallback<br/>
               options improving system’s overall resiliency.<br/>
@@ -156,13 +156,14 @@
         let _this = this;
 
         let methodsMap = {};
-        this.hystrixMethods.forEach(function (hystrixMethod) {
-          methodsMap[hystrixMethod.serviceName] = [];
-        });
-        this.hystrixMethods.forEach(function (hystrixMethod) {
-          methodsMap[hystrixMethod.serviceName].push(hystrixMethod.methodName);
-        });
+//        this.hystrixMethods.forEach(function (hystrixMethod) {
+//          methodsMap[hystrixMethod.serviceName] = [];
+//        });
+//        this.hystrixMethods.forEach(function (hystrixMethod) {
+//          methodsMap[hystrixMethod.serviceName].push(hystrixMethod.methodName);
+//        });
 
+        methodsMap["account_service"].push("add");
         let previewHystrix = {
           serviceInfoList: this.services,
           methodsMap: methodsMap

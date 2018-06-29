@@ -8,7 +8,7 @@
         <el-col :span="1">
           <el-tooltip effect="dark" placement="right">
             <div slot="content">
-              Step6: Zuul<br/>
+              Zuul<br/>
               Zuul is a gateway service that provides dynamic routing, monitoring, resiliency, security, and more.<br/>
               •	Create a maven project，with dependency<br/>
               &nbsp;&nbsp;&lt;dependency&gt;<br/>

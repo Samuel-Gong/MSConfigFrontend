@@ -2,13 +2,13 @@
   <el-container>
     <el-header class="component-header">
       <el-row type="flex" justify="start" align="middle">
-        <el-col :span="4">
+        <el-col :span="6">
           <h2>Eureka Client</h2>
         </el-col>
         <el-col :span="1">
           <el-tooltip effect="dark" placement="right">
             <div slot="content">
-              Step3: Eureka Client<br/>
+              Eureka Client<br/>
               Eureka Client is a client in Java simplifying interaction with Eureka Server caching information<br/>
               in service registering table. Once Eureka Server is broken, client will provide the information<br/>
               in its cache. Each service is a Eureka Client.<br/>

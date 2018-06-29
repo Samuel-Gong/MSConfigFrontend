@@ -2,13 +2,13 @@
   <el-container>
     <el-header class="component-header">
       <el-row type="flex" justify="start" align="middle">
-        <el-col :span="4">
+        <el-col :span="6">
           <h2>Config Results</h2>
         </el-col>
         <el-col :span="1">
           <el-tooltip effect="dark" placement="right">
             <div slot="content">
-              Step7: Config Results<br/>
+              Config Results<br/>
               The followings are shown:<br/>
               &nbsp;&nbsp;•	Name and port of microservices<br/>
               &nbsp;&nbsp;•	Port of eureka server<br/>

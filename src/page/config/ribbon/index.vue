@@ -8,7 +8,7 @@
         <el-col :span="1">
           <el-tooltip effect="dark" placement="right">
             <div slot="content">
-              Step4: Ribbon<br/>
+              Ribbon<br/>
               Ribbon is a remote procedure calls library which built in software load balancers. Each service
               provider<br/>
               may register many times on Eureka Server, Ribbon can designate one using specific algorithm to

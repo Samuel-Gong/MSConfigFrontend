@@ -2,15 +2,19 @@
   <el-container>
     <el-header class="component-header">
       <el-row type="flex" justify="start" align="middle">
-        <el-col :span="4">
+        <el-col :span="6">
           <h2>Eureka Server</h2>
         </el-col>
         <el-col :span="1">
           <el-tooltip effect="dark" placement="right">
             <div slot="content">
-              Step2: Eureka Server<br/>
+              Eureka Server<br/>
               Eureka is a REST(Representational State Transfer) based service for microservice discovery<br/>
-              integrated in Spring Cloud’s subproject Spring Cloud Netflix.
+              integrated in Spring Cloud’s subproject Spring Cloud Netflix.<br/>
+              Eureka Server provides ability of microservice discovery. When each service provider starts, <br/>
+              it’ll register itself on Server, like IP, port and service name, Server can store the information.<br/>
+              While service consumer can get service from Eureka Server.<br/>
+              •	Create a Maven project as Eureka Server with designated GroupId and ArtifactId.
             </div>
             <i class="el-icon-question"></i>
           </el-tooltip>

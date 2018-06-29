@@ -8,7 +8,7 @@
         <el-col :span="1">
           <el-tooltip effect="dark" placement="right">
             <div slot="content">
-              Step1: Select Services<br/>
+              Select Services<br/>
               Get service codes from computer or git.<br/>
               &nbsp;&nbsp;• Desktop: Add---Choose Files---Alias Name---Submit<br/>
               &nbsp;&nbsp;• Git: input git path
