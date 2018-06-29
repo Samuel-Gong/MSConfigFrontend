@@ -13,7 +13,7 @@ module.exports = {
     proxyTable: {},
 
     // Various Dev Server settings
-    host: 'msconfig', // can be overwritten by process.env.HOST
+    host: 'localhost', // can be overwritten by process.env.HOST
     // 开发模式下的端口
     port: 8080, // can be overwritten by process.env.PORT, if port is in use, a free one will be determined
     autoOpenBrowser: false,

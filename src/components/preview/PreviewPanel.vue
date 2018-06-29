@@ -34,6 +34,8 @@
   import PreviewTree from './PreviewTree'
   import PreviewShow from './PreviewShow'
 
+  import Prism from 'prismjs/prism'
+
   export default {
     name: "PreviewPanel",
     props: ['services', 'components'],
