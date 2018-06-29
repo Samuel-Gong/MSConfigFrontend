@@ -70,12 +70,13 @@
         </el-table-column>
       </el-table>
       <el-row>
-        <el-col :span="8" :offset="12">
+        <el-col :span="7" :offset="13">
           <el-cascader
             :options="options"
             placeholder="Service/Controller/Method"
             v-model="selectedOptions"
             :disabled="!componentCheck.checkedHystrix"
+            :clearable="true"
             style="width: 100%"
           >
           </el-cascader>
@@ -101,30 +102,16 @@
 
 <script>
   import {mapState} from 'vuex'
+  import PreviewPanel from '../../../components/preview/PreviewPanel'
 
   export default {
     name: "HystrixComponent",
+    components: {
+      'preview-panel': PreviewPanel
+    },
     data() {
       return {
-        options: [{
-          value: 'account_service',
-          label: 'account_service',
-          children: [{
-            value: 'TestController1',
-            label: 'TestController1',
-            children: [{
-              value: 'TestMethod1',
-              label: 'TestMethod1'
-            }]
-          }, {
-            value: 'TestController2',
-            label: 'TestController2',
-            children: [{
-              value: 'TestMethod2',
-              label: 'TestMethod2'
-            }]
-          }]
-        }],
+        options: [],
         selectedOptions: [],
 
         modifiedServices: [],
@@ -156,18 +143,20 @@
         let _this = this;
 
         let methodsMap = {};
-//        this.hystrixMethods.forEach(function (hystrixMethod) {
-//          methodsMap[hystrixMethod.serviceName] = [];
-//        });
-//        this.hystrixMethods.forEach(function (hystrixMethod) {
-//          methodsMap[hystrixMethod.serviceName].push(hystrixMethod.methodName);
-//        });
+        this.hystrixMethods.forEach(function (hystrixMethod) {
+          methodsMap[hystrixMethod.serviceName] = [];
+        });
+        this.hystrixMethods.forEach(function (hystrixMethod) {
+          methodsMap[hystrixMethod.serviceName].push(hystrixMethod.methodName);
+        });
 
-        methodsMap["account_service"].push("add");
+        // methodsMap["account_service"].push("add");
         let previewHystrix = {
           serviceInfoList: this.services,
           methodsMap: methodsMap
         };
+
+        console.log(previewHystrix);
 
         this.$axios({
           url: '/preview/hystrix',
@@ -175,19 +164,21 @@
           data: previewHystrix
         })
           .then(function (response) {
-            let files = [];
             console.log(response.data);
-            response.data.fileInfoList.forEach(function (file) {
-              files.push({
-                fileName: file.fileName,
-                content: file.fileContent,
-                linesList: file.linesList,
-                isShow: false
+            response.data.forEach(function (service) {
+              let files = [];
+              service.fileInfoList.forEach(function (file) {
+                files.push({
+                  fileName: file.fileName,
+                  content: file.fileContent,
+                  linesList: file.linesList,
+                  isShow: false
+                });
               });
-            });
-            _this.components.push({
-              serviceName: response.data.serviceName,
-              files: files
+              _this.modifiedServices.push({
+                serviceName: service.serviceName,
+                files: files
+              });
             });
             _this.isOverview = true;
           })
@@ -197,15 +188,54 @@
       }
     },
     created() {
-      // todo 获取service的controller及方法
       let _this = this;
       this.$axios({
-        url: '/addHystrix/getMethods',
+        url: '/addHystrix/showMethods',
         method: 'post',
         data: {'serviceInfoList': _this.services},
       })
         .then(function (response) {
+          let options = {};
           console.log(response.data);
+          response.data.forEach(function (service) {
+            let truncatedServiceName = service.serviceName.substring(service.serviceName.lastIndexOf("/") + 1);
+            console.log(truncatedServiceName);
+            let truncatedControllerName = service.controllerName.substring(0, service.controllerName.indexOf("\."));
+            console.log(truncatedControllerName);
+            if (!(truncatedServiceName in options)) {
+              options[truncatedServiceName] = {};
+            }
+            options[truncatedServiceName][truncatedControllerName] = service.methodNames;
+          });
+
+          Object.getOwnPropertyNames(options).forEach(function (serviceName) {
+
+            let thisService = {
+              value: serviceName,
+              label: serviceName,
+              children: []
+            };
+            Object.getOwnPropertyNames(options[serviceName]).forEach(function (controllerName) {
+              let thisMethods = [];
+              options[serviceName][controllerName].forEach(function (methodName) {
+                thisMethods.push({
+                  value: methodName,
+                  label: methodName
+                })
+              });
+
+              thisService.children.push({
+                value: controllerName,
+                label: controllerName,
+                children: thisMethods
+              });
+            });
+
+            _this.options.push(thisService)
+
+          });
+
+          console.log(_this.options);
         })
         .catch(function (error) {
           console.log(error);
