@@ -155,7 +155,7 @@
         console.log("overview");
         let _this = this;
 
-        let methodsMap = {};
+        let methodsMap = [{"account_service":["add"]}];
 //        this.hystrixMethods.forEach(function (hystrixMethod) {
 //          methodsMap[hystrixMethod.serviceName] = [];
 //        });
@@ -163,7 +163,7 @@
 //          methodsMap[hystrixMethod.serviceName].push(hystrixMethod.methodName);
 //        });
 
-        methodsMap["account_service"].push("add");
+
         let previewHystrix = {
           serviceInfoList: this.services,
           methodsMap: methodsMap
@@ -172,24 +172,26 @@
         this.$axios({
           url: '/preview/hystrix',
           method: 'post',
-          data: previewHystrix
+          data: previewHystrix,
+          dataType: "json",
+          contentType: "application/json"
         })
           .then(function (response) {
             let files = [];
             console.log(response.data);
-            response.data.fileInfoList.forEach(function (file) {
-              files.push({
-                fileName: file.fileName,
-                content: file.fileContent,
-                linesList: file.linesList,
-                isShow: false
-              });
-            });
-            _this.components.push({
-              serviceName: response.data.serviceName,
-              files: files
-            });
-            _this.isOverview = true;
+//            response.data.fileInfoList.forEach(function (file) {
+//              files.push({
+//                fileName: file.fileName,
+//                content: file.fileContent,
+//                linesList: file.linesList,
+//                isShow: false
+//              });
+//            });
+//            _this.components.push({
+//              serviceName: response.data.serviceName,
+//              files: files
+//            });
+//            _this.isOverview = true;
           })
           .catch(function (error) {
             console.log(error);
@@ -200,7 +202,7 @@
       // todo 获取service的controller及方法
       let _this = this;
       this.$axios({
-        url: '/addHystrix/getMethods',
+        url: '/addHystrix/showMethods',
         method: 'post',
         data: {'serviceInfoList': _this.services},
       })
