@@ -47,7 +47,7 @@
       </el-collapse>
       <div style="margin-top: 2%">
         <el-row v-if="isAddRibbonConsumer">
-          <el-col :span="6" :offset="13">
+          <el-col :span="7" :offset="12">
             <div>
               Consumer：
               <el-select
@@ -94,91 +94,89 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import PreviewPanel from '../../../components/preview/PreviewPanel'
-  import RibbonItem from '../../../components/ribbon/RibbonItem'
+import {mapState} from 'vuex'
+import PreviewPanel from '../../../components/preview/PreviewPanel'
+import RibbonItem from '../../../components/ribbon/RibbonItem'
 
+export default {
+  name: 'RibbonComponent',
+  components: {
+    'preview-panel': PreviewPanel,
+    'ribbon-item': RibbonItem
+  },
+  data () {
+    return {
+      activeNames: ['1'],
 
-  export default {
-    name: "RibbonComponent",
-    components: {
-      'preview-panel': PreviewPanel,
-      'ribbon-item': RibbonItem
+      isAddRibbonConsumer: false,
+      ribbonConsumerName: '',
+
+      modifiedServices: [],
+      modifiedComponents: [],
+      isOverview: false
+    }
+  },
+  computed: {
+    ...mapState([
+      'componentCheck',
+      'services',
+      'ribbonGroup'
+    ])
+  },
+  methods: {
+    // 提交consumer
+    addRibbonConsumer () {
+      this.$store.commit('addRibbonConsumer', this.ribbonConsumerName)
+      this.clearRibbonConsumerInput()
     },
-    data() {
-      return {
-        activeNames: ['1'],
+    deleteRibbonConsumer (consumerName) {
+      this.$store.commit('deleteRibbonConsumer', consumerName)
+    },
+    // 取消提交
+    clearRibbonConsumerInput () {
+      this.ribbonConsumerName = ''
+      this.isAddRibbonConsumer = false
+    },
 
-        isAddRibbonConsumer: false,
-        ribbonConsumerName: "",
+    overview () {
+      console.log('overview')
 
-        modifiedServices: [],
-        modifiedComponents: [],
-        isOverview: false
+      let data = {
+        ribbonDTOList: this.ribbonGroup,
+        serviceInfoList: this.services
       }
-    },
-    computed: {
-      ...mapState([
-        'componentCheck',
-        'services',
-        'ribbonGroup'
-      ])
-    },
-    methods: {
-      // 提交consumer
-      addRibbonConsumer() {
-        this.$store.commit("addRibbonConsumer", this.ribbonConsumerName);
-        this.clearRibbonConsumerInput();
-      },
-      deleteRibbonConsumer(consumerName) {
-        this.$store.commit("deleteRibbonConsumer", consumerName);
-      },
-      // 取消提交
-      clearRibbonConsumerInput() {
-        this.ribbonConsumerName = "";
-        this.isAddRibbonConsumer = false;
-      },
 
-
-      overview() {
-        console.log("overview");
-
-        let data = {
-          ribbonDTOList: this.ribbonGroup,
-          serviceInfoList: this.services
-        };
-
-        let _this = this;
-        this.$axios({
-          url: '/preview/ribbon',
-          method: 'post',
-          data: data,
+      let _this = this
+      this.$axios({
+        url: '/preview/ribbon',
+        method: 'post',
+        data: data
+      })
+        .then(function (response) {
+          console.log(response.data)
+          response.data.forEach(function (service) {
+            let files = []
+            service.fileInfoList.forEach(function (file) {
+              files.push({
+                fileName: file.fileName,
+                content: file.fileContent,
+                linesList: file.linesList,
+                isShow: false
+              })
+            })
+            _this.modifiedServices.push({
+              serviceName: service.serviceName,
+              files: files
+            })
+          })
+          _this.isOverview = true
         })
-          .then(function (response) {
-            console.log(response.data);
-            response.data.forEach(function (service) {
-              let files = [];
-              service.fileInfoList.forEach(function (file) {
-                files.push({
-                  fileName: file.fileName,
-                  content: file.fileContent,
-                  linesList: file.linesList,
-                  isShow: false
-                });
-              });
-              _this.modifiedServices.push({
-                serviceName: service.serviceName,
-                files: files
-              });
-            });
-            _this.isOverview = true;
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-      }
+        .catch(function (error) {
+          console.log(error)
+        })
     }
   }
+}
 </script>
 
 <style scoped>

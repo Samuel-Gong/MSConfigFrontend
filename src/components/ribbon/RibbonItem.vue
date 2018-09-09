@@ -39,7 +39,7 @@
     </el-table>
     <div style="margin-top: 2%">
       <el-row v-if="isAddRibbonProvider">
-        <el-col :span="6" :offset="6">
+        <el-col :span="6" :offset="5">
           <div>
             Provider：
             <el-select
@@ -55,7 +55,7 @@
             </el-select>
           </div>
         </el-col>
-        <el-col :span="6" :offset="1">
+        <el-col :span="7" :offset="1">
           <div>
             LoadBalance：
             <el-select
