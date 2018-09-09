@@ -128,134 +128,133 @@
 
 <script>
 
-  import {mapState, mapMutations} from 'vuex'
+import {mapState} from 'vuex'
 
-  export default {
-    name: "index",
-    data() {
-      return {
-        gitPath: "",
+export default {
+  name: 'index',
+  data () {
+    return {
+      gitPath: '',
 
-        // 表示当前是否正在增加服务
-        isAddService: false,
-        serviceName: "",
-        serviceAddress: "",
+      // 表示当前是否正在增加服务
+      isAddService: false,
+      serviceName: '',
+      serviceAddress: '',
 
-        // 保存每次选择的文件夹的内容
-        folder: [],
-        // 保存每次选择的文件夹的名称
-        folderName: '',
-        services: [],
-        pulledOrUploaded: false
-      }
-    },
-    computed: {
-      ...mapState({
-        'fixedServices': 'services'
-      }),
-      fromGit: {
-        get() {
-          return this.$store.state.fromGit
-        },
-        set(value) {
-          this.$store.commit('switchFromGit', value)
-        }
-      }
-    },
-    methods: {
-      pullService() {
-        let _this = this;
-        console.log(this.$qs.stringify({"gitPath": this.gitPath}));
-        this.$axios({
-          url: '/git/clone',
-          method: 'post',
-          data: this.$qs.stringify({"gitPath": this.gitPath}),
-          headers: {
-            'Content-Type': 'application/x-www-form-urlencoded'
-          }
-        })
-          .then(function (response) {
-            console.log(response.data);
-            response.data.forEach(function (service) {
-              _this.$store.commit("addService", {
-                serviceName: service.serviceName,
-                folderName: service.folderName
-              })
-            });
-            console.log(_this.fixedServices);
-            _this.pulledOrUploaded = true;
-          })
-          .catch(function (error) {
-            console.log(error)
-          });
+      // 保存每次选择的文件夹的内容
+      folder: [],
+      // 保存每次选择的文件夹的名称
+      folderName: '',
+      services: [],
+      pulledOrUploaded: false
+    }
+  },
+  computed: {
+    ...mapState({
+      'fixedServices': 'services'
+    }),
+    fromGit: {
+      get () {
+        return this.$store.state.fromGit
       },
-      // 确认提交
-      addService() {
-        let newService =
+      set (value) {
+        this.$store.commit('switchFromGit', value)
+      }
+    }
+  },
+  methods: {
+    pullService () {
+      let _this = this
+      console.log(this.$qs.stringify({'gitPath': this.gitPath}))
+      this.$axios({
+        url: '/git/clone',
+        method: 'post',
+        data: this.$qs.stringify({'gitPath': this.gitPath}),
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
+        .then(function (response) {
+          console.log(response.data)
+          response.data.forEach(function (service) {
+            _this.$store.commit('addService', {
+              serviceName: service.serviceName,
+              folderName: service.folderName
+            })
+          })
+          console.log(_this.fixedServices)
+          _this.pulledOrUploaded = true
+        })
+        .catch(function (error) {
+          console.log(error)
+        })
+    },
+    // 确认提交
+    addService () {
+      let newService =
           {
             serviceName: this.serviceName,
 
             // folder
             folderName: this.folderName,
             folder: this.folder
-          };
-        this.services.push(newService);
-
-        this.clearInput();
-      },
-      deleteService(row, index) {
-        this.services.splice(index, 1);
-      },
-      clearInput() {
-        this.serviceName = "";
-        this.serviceAddress = "";
-        this.isAddService = false;
-      },
-
-      // 文件夹选择框值改变
-      handleFilesChange(event) {
-        this.folder = event.currentTarget.files;
-        console.log(this.folder);
-        let folderName = this.folder[0].webkitRelativePath;
-        console.log(folderName.substring(0, folderName.indexOf('/')));
-        this.folderName = folderName.substring(0, folderName.indexOf('/'));
-      },
-
-      // 手动上传文件
-      upload() {
-        let _this = this;
-        // 上传文件
-        let uploadPromises = this.services.map(function (service) {
-
-          // 创建formData对象
-          let formData = new FormData();
-          console.log(service.folder);
-
-          let fileNum = service.folder.length;
-          for (let i = 0; i < fileNum; i++) {
-            let str = i.toString();
-            let file = service.folder[str];
-            formData.append("folder", file);
           }
+      this.services.push(newService)
 
-          _this.$store.commit("addService", {
-            serviceName: service.serviceName,
-            folderName: service.folderName
-          });
+      this.clearInput()
+    },
+    deleteService (row, index) {
+      this.services.splice(index, 1)
+    },
+    clearInput () {
+      this.serviceName = ''
+      this.serviceAddress = ''
+      this.isAddService = false
+    },
 
-          return _this.$axios.post('/general/uploadFolder', formData);
-        });
+    // 文件夹选择框值改变
+    handleFilesChange (event) {
+      this.folder = event.currentTarget.files
+      console.log(this.folder)
+      let folderName = this.folder[0].webkitRelativePath
+      console.log(folderName.substring(0, folderName.indexOf('/')))
+      this.folderName = folderName.substring(0, folderName.indexOf('/'))
+    },
 
-        // upload
-        this.$axios.all(uploadPromises)
-          .then(function (response) {
-            alert("Upload Success");
-            console.log(_this.$store.state.services);
-            _this.pulledOrUploaded = true;
-          });
-      }
+    // 手动上传文件
+    upload () {
+      let _this = this
+      // 上传文件
+      let uploadPromises = this.services.map(function (service) {
+        // 创建formData对象
+        let formData = new FormData()
+        console.log(service.folder)
+
+        let fileNum = service.folder.length
+        for (let i = 0; i < fileNum; i++) {
+          let str = i.toString()
+          let file = service.folder[str]
+          formData.append('folder', file)
+        }
+
+        _this.$store.commit('addService', {
+          serviceName: service.serviceName,
+          folderName: service.folderName
+        })
+
+        return _this.$axios.post('/general/uploadFolder', formData)
+      })
+
+      // upload
+      this.$axios.all(uploadPromises)
+        .then(function () {
+          alert('Upload Success')
+          console.log(_this.$store.state.services)
+          _this.pulledOrUploaded = true
+        })
     }
   }
+}
 </script>
 
 <style scoped>

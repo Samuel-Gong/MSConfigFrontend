@@ -3,12 +3,7 @@ import Vue from 'vue'
 // 0. 使用模块化机制编程，导入Vue和Vuex，要调用 Vue.use(VueRouter)
 import Vuex from 'vuex'
 
-import axios from 'axios'
-
 Vue.use(Vuex)
-
-const qs = require('qs')
-
 const store = new Vuex.Store({
 
   // 应用状态的数据，各组件的共享数据
@@ -33,12 +28,12 @@ const store = new Vuex.Store({
       checkedEurekaClient: true,
       checkedRibbon: false,
       checkedHystrix: false,
-      checkedZuul: false,
+      checkedZuul: false
     },
     // eureka server的配置
     eurekaServerInfo: {
-      groupId: "",
-      artifactId: ""
+      groupId: '',
+      artifactId: ''
     },
 
     // ribbon 的配置
@@ -49,8 +44,8 @@ const store = new Vuex.Store({
 
     // zuul 的配置
     zuulInfo: {
-      groupId: "",
-      artifactId: ""
+      groupId: '',
+      artifactId: ''
     }
   },
 
@@ -60,56 +55,56 @@ const store = new Vuex.Store({
   // 唯一允许更新应用状态的地方
   mutations: {
 
-    login(state) {
-      state.isLogin = true;
+    login (state) {
+      state.isLogin = true
     },
-    logout(state) {
-      state.isLogin = false;
+    logout (state) {
+      state.isLogin = false
     },
 
     // 这里怎么使用解构，给payload一个默认值
-    increStep(state) {
-      state.stepsActive++;
+    increStep (state) {
+      state.stepsActive++
     },
-    decreStep(state) {
-      state.stepsActive--;
+    decreStep (state) {
+      state.stepsActive--
     },
-    setStep(state, num) {
-      state.stepsActive = num;
-    },
-
-    addService(state, service) {
-      state.services.push(service);
-    },
-    deleteService(state, index) {
-      state.services.splice(index, 1);
+    setStep (state, num) {
+      state.stepsActive = num
     },
 
-    switchFromGit(state, status) {
+    addService (state, service) {
+      state.services.push(service)
+    },
+    deleteService (state, index) {
+      state.services.splice(index, 1)
+    },
+
+    switchFromGit (state, status) {
       state.fromGit = status
     },
-    switchToGit(state, status) {
+    switchToGit (state, status) {
       state.toGit = status
     },
 
-    addRibbonConsumer(state, consumerName) {
+    addRibbonConsumer (state, consumerName) {
       state.ribbonGroup.push(
         {
           'consumer': consumerName,
           'providers': []
         }
-      );
+      )
     },
-    deleteRibbonConsumer(state, consumerName) {
-      let deleteIndex = 0;
+    deleteRibbonConsumer (state, consumerName) {
+      let deleteIndex = 0
       state.ribbonGroup.some(function (ribbonItem, index) {
         if (ribbonItem.consumer === consumerName) {
-          deleteIndex = index;
-          return true;
+          deleteIndex = index
+          return true
         }
-      });
+      })
 
-      state.ribbonGroup.splice(deleteIndex, 1);
+      state.ribbonGroup.splice(deleteIndex, 1)
     }
   },
   // 定义提交触发更改信息的描述，常见的例子是从服务端获取数据
@@ -117,9 +112,9 @@ const store = new Vuex.Store({
   // Action 可以包含任意异步操作。
   actions: {
     // 拉取服务
-    pullFromGit({state, commit}, gitPath) {
+    pullFromGit ({state, commit}, gitPath) {
 
-    },
+    }
   },
   // 允许将单一的 Store 拆分为多个 Store 的同时保存在单一的状态树中。随着应用复杂度的增加，这种拆分能够更好地组织代码
   modules: {}

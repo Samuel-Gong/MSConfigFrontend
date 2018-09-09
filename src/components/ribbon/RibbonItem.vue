@@ -11,10 +11,18 @@
     >
       <el-table-column
         label="Provider"
-        width="800"
+        width="400"
       >
         <template slot-scope="scope">
-          <span>{{ scope.row }}</span>
+          <span>{{ scope.row.provider }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column
+        label="LoadBalanceRule"
+        width="400"
+      >
+        <template slot-scope="scope">
+          <span>{{ scope.row.loadbalancerRule }}</span>
         </template>
       </el-table-column>
       <el-table-column
@@ -31,7 +39,7 @@
     </el-table>
     <div style="margin-top: 2%">
       <el-row v-if="isAddRibbonProvider">
-        <el-col :span="6" :offset="13">
+        <el-col :span="6" :offset="6">
           <div>
             Provider：
             <el-select
@@ -42,6 +50,22 @@
                 :key="index"
                 :label="item.serviceName"
                 :value="item.serviceName"
+              >
+              </el-option>
+            </el-select>
+          </div>
+        </el-col>
+        <el-col :span="6" :offset="1">
+          <div>
+            LoadBalance：
+            <el-select
+              v-model="providerRule"
+              placeholder="LoadBalance">
+              <el-option
+                v-for="(rule, index) in loadBalanceRules"
+                :key="index"
+                :label="rule"
+                :value="rule"
               >
               </el-option>
             </el-select>
@@ -72,46 +96,60 @@
 
 <script>
 
-  import {mapState} from 'vuex'
+import {mapState} from 'vuex'
 
-  export default {
-    name: "RibbonItem",
-    props: ["ribbonItem"],
-    data() {
-      return {
-        isAddRibbonProvider: false,
-        providerName: "",
-      }
+export default {
+  name: 'RibbonItem',
+  props: ['ribbonItem'],
+  data () {
+    return {
+      isAddRibbonProvider: false,
+      providerName: '',
+      providerRule: '',
+      loadBalanceRules: [
+        'RoundRobin',
+        'RoundRobinRule',
+        'RandomRule',
+        'AvailabilityFilteringRule',
+        'WeightedResponseTimeRule',
+        'ZoneAvoidanceRule',
+        'BestAvailableRule'
+      ]
+    }
+  },
+  methods: {
+    // 提交provider
+    addRibbonProvider () {
+      this.ribbonItem.providers.push({
+        'provider': this.providerName,
+        'loadbalancerRule': this.providerRule
+      })
+      this.clearRibbonProviderInput()
     },
-    methods: {
-      // 提交provider
-      addRibbonProvider() {
-        this.ribbonItem.providers.push(this.providerName);
-        this.clearRibbonProviderInput();
-      },
-      deleteRibbonProvider(index) {
-        this.ribbonItem.providers.splice(index, 1);
-      },
-      // 取消提交
-      clearRibbonProviderInput() {
-        this.providerName = "";
-        this.isAddRibbonProvider = false;
-      },
+    deleteRibbonProvider (index) {
+      this.ribbonItem.providers.splice(index, 1)
+    },
+    // 取消提交
+    clearRibbonProviderInput () {
+      this.providerName = ''
+      this.providerRule = ''
+      this.isAddRibbonProvider = false
+    },
 
-      deleteConsumer() {
-        console.log(this.ribbonItem.consumer);
-        this.$emit("deleteConsumer", this.ribbonItem.consumer)
-      }
-    },
-    computed: {
-      ...mapState([
-        'services'
-      ]),
-      itemName() {
-        return "Consumer Service: " + this.ribbonItem.consumer
-      }
+    deleteConsumer () {
+      console.log(this.ribbonItem.consumer)
+      this.$emit('deleteConsumer', this.ribbonItem.consumer)
+    }
+  },
+  computed: {
+    ...mapState([
+      'services'
+    ]),
+    itemName () {
+      return 'Consumer Service: ' + this.ribbonItem.consumer
     }
   }
+}
 </script>
 
 <style scoped>

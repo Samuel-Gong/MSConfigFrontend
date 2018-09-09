@@ -63,59 +63,59 @@
 
 <script>
 
-  import {mapState, mapMutations} from 'vuex'
-  import PreviewPanel from '../../../components/preview/PreviewPanel'
+import {mapState} from 'vuex'
+import PreviewPanel from '../../../components/preview/PreviewPanel'
 
-  export default {
-    name: "ZuulComponent",
-    data() {
-      return {
-        services: [],
-        components: [],
-        isOverview: false
-      }
-    },
-    components: {
-      "preview-panel": PreviewPanel
-    },
-    computed: {
-      ...mapState([
-        'componentCheck',
-        'zuulInfo'
-      ])
-    },
-    methods: {
-      overview() {
-        console.log("overview");
-        let _this = this;
-        this.$axios({
-          url: '/preview/zuul',
-          method: 'post',
-          data: this.zuulInfo,
+export default {
+  name: 'ZuulComponent',
+  data () {
+    return {
+      services: [],
+      components: [],
+      isOverview: false
+    }
+  },
+  components: {
+    'preview-panel': PreviewPanel
+  },
+  computed: {
+    ...mapState([
+      'componentCheck',
+      'zuulInfo'
+    ])
+  },
+  methods: {
+    overview () {
+      console.log('overview')
+      let _this = this
+      this.$axios({
+        url: '/preview/zuul',
+        method: 'post',
+        data: this.zuulInfo
+      })
+        .then(function (response) {
+          let files = []
+          console.log(response.data)
+          response.data.fileInfoList.forEach(function (file) {
+            files.push({
+              fileName: file.fileName,
+              content: file.fileContent,
+              linesList: file.linesList,
+              isShow: false
+            })
+          })
+          _this.components.push({
+            serviceName: response.data.serviceName,
+            files: files
+          })
+          _this.isOverview = true
         })
-          .then(function (response) {
-            let files = [];
-            console.log(response.data);
-            response.data.fileInfoList.forEach(function (file) {
-              files.push({
-                fileName: file.fileName,
-                content: file.fileContent,
-                linesList: file.linesList,
-                isShow: false
-              });
-            });
-            _this.components.push({
-              serviceName: response.data.serviceName,
-              files: files
-            });
-            _this.isOverview = true;
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-      }
+        .catch(function (error) {
+          console.log(error)
+        })
     }
   }
+}
 </script>
 
 <style scoped>

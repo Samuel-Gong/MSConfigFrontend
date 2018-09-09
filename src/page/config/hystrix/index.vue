@@ -101,147 +101,145 @@
 </template>
 
 <script>
-  import {mapState} from 'vuex'
-  import PreviewPanel from '../../../components/preview/PreviewPanel'
+import {mapState} from 'vuex'
+import PreviewPanel from '../../../components/preview/PreviewPanel'
 
-  export default {
-    name: "HystrixComponent",
-    components: {
-      'preview-panel': PreviewPanel
+export default {
+  name: 'HystrixComponent',
+  components: {
+    'preview-panel': PreviewPanel
+  },
+  data () {
+    return {
+      options: [],
+      selectedOptions: [],
+
+      modifiedServices: [],
+      modifiedComponents: [],
+      isOverview: false
+    }
+  },
+  computed: {
+    ...mapState([
+      'componentCheck',
+      'services',
+      'hystrixMethods'
+    ])
+  },
+  methods: {
+    addHystrixMethod () {
+      this.hystrixMethods.push({
+        serviceName: this.selectedOptions[0],
+        controllerName: this.selectedOptions[1],
+        methodName: this.selectedOptions[2]
+      })
     },
-    data() {
-      return {
-        options: [],
-        selectedOptions: [],
+    deleteHystrixMethod (row, index) {
+      this.hystrixMethods.splice(index, 1)
+    },
 
-        modifiedServices: [],
-        modifiedComponents: [],
-        isOverview: false
+    overview () {
+      console.log('overview')
+      let _this = this
+
+      let methodsMap = {}
+      this.hystrixMethods.forEach(function (hystrixMethod) {
+        methodsMap[hystrixMethod.serviceName] = []
+      })
+      this.hystrixMethods.forEach(function (hystrixMethod) {
+        methodsMap[hystrixMethod.serviceName].push(hystrixMethod.methodName)
+      })
+
+      // methodsMap["account_service"].push("add");
+      let previewHystrix = {
+        serviceInfoList: this.services,
+        methodsMap: methodsMap
       }
-    },
-    computed: {
-      ...mapState([
-        'componentCheck',
-        'services',
-        'hystrixMethods'
-      ])
-    },
-    methods: {
-      addHystrixMethod() {
-        this.hystrixMethods.push({
-          serviceName: this.selectedOptions[0],
-          controllerName: this.selectedOptions[1],
-          methodName: this.selectedOptions[2]
-        })
-      },
-      deleteHystrixMethod(row, index) {
-        this.hystrixMethods.splice(index, 1);
-      },
 
-      overview() {
-        console.log("overview");
-        let _this = this;
+      console.log(previewHystrix)
 
-        let methodsMap = {};
-        this.hystrixMethods.forEach(function (hystrixMethod) {
-          methodsMap[hystrixMethod.serviceName] = [];
-        });
-        this.hystrixMethods.forEach(function (hystrixMethod) {
-          methodsMap[hystrixMethod.serviceName].push(hystrixMethod.methodName);
-        });
-
-        // methodsMap["account_service"].push("add");
-        let previewHystrix = {
-          serviceInfoList: this.services,
-          methodsMap: methodsMap
-        };
-
-        console.log(previewHystrix);
-
-        this.$axios({
-          url: '/preview/hystrix',
-          method: 'post',
-          data: previewHystrix
-        })
-          .then(function (response) {
-            console.log(response.data);
-            response.data.forEach(function (service) {
-              let files = [];
-              service.fileInfoList.forEach(function (file) {
-                files.push({
-                  fileName: file.fileName,
-                  content: file.fileContent,
-                  linesList: file.linesList,
-                  isShow: false
-                });
-              });
-              _this.modifiedServices.push({
-                serviceName: service.serviceName,
-                files: files
-              });
-            });
-            _this.isOverview = true;
-          })
-          .catch(function (error) {
-            console.log(error);
-          })
-      }
-    },
-    created() {
-      let _this = this;
       this.$axios({
-        url: '/addHystrix/showMethods',
+        url: '/preview/hystrix',
         method: 'post',
-        data: {'serviceInfoList': _this.services},
+        data: previewHystrix
       })
         .then(function (response) {
-          let options = {};
-          console.log(response.data);
+          console.log(response.data)
           response.data.forEach(function (service) {
-            let truncatedServiceName = service.serviceName.substring(service.serviceName.lastIndexOf("/") + 1);
-            console.log(truncatedServiceName);
-            let truncatedControllerName = service.controllerName.substring(0, service.controllerName.indexOf("\."));
-            console.log(truncatedControllerName);
-            if (!(truncatedServiceName in options)) {
-              options[truncatedServiceName] = {};
-            }
-            options[truncatedServiceName][truncatedControllerName] = service.methodNames;
-          });
-
-          Object.getOwnPropertyNames(options).forEach(function (serviceName) {
-
-            let thisService = {
-              value: serviceName,
-              label: serviceName,
-              children: []
-            };
-            Object.getOwnPropertyNames(options[serviceName]).forEach(function (controllerName) {
-              let thisMethods = [];
-              options[serviceName][controllerName].forEach(function (methodName) {
-                thisMethods.push({
-                  value: methodName,
-                  label: methodName
-                })
-              });
-
-              thisService.children.push({
-                value: controllerName,
-                label: controllerName,
-                children: thisMethods
-              });
-            });
-
-            _this.options.push(thisService)
-
-          });
-
-          console.log(_this.options);
+            let files = []
+            service.fileInfoList.forEach(function (file) {
+              files.push({
+                fileName: file.fileName,
+                content: file.fileContent,
+                linesList: file.linesList,
+                isShow: false
+              })
+            })
+            _this.modifiedServices.push({
+              serviceName: service.serviceName,
+              files: files
+            })
+          })
+          _this.isOverview = true
         })
         .catch(function (error) {
-          console.log(error);
+          console.log(error)
         })
     }
+  },
+  created () {
+    let _this = this
+    this.$axios({
+      url: '/addHystrix/showMethods',
+      method: 'post',
+      data: {'serviceInfoList': _this.services}
+    })
+      .then(function (response) {
+        let options = {}
+        console.log(response.data)
+        response.data.forEach(function (service) {
+          let truncatedServiceName = service.serviceName.substring(service.serviceName.lastIndexOf('/') + 1)
+          console.log(truncatedServiceName)
+          let truncatedControllerName = service.controllerName.substring(0, service.controllerName.indexOf('.'))
+          console.log(truncatedControllerName)
+          if (!(truncatedServiceName in options)) {
+            options[truncatedServiceName] = {}
+          }
+          options[truncatedServiceName][truncatedControllerName] = service.methodNames
+        })
+
+        Object.getOwnPropertyNames(options).forEach(function (serviceName) {
+          let thisService = {
+            value: serviceName,
+            label: serviceName,
+            children: []
+          }
+          Object.getOwnPropertyNames(options[serviceName]).forEach(function (controllerName) {
+            let thisMethods = []
+            options[serviceName][controllerName].forEach(function (methodName) {
+              thisMethods.push({
+                value: methodName,
+                label: methodName
+              })
+            })
+
+            thisService.children.push({
+              value: controllerName,
+              label: controllerName,
+              children: thisMethods
+            })
+          })
+
+          _this.options.push(thisService)
+        })
+
+        console.log(_this.options)
+      })
+      .catch(function (error) {
+        console.log(error)
+      })
   }
+}
 </script>
 
 <style scoped>
