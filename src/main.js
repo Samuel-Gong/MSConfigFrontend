@@ -6,6 +6,8 @@ import App from './App'
 import 'es6-promise/auto'
 import locale from 'element-ui/lib/locale/lang/en'
 
+import 'normalize.css'
+
 // 路由
 import router from './router'
 

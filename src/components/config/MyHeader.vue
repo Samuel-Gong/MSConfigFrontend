@@ -1,7 +1,7 @@
 <template>
   <el-row>
     <el-col :span="2" :offset="2">
-      <span style="font-size: 25px">MSConfig</span>
+      <span style="font-size: 25px">MicroConfig</span>
     </el-col>
     <el-col :span="9" :offset="2" v-if="isLogin">
       <el-menu
@@ -24,34 +24,34 @@
 
 <script>
 
-  import {mapState} from 'vuex'
+import {mapState} from 'vuex'
 
-  export default {
-    name: "MyHeader",
-    data() {
-      return {
-        activeIndex: '1',
+export default {
+  name: 'MyHeader',
+  data () {
+    return {
+      activeIndex: '1',
 
-        user: {
-          username: "admin"
-        }
+      user: {
+        username: 'admin'
       }
-    },
-    methods: {
-      handleSelect(key, keyPath) {
-        console.log(key, keyPath);
-      },
-      logout() {
-        this.$store.commit("logout");
-        this.$router.push('/login');
-      }
-    },
-    computed: {
-      ...mapState([
-        'isLogin'
-      ])
     }
+  },
+  methods: {
+    handleSelect (key, keyPath) {
+      console.log(key, keyPath)
+    },
+    logout () {
+      this.$store.commit('logout')
+      this.$router.push('/login')
+    }
+  },
+  computed: {
+    ...mapState([
+      'isLogin'
+    ])
   }
+}
 </script>
 
 <style scoped>
